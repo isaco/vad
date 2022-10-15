@@ -5,7 +5,7 @@
 var nan=0;
 
 var ddr=[{'kat': '35-34',
-  'veteran': 'EMBERŠIČ Danilo',
+  'veteran': 'EMBERÅ IČ Danilo',
   'spol': 'm',
   'let_roj': 1970,
   'klub': 'Domžale',
@@ -173,7 +173,7 @@ var ddr=[{'kat': '35-34',
   'klub': 'VAD,',
   'točke': 3157,
   'datum': '19.9.2019',
-  'kraj': 'Bukarešta',
+  'kraj': 'BukareÅ¡ta',
   'opomba': nan},
  {'kat': '75-79',
   'veteran': 'PUHAR Mira',
@@ -225,8 +225,8 @@ document.getElementById("rek").innerHTML = "rekordi: ";
 var drx = dajdr(vet);
 var tx=Math.max(...drx);
 var dif = tx - rez;
-alert(drx + ' , ' + tx + ' , ' + dif);
-alert('leto 2021 - največ točk za ' + vet + ' : ' + tx + ' rezultat= ' + rez + ' razlika točk= ' + dif);
+//alert(drx + ' , ' + tx + ' , ' + dif);
+//alert('leto 2021 - največ točk za ' + vet + ' : ' + tx + ' rezultat= ' + rez + ' razlika točk= ' + dif);
 if (rez>tx) {
 	document.getElementById("tock").innerHTML = 'dosežen nov DR:<b> ' + rez + ' </b>, zadnji: ' + tx ;
 }
