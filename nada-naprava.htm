@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vielight Vagus – Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #050814;
+      --bg-alt: #0b1020;
+      --card: #11182a;
+      --accent: #2f6bff;
+      --accent-soft: rgba(47, 107, 255, 0.2);
+      --text: #e5ecff;
+      --muted: #9aa4c6;
+      --border: #1f2940;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #101a33 0, #050814 55%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Layout */
+    .layout {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+      gap: 24px;
+    }
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      .toc {
+        position: static;
+      }
+    }
+
+    /* TOC */
+    .toc {
+      position: sticky;
+      top: 24px;
+      align-self: flex-start;
+      background: var(--bg-alt);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 16px 14px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+    }
+    .toc-title {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .toc-list {
+      list-style: none;
+      font-size: 14px;
+    }
+    .toc-list li {
+      margin-bottom: 6px;
+    }
+    .toc-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 8px;
+      border-radius: 8px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .toc-link span.bullet {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-soft);
+    }
+    .toc-link:hover {
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text);
+    }
+
+    /* Main */
+    .main {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .header-card {
+      background: linear-gradient(135deg, #11182a, #182341);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 18px 18px 16px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+    }
+    .header-title {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .header-sub {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .pill-row {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .pill {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--accent-soft);
+      color: var(--muted);
+      background: rgba(10, 18, 40, 0.7);
+    }
+
+    /* Cards */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: var(--card);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 14px 14px 12px;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .card-title {
+      font-size: 15px;
+      font-weight: 500;
+    }
+    .card-tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+    .card-body {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .card-actions {
+      margin-top: 10px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      border-radius: 999px;
+      border: 1px solid var(--accent-soft);
+      background: rgba(10, 18, 40, 0.9);
+      color: var(--text);
+      font-size: 12px;
+      padding: 6px 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s, border-color 0.15s, transform 0.08s;
+    }
+    .btn-primary {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .btn:hover {
+      background: rgba(47, 107, 255, 0.18);
+      border-color: var(--accent);
+    }
+    .btn-primary:hover {
+      background: #3b78ff;
+    }
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+    }
+    .modal {
+      width: min(720px, 92vw);
+      max-height: 80vh;
+      background: var(--bg-alt);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .modal-header {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-title {
+      font-size: 15px;
+      font-weight: 500;
+    }
+    .modal-close {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-size: 18px;
+      cursor: pointer;
+    }
+    .modal-body {
+      padding: 14px 16px 16px;
+      overflow-y: auto;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .modal-body h3 {
+      font-size: 14px;
+      margin: 10px 0 4px;
+      color: var(--text);
+    }
+    .modal-body ul {
+      margin: 4px 0 8px 18px;
+    }
+    .modal-body li {
+      margin-bottom: 4px;
+    }
+    .modal-footer {
+      padding: 10px 16px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <!-- TOC -->
+    <aside class="toc">
+      <div class="toc-title">Kazalo vsebine</div>
+      <ul class="toc-list">
+        <li><button class="toc-link" data-scroll="sec-osnovno">
+          <span class="bullet"></span> <span>Osnovni opis naprave</span>
+        </button></li>
+        <li><button class="toc-link" data-scroll="sec-uporaba">
+          <span class="bullet"></span> <span>Pravilna uporaba</span>
+        </button></li>
+        <li><button class="toc-link" data-scroll="sec-ucinki">
+          <span class="bullet"></span> <span>Učinki po raziskavah</span>
+        </button></li>
+        <li><button class="toc-link" data-scroll="sec-alternative">
+          <span class="bullet"></span> <span>Alternative</span>
+        </button></li>
+        <li><button class="toc-link" data-scroll="sec-protokol-sport">
+          <span class="bullet"></span> <span>Protokol za športnike</span>
+        </button></li>
+        <li><button class="toc-link" data-scroll="sec-protokol-dnevno">
+          <span class="bullet"></span> <span>Protokol za vsakodnevno regeneracijo</span>
+        </button></li>
+        <li><button class="toc-link" data-scroll="sec-investicija">
+          <span class="bullet"></span> <span>Ocena investicije</span>
+        </button></li>
+      </ul>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+      <section class="header-card">
+        <div class="header-title">Vielight Vagus – nevrostimulacijski sistem</div>
+        <div class="header-sub">
+          Pregled naprave, protokolov uporabe, učinkov, alternativ in ocene smiselnosti investicije.
+        </div>
+        <div class="pill-row">
+          <div class="pill">Vagusni živec</div>
+          <div class="pill">Fotobiomodulacija</div>
+          <div class="pill">HRV & regeneracija</div>
+          <div class="pill">Športna znanost</div>
+        </div>
+      </section>
+
+      <section class="card-grid">
+        <!-- Osnovni opis -->
+        <article class="card" id="sec-osnovno">
+          <div class="card-header">
+            <div class="card-title">Osnovni opis naprave</div>
+            <div class="card-tag">Kaj je na sliki</div>
+          </div>
+          <div class="card-body">
+            Naprava Vielight Vagus je neinvazivni nevrostimulacijski sistem, ki uporablja nežno LED svetlobo
+            za stimulacijo vagusnega živca preko nosne votline in kože. Sestavljena je iz krmilnika, LED modulov,
+            nosnega aplikatorja, napajalnih priključkov in jeklenega traku za namestitev na glavo.
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-primary" data-modal="modal-osnovno">Prikaži podrobnosti</button>
+          </div>
+        </article>
+
+        <!-- Pravilna uporaba -->
+        <article class="card" id="sec-uporaba">
+          <div class="card-header">
+            <div class="card-title">Pravilna uporaba naprave</div>
+            <div class="card-tag">Protokol uporabe</div>
+          </div>
+          <div class="card-body">
+            Standardni protokol vključuje vstavljanje nosnega aplikatorja v nosnico, namestitev LED modulov
+            na glavo z jeklenim trakom ter izvajanje seje 20–25 minut, 3–5× tedensko, v sproščenem položaju.
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-primary" data-modal="modal-uporaba">Prikaži podrobnosti</button>
+          </div>
+        </article>
+
+        <!-- Učinki po raziskavah -->
+        <article class="card" id="sec-ucinki">
+          <div class="card-header">
+            <div class="card-title">Učinki po raziskavah</div>
+            <div class="card-tag">Fotobiomodulacija & nVNS</div>
+          </div>
+          <div class="card-body">
+            Raziskave kažejo obetavne učinke na HRV, zmanjšanje stresa, regulacijo avtonomnega živčnega sistema,
+            razpoloženje in mentalno jasnost. Učinki na depresijo, spanje in športno regeneracijo so še v razvoju.
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-primary" data-modal="modal-ucinki">Prikaži podrobnosti</button>
+          </div>
+        </article>
+
+        <!-- Alternative -->
+        <article class="card" id="sec-alternative">
+          <div class="card-header">
+            <div class="card-title">Alternative napravi Vielight Vagus</div>
+            <div class="card-tag">Primerjava pristopov</div>
+          </div>
+          <div class="card-body">
+            Obstajajo električne tVNS naprave, naravne metode aktivacije vagusnega živca ter druge
+            fotobiomodulacijske naprave, ki ciljajo možgane ali vrat. Vsaka ima svoje prednosti in omejitve.
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-primary" data-modal="modal-alternative">Prikaži podrobnosti</button>
+          </div>
+        </article>
+
+        <!-- Protokol za športnike -->
+        <article class="card" id="sec-protokol-sport">
+          <div class="card-header">
+            <div class="card-title">Protokol uporabe za športnike</div>
+            <div class="card-tag">Regeneracija & HRV</div>
+          </div>
+          <div class="card-body">
+            Protokol za športnike vključuje kratke seje pred treningom, daljše seje po treningu ter
+            redno uporabo v obdobjih visokih obremenitev, z jasnim ciljem dviga HRV in stabilizacije živčnega sistema.
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-primary" data-modal="modal-protokol-sport">Prikaži podrobnosti</button>
+          </div>
+        </article>
+
+        <!-- Protokol za vsakodnevno regeneracijo -->
+        <article class="card" id="sec-protokol-dnevno">
+          <div class="card-header">
+            <div class="card-title">Protokol za vsakodnevno regeneracijo</div>
+            <div class="card-tag">Stres & spanec</div>
+          </div>
+          <div class="card-body">
+            Za vsakodnevno regeneracijo so priporočene večerne seje 20 minut, jutranje kratke seje
+            za mentalno jasnost ter uporaba po stresnih dneh za hitro normalizacijo živčnega sistema.
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-primary" data-modal="modal-protokol-dnevno">Prikaži podrobnosti</button>
+          </div>
+        </article>
+
+        <!-- Ocena investicije -->
+        <article class="card" id="sec-investicija">
+          <div class="card-header">
+            <div class="card-title">Ocena: ali je investicija smiselna</div>
+            <div class="card-tag">Strategija & ROI</div>
+          </div>
+          <div class="card-body">
+            Za cilje, kot so dvig HRV, boljša regeneracija, zmanjšanje stresa in integracija v športno znanost,
+            je naprava zelo smiselna investicija, če se uporablja v strukturiranem protokolu.
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-primary" data-modal="modal-investicija">Prikaži podrobnosti</button>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <!-- MODALS -->
+
+  <!-- Osnovni opis -->
+  <div class="modal-backdrop" id="modal-osnovno">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">Osnovni opis naprave Vielight Vagus</div>
+        <button class="modal-close" data-close="modal-osnovno">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h3>Struktura naprave</h3>
+        <p>
+          Vielight Vagus je neinvazivni nevrostimulacijski sistem, ki uporablja LED svetlobo za stimulacijo
+          vagusnega živca. Naprava je sestavljena iz:
+        </p>
+        <ul>
+          <li><strong>Krmilnik:</strong> upravlja delovanje LED modulov.</li>
+          <li><strong>LED moduli:</strong> nameščeni na glavo, usmerjeni na področja, kjer potekajo senzorične veje vagusnega živca.</li>
+          <li><strong>Nosni aplikator:</strong> vstavi se v nosnico in oddaja svetlobo proti vejicam vagusnega živca.</li>
+          <li><strong>Napajalni priključki in adapter:</strong> zagotavljajo napajanje naprave.</li>
+          <li><strong>Jekleni trak:</strong> omogoča stabilno namestitev LED modulov na glavo.</li>
+        </ul>
+
+        <h3>Zakaj se uporablja</h3>
+        <p>
+          Naprava se uporablja za podporo sprostitve, regulacije avtonomnega živčnega sistema, zmanjševanje stresa,
+          izboljšanje razpoloženja in mentalne jasnosti. Vagusni živec je ključni “živec sprostitve”, zato je njegova
+          nežna stimulacija pomembna v kontekstu regeneracije, biohackinga in športne znanosti.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-close="modal-osnovno">Zapri</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pravilna uporaba -->
+  <div class="modal-backdrop" id="modal-uporaba">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">Pravilna uporaba naprave</div>
+        <button class="modal-close" data-close="modal-uporaba">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h3>Standardni protokol</h3>
+        <ul>
+          <li><strong>Nosni aplikator:</strong> vstaviš v eno nosnico (pogosto levo).</li>
+          <li><strong>LED moduli:</strong> namestiš na glavo z jeklenim trakom, tako da svetloba pada na ustrezne predele.</li>
+          <li><strong>Trajanje seje:</strong> 20–25 minut.</li>
+          <li><strong>Pogostost:</strong> 1× dnevno ali 3–5× tedensko, odvisno od cilja.</li>
+          <li><strong>Položaj:</strong> sproščeno sedenje, mirno dihanje.</li>
+        </ul>
+
+        <h3>Praktični nasveti</h3>
+        <ul>
+          <li>Ne uporabljaj tik pred spanjem, če si občutljiv na svetlobo.</li>
+          <li>Če se pojavi omotica, skrajšaj sejo na 10 minut.</li>
+          <li>Nosni aplikator po vsaki uporabi očisti.</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-close="modal-uporaba">Zapri</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Učinki po raziskavah -->
+  <div class="modal-backdrop" id="modal-ucinki">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">Učinki po raziskavah</div>
+        <button class="modal-close" data-close="modal-ucinki">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h3>Močno podprti učinki</h3>
+        <ul>
+          <li><strong>Znižanje simpatičnega stresa:</strong> zmanjšanje kortizola, več parasimpatika.</li>
+          <li><strong>Povečanje HRV:</strong> ključni marker regeneracije in ravnovesja živčnega sistema.</li>
+          <li><strong>Izboljšanje razpoloženja:</strong> pri blagi tesnobi in stresu.</li>
+          <li><strong>Regulacija avtonomnega živčnega sistema:</strong> boljše ravnovesje med simpatičnim in parasimpatičnim delovanjem.</li>
+          <li><strong>Podpora kognitivnim funkcijam:</strong> pozornost, mentalna jasnost.</li>
+          <li><strong>Imunomodulacija:</strong> potencialni vpliv na vnetne procese preko vagusnega živca.</li>
+        </ul>
+
+        <h3>Še nedokončno potrjeni učinki</h3>
+        <ul>
+          <li>Depresija – obetavno, a ne dokončno.</li>
+          <li>Športna regeneracija – posredni učinki preko HRV.</li>
+          <li>Spanec – odvisno od posameznika.</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-close="modal-ucinki">Zapri</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Alternative -->
+  <div class="modal-backdrop" id="modal-alternative">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">Alternative napravi Vielight Vagus</div>
+        <button class="modal-close" data-close="modal-alternative">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h3>A) Električna vagusna stimulacija (tVNS)</h3>
+        <p>Primeri: GammaCore, AuriStim, tVNS Stim.</p>
+        <ul>
+          <li><strong>Metoda:</strong> električna stimulacija vagusnega živca.</li>
+          <li><strong>Prednosti:</strong> hitrejši učinek, več kliničnih študij.</li>
+          <li><strong>Slabosti:</strong> lahko neprijetno (mravljinčenje), več kontraindikacij.</li>
+        </ul>
+
+        <h3>B) Naravne metode</h3>
+        <ul>
+          <li>Dihanje 4–6 (podaljšan izdih).</li>
+          <li>Hladna voda na obraz.</li>
+          <li>Počasno diafragmalno dihanje.</li>
+          <li>Petje, mrmranje, brnenje.</li>
+          <li>Joga, meditacija, tai chi.</li>
+        </ul>
+        <p><strong>Prednosti:</strong> brezplačno. <strong>Slabosti:</strong> odvisno od discipline in konsistentnosti.</p>
+
+        <h3>C) Fotobiomodulacija možganov (Vielight Neuro)</h3>
+        <ul>
+          <li><strong>Metoda:</strong> NIR svetloba na možgane.</li>
+          <li><strong>Učinki:</strong> kognicija, fokus, mentalna energija.</li>
+          <li><strong>Slabosti:</strong> ne cilja vagusnega živca, drugačen namen.</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-close="modal-alternative">Zapri</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Protokol za športnike -->
+  <div class="modal-backdrop" id="modal-protokol-sport">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">Protokol uporabe za športnike</div>
+        <button class="modal-close" data-close="modal-protokol-sport">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h3>Cilj</h3>
+        <p>
+          Dvig HRV, boljša regeneracija, stabilizacija živčnega sistema, manj tveganja poškodb pri rekreativcih
+          in tekmovalcih.
+        </p>
+
+        <h3>A) Pred treningom</h3>
+        <ul>
+          <li><strong>Trajanje:</strong> 10–12 minut.</li>
+          <li><strong>Namen:</strong> umiritev simpatičnega sistema, stabilizacija živčnega ritma.</li>
+          <li><strong>Uporaba:</strong> pri športnikih z visokim stresom in nizko HRV.</li>
+        </ul>
+
+        <h3>B) Po treningu – glavni protokol</h3>
+        <ul>
+          <li><strong>Trajanje:</strong> 20–25 minut.</li>
+          <li><strong>Čas:</strong> 30–60 minut po koncu treninga.</li>
+          <li><strong>Učinek:</strong> dvig HRV, hitra normalizacija avtonomnega živčnega sistema.</li>
+        </ul>
+
+        <h3>C) Pred tekmo</h3>
+        <ul>
+          <li><strong>Trajanje:</strong> 8–10 minut.</li>
+          <li><strong>Uporaba:</strong> pri športnikih z izrazito živčnostjo.</li>
+        </ul>
+
+        <h3>D) Obdobja visokih obremenitev</h3>
+        <ul>
+          <li><strong>Pogostost:</strong> 5–6× tedensko.</li>
+          <li><strong>Trajanje:</strong> 20 minut.</li>
+          <li><strong>Učinek:</strong> preprečevanje padca HRV, zmanjšanje tveganja poškodb.</li>
+        </ul>
+
+        <h3>E) Integracija v športno znanost</h3>
+        <ul>
+          <li>Merjenje HRV pred in po terapiji.</li>
+          <li>Subjektivni TQR za spremljanje počutja.</li>
+          <li>Kombinacija z obremenitvijo (A:C ratio) za model tveganja poškodb.</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-close="modal-protokol-sport">Zapri</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Protokol za vsakodnevno regeneracijo -->
+  <div class="modal-backdrop" id="modal-protokol-dnevno">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">Protokol za vsakodnevno regeneracijo</div>
+        <button class="modal-close" data-close="modal-protokol-dnevno">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h3>Cilj</h3>
+        <p>
+          Zmanjšanje stresa, boljši spanec, mentalna jasnost in stabilen živčni sistem pri vsakodnevni uporabi.
+        </p>
+
+        <h3>A) Večerni protokol</h3>
+        <ul>
+          <li><strong>Trajanje:</strong> 20 minut.</li>
+          <li><strong>Čas:</strong> 1–2 uri pred spanjem.</li>
+          <li><strong>Učinek:</strong> umiritev živčnega sistema, lažji prehod v parasimpatik.</li>
+        </ul>
+
+        <h3>B) Jutranji protokol</h3>
+        <ul>
+          <li><strong>Trajanje:</strong> 10–15 minut.</li>
+          <li><strong>Učinek:</strong> stabilizacija živčnega sistema, manj jutranjega stresa.</li>
+        </ul>
+
+        <h3>C) Protokol za stresne dni</h3>
+        <ul>
+          <li><strong>Trajanje:</strong> 15–20 minut.</li>
+          <li><strong>Čas:</strong> po stresnem dogodku ali napornem dnevu.</li>
+          <li><strong>Učinek:</strong> hitra normalizacija srčnega ritma in napetosti.</li>
+        </ul>
+
+        <h3>D) Minimalni protokol</h3>
+        <ul>
+          <li><strong>Pogostost:</strong> 3× tedensko po 20 minut.</li>
+          <li>Dovolj za opazne učinke na HRV in počutje.</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-close="modal-protokol-dnevno">Zapri</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ocena investicije -->
+  <div class="modal-backdrop" id="modal-investicija">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">Ocena: ali je investicija smiselna</div>
+        <button class="modal-close" data-close="modal-investicija">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h3>Kdaj je investicija smiselna</h3>
+        <ul>
+          <li>Če so cilji dvig HRV, boljša regeneracija in zmanjšanje stresa.</li>
+          <li>Če želiš integracijo v športno znanost (VAD, modeli tveganja, HRV monitoring).</li>
+          <li>Če bo naprava uporabljena v strukturiranem protokolu.</li>
+        </ul>
+
+        <h3>Prednosti</h3>
+        <ul>
+          <li>Dokazani učinki na HRV in avtonomni živčni sistem.</li>
+          <li>Neinvazivna, varna, brez pomembnih stranskih učinkov.</li>
+          <li>Dobro se ujema s projekti AI + športna znanost.</li>
+          <li>Rezultati so merljivi (HRV, TQR, subjektivno počutje).</li>
+        </ul>
+
+        <h3>Kdaj ni smiselna</h3>
+        <ul>
+          <li>Če pričakuješ instantne, “čudežne” učinke.</li>
+          <li>Če naprave ne boš uporabljal redno.</li>
+          <li>Če imaš kronične nosne težave ali fotosenzitivnost.</li>
+        </ul>
+
+        <h3>Sklep</h3>
+        <p>
+          Za tvoje cilje (regeneracija, HRV, športna znanost, zmanjšanje stresa) je naprava zelo dobra
+          investicija, zlasti če jo vključiš v sistematične protokole za športnike in trenerje ter jo povežeš
+          z merjenjem HRV in subjektivnega počutja.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-close="modal-investicija">Zapri</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Smooth scroll from TOC
+    document.querySelectorAll(".toc-link").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var id = btn.getAttribute("data-scroll");
+        var el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+    });
+
+    // Modal open
+    document.querySelectorAll("[data-modal]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var id = btn.getAttribute("data-modal");
+        var backdrop = document.getElementById(id);
+        if (backdrop) {
+          backdrop.style.display = "flex";
+        }
+      });
+    });
+
+    // Modal close
+    document.querySelectorAll("[data-close]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var id = btn.getAttribute("data-close");
+        var backdrop = document.getElementById(id);
+        if (backdrop) {
+          backdrop.style.display = "none";
+        }
+      });
+    });
+
+    // Close on backdrop click
+    document.querySelectorAll(".modal-backdrop").forEach(function (backdrop) {
+      backdrop.addEventListener("click", function (e) {
+        if (e.target === backdrop) {
+          backdrop.style.display = "none";
+        }
+      });
+    });
+
+    // ESC closes any open modal
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") {
+        document.querySelectorAll(".modal-backdrop").forEach(function (backdrop) {
+          backdrop.style.display = "none";
+        });
+      }
+    });
+  </script>
+</body>
+</html>

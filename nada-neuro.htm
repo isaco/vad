@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<title>Vielight – Kompaktni Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --bg: #050814;
+    --bg2: #0b1020;
+    --card: #11182a;
+    --border: #1f2940;
+    --accent: #2f6bff;
+    --accent-soft: rgba(47,107,255,0.25);
+    --text: #e5ecff;
+    --muted: #9aa4c6;
+  }
+  body {
+    margin:0; padding:0;
+    background: var(--bg);
+    font-family: system-ui, sans-serif;
+    color: var(--text);
+    display:flex;
+  }
+  .layout {
+    display:grid;
+    grid-template-columns:260px 1fr;
+    gap:24px;
+    width:100%;
+    max-width:1400px;
+    margin:0 auto;
+    padding:24px;
+  }
+  @media(max-width:900px){
+    .layout{grid-template-columns:1fr;}
+  }
+  /* TOC */
+  .toc {
+    position:sticky; top:24px;
+    background:var(--bg2);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:16px;
+  }
+  .toc-title {
+    font-size:13px; text-transform:uppercase;
+    color:var(--muted); margin-bottom:10px;
+  }
+  .toc-list {list-style:none; padding:0;}
+  .toc-list li {margin-bottom:6px;}
+  .toc-link {
+    display:flex; gap:8px; align-items:center;
+    padding:6px 8px; border-radius:8px;
+    color:var(--muted); cursor:pointer;
+  }
+  .toc-link:hover {background:rgba(255,255,255,0.05); color:var(--text);}
+  .bullet {
+    width:6px; height:6px; border-radius:50%;
+    background:var(--accent-soft);
+  }
+  /* Cards */
+  .main {display:flex; flex-direction:column; gap:18px;}
+  .card-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:16px;
+  }
+  .card {
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:14px;
+  }
+  .card-title {font-size:16px; font-weight:600;}
+  .card-body {font-size:13px; color:var(--muted); margin-top:6px;}
+  .btn {
+    margin-top:10px;
+    padding:6px 12px;
+    border-radius:999px;
+    background:var(--accent);
+    border:none;
+    color:white;
+    cursor:pointer;
+  }
+  .btn:hover {background:#3b78ff;}
+  /* Modal */
+  .modal-backdrop {
+    position:fixed; inset:0;
+    background:rgba(0,0,0,0.65);
+    display:none;
+    align-items:center;
+    justify-content:center;
+  }
+  .modal {
+    background:var(--bg2);
+    border:1px solid var(--border);
+    border-radius:12px;
+    width:min(700px,90%);
+    max-height:80vh;
+    display:flex; flex-direction:column;
+  }
+  .modal-header {
+    padding:12px 16px;
+    border-bottom:1px solid var(--border);
+    display:flex; justify-content:space-between;
+  }
+  .modal-body {
+    padding:16px;
+    overflow-y:auto;
+    font-size:13px; color:var(--muted);
+  }
+  .modal-close {
+    background:none; border:none;
+    color:var(--muted); font-size:20px;
+    cursor:pointer;
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- TOC -->
+  <aside class="toc">
+    <div class="toc-title">Kazalo</div>
+    <ul class="toc-list">
+      <li><button class="toc-link" data-scroll="vagus"> <span class="bullet"></span> Vagus – povzetek PDF </button></li>
+      <li><button class="toc-link" data-scroll="brain"> <span class="bullet"></span> Brain PBM naprave </button></li>
+      <li><button class="toc-link" data-scroll="ai"> <span class="bullet"></span> Vielight AI platforma </button></li>
+    </ul>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <section class="card-grid">
+
+      <!-- Vagus -->
+      <article class="card" id="vagus">
+        <div class="card-title">Vielight Vagus – povzetek PDF</div>
+        <div class="card-body">
+          Povzetek ključnih informacij iz uradnega PDF-ja: varnost, uporaba, LED moduli, nosni aplikator, trajanje terapije.
+        </div>
+        <button class="btn" data-modal="modal-vagus">Odpri</button>
+      </article>
+
+      <!-- Brain PBM -->
+      <article class="card" id="brain">
+        <div class="card-title">Brain Photobiomodulation Devices</div>
+        <div class="card-body">
+          Povzetek strani: Neuro Duo 4, Alpha/Gamma pulzi, 810 nm LED, intranasal-transcranial PBM.
+        </div>
+        <button class="btn" data-modal="modal-brain">Odpri</button>
+      </article>
+
+      <!-- AI PBM -->
+      <article class="card" id="ai">
+        <div class="card-title">Vielight AI – PBM platforma</div>
+        <div class="card-body">
+          Povzetek strani: AI analiza PBM sej, EEG integracija, spremljanje napredka.
+        </div>
+        <button class="btn" data-modal="modal-ai">Odpri</button>
+      </article>
+
+    </section>
+
+  </main>
+</div>
+
+<!-- MODALS -->
+
+<!-- Vagus -->
+<div class="modal-backdrop" id="modal-vagus">
+  <div class="modal">
+    <div class="modal-header">
+      <div>Vielight Vagus – povzetek PDF</div>
+      <button class="modal-close" data-close="modal-vagus">&times;</button>
+    </div>
+    <div class="modal-body">
+      <h3>Varnost</h3>
+      <ul>
+        <li>810 nm NIR LED – ne gledati neposredno v diodo.</li>
+        <li>Možna rahla toplota ali rdečina.</li>
+        <li>Samodejni izklop po ~20 minutah.</li>
+      </ul>
+
+      <h3>Uporaba</h3>
+      <ul>
+        <li>Nosni aplikator v eno nosnico.</li>
+        <li>LED moduli na vrat / glavo.</li>
+        <li>Trajanje seje: 20 min.</li>
+      </ul>
+
+      <h3>Specifikacije</h3>
+      <ul>
+        <li>810 nm LED (moduli)</li>
+        <li>810 nm LED (nosni aplikator)</li>
+        <li>Pulz: 100 Hz</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Brain PBM -->
+<div class="modal-backdrop" id="modal-brain">
+  <div class="modal">
+    <div class="modal-header">
+      <div>Brain Photobiomodulation Devices</div>
+      <button class="modal-close" data-close="modal-brain">&times;</button>
+    </div>
+    <div class="modal-body">
+      <h3>Neuro Duo 4</h3>
+      <ul>
+        <li>Alpha (10 Hz) in Gamma (40 Hz) načina.</li>
+        <li>810 nm Vie-LED – globok doseg.</li>
+        <li>Intranasal-transcranial PBM – polna pokritost možganov.</li>
+      </ul>
+
+      <h3>Prednosti</h3>
+      <ul>
+        <li>Močna LED irradianca.</li>
+        <li>Podprto z raziskavami.</li>
+        <li>Globlja penetracija kot 1064/1070 nm.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- AI PBM -->
+<div class="modal-backdrop" id="modal-ai">
+  <div class="modal">
+    <div class="modal-header">
+      <div>Vielight AI platforma</div>
+      <button class="modal-close" data-close="modal-ai">&times;</button>
+    </div>
+    <div class="modal-body">
+      <h3>Funkcije</h3>
+      <ul>
+        <li>Spremljanje PBM sej.</li>
+        <li>Analiza napredka.</li>
+        <li>Integracija z EEG (kmalu).</li>
+      </ul>
+
+      <h3>Prednosti</h3>
+      <ul>
+        <li>Ne potrebuješ znanja EEG.</li>
+        <li>AI razlaga odzive možganov.</li>
+        <li>Podpora za Neuro Pro 2.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  // TOC scroll
+  document.querySelectorAll(".toc-link").forEach(btn=>{
+    btn.onclick=()=>document.getElementById(btn.dataset.scroll).scrollIntoView({behavior:"smooth"});
+  });
+
+  // Modal open
+  document.querySelectorAll("[data-modal]").forEach(btn=>{
+    btn.onclick=()=>document.getElementById(btn.dataset.modal).style.display="flex";
+  });
+
+  // Modal close
+  document.querySelectorAll("[data-close]").forEach(btn=>{
+    btn.onclick=()=>document.getElementById(btn.dataset.close).style.display="none";
+  });
+
+  // Backdrop click
+  document.querySelectorAll(".modal-backdrop").forEach(bg=>{
+    bg.onclick=e=>{ if(e.target===bg) bg.style.display="none"; };
+  });
+</script>
+
+</body>
+</html>

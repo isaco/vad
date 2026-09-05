@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Naprava Neuro - Nada</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top, #123866 0%, #071b35 45%, #031020 100%);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0 0 12px 0;
+            font-size: clamp(30px, 5vw, 52px);
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow:
+                0 3px 8px rgba(0,0,0,.8),
+                0 0 20px rgba(50,150,255,.25);
+        }
+
+        .subtitle {
+            color: #b9d9f7;
+            font-size: 17px;
+            margin-bottom: 45px;
+        }
+
+        /* MREŽA GUMBOV */
+
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 28px;
+        }
+
+        /* 3D GUMB */
+
+        .menu-button {
+            position: relative;
+            min-height: 145px;
+            padding: 25px 20px;
+
+            border: 1px solid rgba(120,190,255,.35);
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #164b7d,
+                    #0b3158 45%,
+                    #061d38
+                );
+
+            color: white;
+            cursor: pointer;
+
+            box-shadow:
+                0 12px 0 #031426,
+                0 18px 28px rgba(0,0,0,.55),
+                inset 0 1px 1px rgba(255,255,255,.25),
+                inset 0 -8px 15px rgba(0,0,0,.25);
+
+            transition:
+                transform .15s ease,
+                box-shadow .15s ease,
+                background .2s ease;
+        }
+
+        .menu-button:hover {
+            transform: translateY(-5px);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #1d659f,
+                    #0e426f 45%,
+                    #082847
+                );
+
+            box-shadow:
+                0 12px 0 #031426,
+                0 22px 38px rgba(0,0,0,.65),
+                0 0 25px rgba(70,170,255,.22),
+                inset 0 1px 2px rgba(255,255,255,.35);
+        }
+
+        .menu-button:active {
+            transform: translateY(7px);
+
+            box-shadow:
+                0 4px 0 #031426,
+                0 8px 15px rgba(0,0,0,.5),
+                inset 0 5px 12px rgba(0,0,0,.35);
+        }
+
+        .icon {
+            font-size: 38px;
+            margin-bottom: 12px;
+            filter: drop-shadow(0 3px 4px rgba(0,0,0,.6));
+        }
+
+        .button-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .button-description {
+            color: #b9d8ef;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        /* SPODNJA ČRTA */
+
+        .footer {
+            margin-top: 45px;
+            color: #7898b8;
+            font-size: 12px;
+        }
+
+        /* MOBILNI PRIKAZ */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 20px;
+            }
+
+            .menu {
+                grid-template-columns: 1fr;
+                gap: 22px;
+            }
+
+            .menu-button {
+                min-height: 125px;
+            }
+
+            .subtitle {
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🧠 Naprava Neuro - Nada</h1>
+
+    <div class="subtitle">
+        Informacije, navodila in tehnologija fotobiomodulacije
+    </div>
+
+    <div class="menu">
+
+        <!-- 1 -->
+        <button class="menu-button"
+                onclick="openLink('http://localhost/nada-naprava.htm')">
+
+            <div class="icon">⚙️</div>
+
+            <div class="button-title">
+                NADA – Naprava
+            </div>
+
+            <div class="button-description">
+                Lokalna stran z informacijami o napravi NADA.
+            </div>
+
+        </button>
+
+
+        <!-- 2 -->
+        <button class="menu-button"
+                onclick="openLink('http://localhost/nada-neuro.htm')">
+
+            <div class="icon">🧠</div>
+
+            <div class="button-title">
+                NADA – Neuro
+            </div>
+
+            <div class="button-description">
+                Informacije o uporabi naprave in nevrološki fotobiomodulaciji.
+            </div>
+
+        </button>
+
+
+        <!-- 3 -->
+        <button class="menu-button"
+                onclick="openLink('https://www.vielight.com/wp-content/uploads/2023/12/Vielight-Vagus-User-Guide.pdf')">
+
+            <div class="icon">📖</div>
+
+            <div class="button-title">
+                Vielight Vagus – User Guide
+            </div>
+
+            <div class="button-description">
+                Uporabniški priročnik za napravo Vielight Vagus.
+            </div>
+
+        </button>
+
+
+        <!-- 4 -->
+        <button class="menu-button"
+                onclick="openLink('https://www.vielight.com/brain-photobiomodulation-devices/')">
+
+            <div class="icon">💡</div>
+
+            <div class="button-title">
+                Brain Photobiomodulation
+            </div>
+
+            <div class="button-description">
+                Vielight naprave za fotobiomodulacijo možganov.
+            </div>
+
+        </button>
+
+
+        <!-- 5 -->
+        <button class="menu-button"
+                onclick="openLink('https://www.vielight.com/vielight-ai-brain-pbm/')">
+
+            <div class="icon">🤖</div>
+
+            <div class="button-title">
+                Vielight AI Brain PBM
+            </div>
+
+            <div class="button-description">
+                Informacije o Vielight AI Brain PBM tehnologiji.
+            </div>
+
+        </button>
+
+    </div>
+
+    <div class="footer">
+        NADA / Neuro · Fotobiomodulacija · Informacijski meni
+    </div>
+
+</div>
+
+
+<script>
+
+    /*
+     * Odpre povezavo v novem oknu oziroma zavihku.
+     */
+
+    function openLink(url) {
+
+        window.open(
+            url,
+            '_blank',
+            'noopener,noreferrer'
+        );
+
+    }
+
+</script>
+
+</body>
+</html>
+
