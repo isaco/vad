@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>Znanost - 2050</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: Arial, Helvetica, sans-serif;
+
+        background:
+            radial-gradient(circle at top, #123b68 0%, #071b33 45%, #03101f 100%);
+
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container {
+        width: 90%;
+        max-width: 850px;
+        text-align: center;
+        padding: 45px 25px 50px;
+    }
+
+    h1 {
+        margin: 0 0 10px;
+
+        font-size: clamp(2.2rem, 5vw, 4rem);
+        letter-spacing: 2px;
+
+        text-shadow:
+            0 3px 0 #061426,
+            0 6px 12px rgba(0,0,0,0.7);
+    }
+
+    .subtitle {
+        margin-bottom: 45px;
+        color: #b8d7f5;
+        font-size: 1.05rem;
+        letter-spacing: 1px;
+    }
+
+    #menu {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+        align-items: center;
+    }
+
+    /* =========================
+       3D GUMB
+       ========================= */
+
+    .menu-button {
+        position: relative;
+
+        width: min(100%, 650px);
+        min-height: 78px;
+
+        padding: 20px 30px;
+
+        border: 1px solid #4f8bc2;
+        border-radius: 18px;
+
+        background:
+            linear-gradient(
+                145deg,
+                #1e5f98,
+                #0b3157
+            );
+
+        color: white;
+
+        font-size: 1.15rem;
+        font-weight: bold;
+        letter-spacing: 1px;
+
+        cursor: pointer;
+
+        box-shadow:
+            0 9px 0 #041426,
+            0 14px 22px rgba(0,0,0,0.55),
+            inset 0 1px 2px rgba(255,255,255,0.35);
+
+        transition:
+            transform 0.12s ease,
+            box-shadow 0.12s ease,
+            background 0.2s ease;
+    }
+
+    /* svetleč zgornji rob */
+
+    .menu-button::before {
+        content: "";
+
+        position: absolute;
+        left: 8%;
+        right: 8%;
+        top: 7px;
+
+        height: 2px;
+
+        border-radius: 50%;
+
+        background: rgba(255,255,255,0.35);
+    }
+
+    /* hover */
+
+    .menu-button:hover {
+        background:
+            linear-gradient(
+                145deg,
+                #2878ba,
+                #10426f
+            );
+
+        transform: translateY(-4px);
+
+        box-shadow:
+            0 13px 0 #041426,
+            0 20px 30px rgba(0,0,0,0.6),
+            inset 0 1px 3px rgba(255,255,255,0.4);
+    }
+
+    /* klik */
+
+    .menu-button:active {
+        transform: translateY(7px);
+
+        box-shadow:
+            0 2px 0 #041426,
+            0 5px 10px rgba(0,0,0,0.5),
+            inset 0 2px 5px rgba(0,0,0,0.3);
+    }
+
+    .footer {
+        margin-top: 50px;
+
+        color: #7fa8cc;
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+    }
+
+    @media (max-width: 600px) {
+
+        .container {
+            padding: 30px 15px;
+        }
+
+        .menu-button {
+            min-height: 70px;
+            padding: 17px 20px;
+            font-size: 1rem;
+        }
+
+        .subtitle {
+            margin-bottom: 30px;
+        }
+    }
+</style>
+
+
+</head>
+
+<body>
+
+<div class="container">
+
+
+<h1>Znanost - 2050</h1>
+
+<div class="subtitle">
+    Znanost, raziskave in prihodnost
+</div>
+
+<div id="menu"></div>
+
+<div class="footer">
+    VAD • Znanost in prihodnost 
+    <font size=2><font color='orange'> (Made by Iztok Valenčič) </font>
+</div>
+
+
+</div>
+
+<script>
+
+    /*
+     * ============================================================
+     * SEZNAM POVEZAV
+     *
+     * Funkcija ustvariMeni() sprejme seznam povezav kot parameter.
+     * Dodajanje nove povezave je zato zelo enostavno.
+     * ============================================================
+     */
+
+    const povezave = [
+
+        {
+            naslov: "Znanost",
+            url: "https://isaco.github.io/vad/znanost.htm"
+        },
+
+        {
+            naslov: "Znanost - Preboj 2050",
+            url: "https://isaco.github.io/vad/znanost-preboj50.htm"
+        }
+
+    ];
+
+
+    /*
+     * ============================================================
+     * FUNKCIJA ZA IZDELAVO MENIJA
+     *
+     * parameter:
+     *     seznam = seznam objektov { naslov, url }
+     *
+     * Vsak gumb odpre povezavo v novem oknu/zavihku.
+     * ============================================================
+     */
+
+    function ustvariMeni(seznam) {
+
+        const menu = document.getElementById("menu");
+
+        menu.innerHTML = "";
+
+        seznam.forEach(povezava => {
+
+            const gumb = document.createElement("button");
+
+            gumb.className = "menu-button";
+
+            gumb.textContent = povezava.naslov;
+
+            gumb.addEventListener("click", function () {
+
+                window.open(
+                    povezava.url,
+                    "_blank",
+                    "noopener,noreferrer"
+                );
+
+            });
+
+            menu.appendChild(gumb);
+
+        });
+    }
+
+
+    /*
+     * ============================================================
+     * ZAGON MENIJA
+     * ============================================================
+     */
+
+    ustvariMeni(povezave);
+
+</script>
+
+</body>
+</html>
