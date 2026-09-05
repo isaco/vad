@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Znanost, tehnologija in družba</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #050814;
+      --bg-alt: #0b1020;
+      --card: #11182a;
+      --accent: #1f6feb;
+      --accent-soft: rgba(31, 111, 235, 0.2);
+      --text: #e5ecff;
+      --muted: #9aa4c6;
+      --border: #1c2440;
+      --danger: #ff4b6a;
+      --ok: #3dd68c;
+      --shadow: 0 18px 40px rgba(0, 0, 0, 0.65);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #11182a 0, #050814 45%, #02030a 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      gap: 24px;
+      width: 100%;
+      max-width: 1200px;
+      padding: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+      }
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 24px;
+      align-self: flex-start;
+      background: linear-gradient(145deg, #0b1020, #050814);
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 18px 16px;
+    }
+
+    .sidebar h2 {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .sidebar .tagline {
+      font-size: 0.9rem;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .nav-list li button {
+      width: 100%;
+      text-align: left;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-size: 0.9rem;
+      padding: 8px 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, transform 0.1s;
+    }
+
+    .nav-list li button:hover {
+      background: var(--accent-soft);
+      color: var(--text);
+      transform: translateX(2px);
+    }
+
+    .nav-list li button.active {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .pill {
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: rgba(10, 16, 32, 0.9);
+    }
+
+    .pill.ok {
+      border-color: var(--ok);
+      color: var(--ok);
+    }
+
+    .pill.risk {
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .card {
+      background: linear-gradient(145deg, #0b1020, #050814);
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 18px 18px 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at top left, rgba(31, 111, 235, 0.18), transparent 55%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
+    .card-subtitle {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      background: rgba(31, 111, 235, 0.08);
+      white-space: nowrap;
+    }
+
+    .card-body {
+      position: relative;
+      z-index: 1;
+      font-size: 0.92rem;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .card-body p {
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 700px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      color: var(--text);
+    }
+
+    .list li span.bullet {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      margin-top: 6px;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .list li span.label {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .chip {
+      font-size: 0.8rem;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(17, 24, 42, 0.9);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .chip.core {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .quote {
+      border-left: 2px solid var(--accent);
+      padding-left: 10px;
+      margin-top: 6px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .risk-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 700px) {
+      .risk-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .risk-card {
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(8, 12, 26, 0.95);
+      padding: 10px 10px 8px;
+    }
+
+    .risk-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--danger);
+      margin-bottom: 4px;
+    }
+
+    .risk-body {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .footer-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .confidence-bar {
+      margin-top: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .confidence-bar span {
+      position: absolute;
+      inset: 0;
+      width: 82%;
+      background: linear-gradient(90deg, var(--accent), var(--ok));
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <h2>Teme</h2>
+      <p class="tagline">
+        Zakaj zaupamo znanosti in tehnologiji pri reševanju globalnih izzivov – in kaj je njuna vloga v družbi.
+      </p>
+      <ul class="nav-list">
+        <li><button class="nav-link active" data-target="uvod">Uvod: občutek samozavesti</button></li>
+        <li><button class="nav-link" data-target="zakaj">Zakaj verjamemo v rešitve znanosti</button></li>
+        <li><button class="nav-link" data-target="vloga">Bistvo znanosti v družbi</button></li>
+        <li><button class="nav-link" data-target="ai">AI, digitalizacija in varnost</button></li>
+        <li><button class="nav-link" data-target="meje">Meje znanosti: kompleksnost in etika</button></li>
+      </ul>
+      <div class="pill-row">
+        <span class="pill ok">Napredek</span>
+        <span class="pill">Metoda</span>
+        <span class="pill risk">Tveganja</span>
+        <span class="pill">Družba</span>
+      </div>
+    </aside>
+
+    <main class="content">
+      <!-- UVOD -->
+      <section class="card" id="uvod">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Uvod: zakaj se počutimo samozavestno</div>
+            <div class="card-subtitle">Znanost kot dokazljiv motor napredka</div>
+          </div>
+          <span class="badge">Zaupanje v znanost</span>
+        </div>
+        <div class="card-body">
+          <p>
+            Občutek, da lahko znanost in tehnologija rešita velike globalne izzive, ni naključje. V zadnjih dveh stoletjih
+            sta to edini področji, ki sta <strong>merljivo in ponovljivo</strong> izboljšali kakovost življenja: podaljšali
+            življenjsko dobo, zmanjšali smrtnost, dvignili produktivnost in omogočili globalno sodelovanje.
+          </p>
+          <p class="muted">
+            Ko nekaj znova in znova deluje – cepiva, elektrika, internet, sateliti, medicinska diagnostika – se v družbi
+            oblikuje občutek, da je to zanesljiva pot naprej. Znanost ne obljublja popolnosti, obljublja pa
+            <strong>najboljši znani način, kako se približati resnici</strong>.
+          </p>
+          <div class="confidence-bar">
+            <span></span>
+          </div>
+          <p class="footer-note">
+            Ta samozavest je zdrava, dokler jo spremlja zavedanje o mejah, tveganjih in odgovornosti.
+          </p>
+        </div>
+      </section>
+
+      <!-- ZAKAJ VERJAMEMO -->
+      <section class="card" id="zakaj">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Zakaj verjamemo, da znanost rešuje velike izzive</div>
+            <div class="card-subtitle">Od zgodovinskih dokazov do tehnične narave problemov</div>
+          </div>
+          <span class="badge">Razlogi za zaupanje</span>
+        </div>
+        <div class="card-body">
+          <div class="grid-2">
+            <div>
+              <p><strong>1. Dokazljivi rezultati v zgodovini</strong></p>
+              <ul class="list">
+                <li>
+                  <span class="bullet"></span>
+                  <div>
+                    <span class="label">Cepiva:</span> izkoreninila bolezni, ki so ubijale milijone.
+                  </div>
+                </li>
+                <li>
+                  <span class="bullet"></span>
+                  <div>
+                    <span class="label">Elektrika:</span> spremenila način dela, bivanja in komunikacije.
+                  </div>
+                </li>
+                <li>
+                  <span class="bullet"></span>
+                  <div>
+                    <span class="label">Internet in sateliti:</span> povezali svet, omogočili globalno sodelovanje in
+                    natančno navigacijo.
+                  </div>
+                </li>
+                <li>
+                  <span class="bullet"></span>
+                  <div>
+                    <span class="label">Medicinska diagnostika:</span> MRI, CT, genetika vsak dan rešujejo življenja.
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <p><strong>2. Znanost daje napovedljivo razumevanje sveta</strong></p>
+              <p class="muted">
+                Gravitacija, elektromagnetizem, genetika, termodinamika – stabilni zakoni, ki omogočajo, da tehnologija
+                deluje. Če razumeš zakonitosti, lahko gradiš rešitve, namesto da se zanašaš na intuicijo ali ideologijo.
+              </p>
+              <p><strong>3. Tehnologija povečuje človeške sposobnosti</strong></p>
+              <p class="muted">
+                AI, robotika, biotehnologija, materiali – vse to razširja meje človeškega delovanja. Zato se zdi, da lahko
+                naslovimo tudi izzive, ki so bili prej neobvladljivi.
+              </p>
+            </div>
+          </div>
+
+          <p style="margin-top:10px;"><strong>4. Globalni problemi so v veliki meri tehnične narave</strong></p>
+          <div class="chip-row">
+            <span class="chip core">Podnebje → energija, materiali, shranjevanje</span>
+            <span class="chip">Pandemije → genetika, farmacija, modeliranje</span>
+            <span class="chip">Hrana → agritech, genetika, avtomatizacija</span>
+            <span class="chip">Voda → filtracija, desalinizacija</span>
+            <span class="chip">Varnost → kibernetika, analitika, infrastruktura</span>
+          </div>
+          <div class="quote">
+            Ko je problem tehničen, je logično, da rešitev pride iz znanosti. Ključno vprašanje pa je, ali ima družba voljo
+            in etiko, da te rešitve tudi sprejme.
+          </div>
+        </div>
+      </section>
+
+      <!-- VLOGA ZNANOSTI -->
+      <section class="card" id="vloga">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Bistvo znanosti v družbi</div>
+            <div class="card-subtitle">Metoda resnice, temelj inovacij in družbeni kompas</div>
+          </div>
+          <span class="badge">Vloga znanosti</span>
+        </div>
+        <div class="card-body">
+          <div class="grid-2">
+            <div>
+              <p><strong>1. Znanost je metoda, ne mnenje</strong></p>
+              <p class="muted">
+                Bistvo znanosti je <strong>preverjanje resničnosti</strong>. Ne verjamemo, ker je nekdo avtoriteta, ampak
+                ker je rezultat ponovljiv, merljiv in preverljiv. Znanost ločuje mnenja od dejstev.
+              </p>
+
+              <p><strong>2. Znanost zmanjšuje negotovost</strong></p>
+              <ul class="list">
+                <li><span class="bullet"></span><div>Ločuje dejstva od šuma.</div></li>
+                <li><span class="bullet"></span><div>Razume vzroke in posledice.</div></li>
+                <li><span class="bullet"></span><div>Omogoča napovedovanje scenarijev.</div></li>
+                <li><span class="bullet"></span><div>Podpira odločitve, ki temeljijo na dokazih.</div></li>
+              </ul>
+            </div>
+            <div>
+              <p><strong>3. Znanost je temelj inovacij in produktivnosti</strong></p>
+              <p class="muted">
+                Brez znanosti ni tehnologije, brez tehnologije ni produktivnosti, brez produktivnosti ni stabilne družbe.
+                Vsaka resna strategija razvoja – od zdravstva do športa – stoji na podatkih, meritvah in analitiki.
+              </p>
+
+              <p><strong>4. Znanost kot družbeni kompas</strong></p>
+              <p class="muted">
+                V krizi (pandemija, energija, varnost) se družba obrne k znanosti, ker je to edina institucija, ki deluje
+                na dokazih, ima mehanizme samopopravljanja in ni vezana na eno ideologijo.
+              </p>
+
+              <p><strong>5. Znanost kot globalni jezik</strong></p>
+              <p class="muted">
+                Enačbe, meritve in rezultati so enaki ne glede na politiko ali kulturo. To omogoča globalno sodelovanje,
+                ki je nujno za reševanje planetarnih izzivov.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- AI, DIGITALIZACIJA -->
+      <section class="card" id="ai">
+        <div class="card-header">
+          <div>
+            <div class="card-title">AI, digitalizacija in globalna varnost</div>
+            <div class="card-subtitle">Nova infrastruktura družbe</div>
+          </div>
+          <span class="badge">21. stoletje</span>
+        </div>
+        <div class="card-body">
+          <p><strong>1. AI kot nova infrastruktura</strong></p>
+          <p class="muted">
+            Umetna inteligenca ni več samo orodje, ampak postaja <strong>osnovna infrastruktura</strong>, podobno kot
+            elektrika ali internet. Omogoča analitiko, optimizacijo, personalizirano medicino, napredne modele podnebja –
+            hkrati pa odpira vprašanja zasebnosti, manipulacije in odvisnosti.
+          </p>
+
+          <p><strong>2. Digitalizacija kot pogoj za stabilnost</strong></p>
+          <p class="muted">
+            Družbe in organizacije, ki ne digitalizirajo, izgubljajo konkurenčnost, ne obvladujejo podatkov in težko
+            zagotavljajo varnost. Digitalizacija ni več luksuz, ampak <strong>pogoj za obstoj</strong> v kompleksnem
+            svetu.
+          </p>
+
+          <p><strong>3. Globalna varnost je tehnološka, ne le vojaška</strong></p>
+          <div class="chip-row">
+            <span class="chip risk">Kibernetski napadi</span>
+            <span class="chip risk">Informacijske manipulacije</span>
+            <span class="chip">Energetska odvisnost</span>
+            <span class="chip">Kritična infrastruktura</span>
+            <span class="chip risk">Avtonomni sistemi in AI orožja</span>
+          </div>
+          <p class="muted" style="margin-top:6px;">
+            Znanost in tehnologija sta zato ključni ne le za napredek, ampak tudi za <strong>obrambo in stabilnost</strong>.
+          </p>
+        </div>
+      </section>
+
+      <!-- MEJE ZNANOSTI -->
+      <section class="card" id="meje">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Meje znanosti: kompleksnost, človek in etika</div>
+            <div class="card-subtitle">Zakaj rešitve niso nikoli samo tehnične</div>
+          </div>
+          <span class="badge">Kritični pogled</span>
+        </div>
+        <div class="card-body">
+          <div class="risk-grid">
+            <div class="risk-card">
+              <div class="risk-title">1. Kompleksnost sistemov</div>
+              <div class="risk-body">
+                Podnebje, ekonomija, geopolitika, biologija – nelinearni sistemi, kjer rešitev na enem področju lahko
+                povzroči težave na drugem. Znanost daje modele, a ti so vedno približki, ne popolna resnica.
+              </div>
+            </div>
+            <div class="risk-card">
+              <div class="risk-title">2. Človeški faktor</div>
+              <div class="risk-body">
+                Znanost lahko ponudi rešitve, a družba je politično razdeljena, ekonomsko motivirana, kulturno odporna in
+                pogosto prestrašena. Tehnologija ni problem – <strong>implementacija</strong> je.
+              </div>
+            </div>
+            <div class="risk-card">
+              <div class="risk-title">3. Etika in odgovornost</div>
+              <div class="risk-body">
+                AI in biotehnologija odpirata vprašanja: kdo nadzira algoritme, kdo ima dostop do podatkov, kdo določa
+                meje uporabe, kako preprečiti zlorabe. Brez etike znanost postane nevarna.
+              </div>
+            </div>
+            <div class="risk-card">
+              <div class="risk-title">4. Neenakost dostopa</div>
+              <div class="risk-body">
+                Rešitve obstajajo, a niso enakomerno dostopne. Bogate države napredujejo, revne zaostajajo, globalni
+                problemi ostajajo globalni. Znanost mora biti povezana z vprašanjem pravičnosti.
+              </div>
+            </div>
+          </div>
+          <div class="quote">
+            Znanost in tehnologija sta najmočnejša orodja, ki jih imamo – a nista nadomestek za odgovorno politiko,
+            etiko in zrelost družbe. Bistvo znanosti v družbi je, da nam da <strong>najboljši kompas</strong>, ne pa
+            avtomatske rešitve.
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      var links = document.querySelectorAll(".nav-link");
+      links.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var targetId = btn.getAttribute("data-target");
+          var target = document.getElementById(targetId);
+          if (!target) return;
+
+          links.forEach(function (b) {
+            b.classList.remove("active");
+          });
+          btn.classList.add("active");
+
+          var top = target.getBoundingClientRect().top + window.scrollY - 16;
+          window.scrollTo({
+            top: top,
+            behavior: "smooth"
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
