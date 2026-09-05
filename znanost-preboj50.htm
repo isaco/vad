@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Preboji do 2050 – Znanost, energija, AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #050814;
+      --bg-alt: #0b1020;
+      --card: #11182a;
+      --accent: #1f6feb;
+      --accent-soft: rgba(31, 111, 235, 0.18);
+      --accent-strong: #3dd68c;
+      --text: #e5ecff;
+      --muted: #9aa4c6;
+      --border: #1c2440;
+      --danger: #ff4b6a;
+      --shadow: 0 18px 40px rgba(0, 0, 0, 0.65);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #11182a 0, #050814 45%, #02030a 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      gap: 24px;
+      width: 100%;
+      max-width: 1200px;
+      padding: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 24px;
+      align-self: flex-start;
+      background: linear-gradient(145deg, #0b1020, #050814);
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 18px 16px;
+    }
+
+    .sidebar h2 {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .sidebar .tagline {
+      font-size: 0.9rem;
+      color: var(--text);
+      margin-bottom: 14px;
+    }
+
+    .nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .nav-list li button {
+      width: 100%;
+      text-align: left;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-size: 0.9rem;
+      padding: 8px 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, transform 0.1s;
+    }
+
+    .nav-list li button:hover {
+      background: var(--accent-soft);
+      color: var(--text);
+      transform: translateX(2px);
+    }
+
+    .nav-list li button.active {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .pill {
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: rgba(10, 16, 32, 0.9);
+    }
+
+    .pill.main { border-color: var(--accent); color: var(--accent); }
+    .pill.green { border-color: var(--accent-strong); color: var(--accent-strong); }
+    .pill.risk { border-color: var(--danger); color: var(--danger); }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .card {
+      background: linear-gradient(145deg, #0b1020, #050814);
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 18px 18px 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at top left, rgba(31, 111, 235, 0.18), transparent 55%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
+    .card-subtitle {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      background: rgba(31, 111, 235, 0.08);
+      white-space: nowrap;
+    }
+
+    .badge.green {
+      border-color: var(--accent-strong);
+      color: var(--accent-strong);
+      background: rgba(61, 214, 140, 0.08);
+    }
+
+    .card-body {
+      position: relative;
+      z-index: 1;
+      font-size: 0.92rem;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .card-body p { line-height: 1.5; }
+    .muted { color: var(--muted); }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 700px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+
+    .list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      color: var(--text);
+    }
+
+    .list li span.bullet {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      margin-top: 6px;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .list li span.label {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .chip {
+      font-size: 0.8rem;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(17, 24, 42, 0.9);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .chip.core { border-color: var(--accent); color: var(--accent); }
+    .chip.risk { border-color: var(--danger); color: var(--danger); }
+
+    .quote {
+      border-left: 2px solid var(--accent);
+      padding-left: 10px;
+      margin-top: 6px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .confidence-bar {
+      margin-top: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .confidence-bar span {
+      position: absolute;
+      inset: 0;
+      width: 82%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-strong));
+    }
+
+    /* TIMELINE */
+    .timeline-card {
+      margin-top: 4px;
+    }
+
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .timeline-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .timeline-track {
+      position: relative;
+      margin-top: 4px;
+      padding: 10px 0 4px;
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+
+    .timeline-track::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .timeline-track::-webkit-scrollbar-thumb {
+      background: rgba(31, 111, 235, 0.6);
+      border-radius: 999px;
+    }
+
+    .timeline-line {
+      position: relative;
+      height: 2px;
+      background: rgba(148, 163, 184, 0.4);
+      margin-bottom: 12px;
+    }
+
+    .timeline-line::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-strong));
+    }
+
+    .timeline-years {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      min-width: max-content;
+    }
+
+    .year-node {
+      position: relative;
+      min-width: 80px;
+      padding-top: 10px;
+    }
+
+    .year-dot {
+      position: absolute;
+      top: -11px;
+      left: 0;
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(31, 111, 235, 0.25);
+    }
+
+    .year-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .year-tag {
+      font-size: 0.75rem;
+      margin-top: 2px;
+      padding: 3px 6px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: rgba(8, 12, 26, 0.95);
+    }
+
+    .year-tag.main {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .year-tag.green {
+      border-color: var(--accent-strong);
+      color: var(--accent-strong);
+    }
+
+    .year-tag.risk {
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+
+    .year-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 3px;
+      max-width: 220px;
+    }
+
+    @media (max-width: 700px) {
+      .year-desc { max-width: 160px; }
+    }
+
+    .footer-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <h2>Preboji do 2050</h2>
+      <p class="tagline">
+        Vizualni pregled znanstvenih prebojev med 2026–2050: fuzija, AI, medicina, materiali in družbene spremembe.
+      </p>
+      <ul class="nav-list">
+        <li><button class="nav-link active" data-target="uvod">Uvod: zakaj verjamemo v preboje</button></li>
+        <li><button class="nav-link" data-target="fuzija">Fuzijska energija</button></li>
+        <li><button class="nav-link" data-target="drugi">Drugi ključni preboji</button></li>
+        <li><button class="nav-link" data-target="timeline">Timeline 2026–2050</button></li>
+        <li><button class="nav-link" data-target="druzba">Vpliv na družbo</button></li>
+        <li><button class="nav-link" data-target="meje">Meje in tveganja</button></li>
+      </ul>
+      <div class="pill-row">
+        <span class="pill main">Fuzija</span>
+        <span class="pill green">Zdravstvo</span>
+        <span class="pill">AI</span>
+        <span class="pill">Materiali</span>
+        <span class="pill risk">Etika</span>
+      </div>
+    </aside>
+
+    <main class="content">
+      <!-- UVOD -->
+      <section class="card" id="uvod">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Uvod: en preboj, ki ga skoraj lahko garantiramo</div>
+            <div class="card-subtitle">Zakaj je fuzijska energija najverjetnejši preboj do 2050</div>
+          </div>
+          <span class="badge green">Visoka verjetnost</span>
+        </div>
+        <div class="card-body">
+          <p>
+            Če bi moral izbrati <strong>en znanstveni preboj do 2050</strong>, ki je praktično zagotovljen, je to
+            <strong>komercialno uporabna fuzijska energija</strong> – stabilen, čist, skoraj neomejen vir energije, ki bi
+            preoblikoval ekonomijo, geopolitiko, industrijo, podnebje in znanost.
+          </p>
+          <p class="muted">
+            To ni napoved “na pamet”: trendi, investicije, prototipi in fizikalni mejniki kažejo, da je fuzija že vstopila
+            v fazo <strong>inženiringa</strong>, ne več temeljne znanstvene negotovosti. Fizika je v veliki meri rešena,
+            ostaja implementacija.
+          </p>
+          <div class="confidence-bar">
+            <span></span>
+          </div>
+          <p class="footer-note">
+            Fuzija je preboj, ki ne rešuje le energije – sproži verigo drugih prebojev v zdravstvu, AI, materialih in
+            družbeni organizaciji.
+          </p>
+        </div>
+      </section>
+
+      <!-- FUZIJA -->
+      <section class="card" id="fuzija">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Komercialna fuzijska energija</div>
+            <div class="card-subtitle">Kaj bi vse to pomenilo do 2050</div>
+          </div>
+          <span class="badge">Energija prihodnosti</span>
+        </div>
+        <div class="card-body">
+          <div class="grid-2">
+            <div>
+              <p><strong>1. Energija postane praktično neskončna</strong></p>
+              <ul class="list">
+                <li>
+                  <span class="bullet"></span>
+                  <div>
+                    <span class="label">Vir:</span> vodik iz morske vode – minimalni viri, ogromna energija.
+                  </div>
+                </li>
+                <li>
+                  <span class="bullet"></span>
+                  <div>
+                    <span class="label">Emisije:</span> brez CO₂, brez dolgoročnih radioaktivnih odpadkov.
+                  </div>
+                </li>
+                <li>
+                  <span class="bullet"></span>
+                  <div>
+                    <span class="label">Stabilnost:</span> neodvisnost od fosilnih goriv in geopolitičnih kriz.
+                  </div>
+                </li>
+              </ul>
+
+              <p style="margin-top:8px;"><strong>2. Podnebne spremembe se stabilizirajo</strong></p>
+              <p class="muted">
+                Energetika postane skoraj brez emisij. Zajetje CO₂ in razne oblike geo-inženiringa postanejo
+                <strong>energijsko izvedljive</strong>, ker energija ni več omejitev.
+              </p>
+            </div>
+            <div>
+              <p><strong>3. Industrija in voda</strong></p>
+              <ul class="list">
+                <li>
+                  <span class="bullet"></span>
+                  <div>
+                    <span class="label">Industrija:</span> jeklo, aluminij, cement – stroški drastično padejo.
+                  </div>
+                </li>
+                <li>
+                  <span class="bullet"></span>
+                  <div>
+                    <span class="label">Razsoljevanje:</span> pitna voda iz morja postane trivialna naloga.
+                  </div>
+                </li>
+                <li>
+                  <span class="bullet"></span>
+                  <div>
+                    <span class="label">Hrana:</span> energijsko intenzivna agritech in vertikalne farme postanejo
+                    standard.
+                  </div>
+                </li>
+              </ul>
+
+              <p style="margin-top:8px;"><strong>4. AI in računalništvo</strong></p>
+              <p class="muted">
+                Trening velikih modelov, kvantni računalniki in globalna digitalna infrastruktura niso več omejeni z
+                energijo. To pospeši znanost, inovacije in analitiko na vseh področjih.
+              </p>
+            </div>
+          </div>
+          <div class="quote">
+            Fuzija je preboj, ki daje človeštvu <strong>drugi dih</strong>: prvič v zgodovini imamo možnost, da so viri
+            manj omejujoči kot ideje, etika in organizacija družbe.
+          </div>
+        </div>
+      </section>
+
+      <!-- DRUGI PREBOJI -->
+      <section class="card" id="drugi">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Drugi ključni preboji do 2050</div>
+            <div class="card-subtitle">Zdravstvo, AI, kvantna tehnologija, materiali, biologija</div>
+          </div>
+          <span class="badge">Ekosistem prebojev</span>
+        </div>
+        <div class="card-body">
+          <div class="grid-2">
+            <div>
+              <p><strong>1. Zdravstvo: personalizirana medicina + genske terapije</strong></p>
+              <ul class="list">
+                <li><span class="bullet"></span><div><span class="label">Imunoterapija raka:</span> postane standard.</div></li>
+                <li><span class="bullet"></span><div><span class="label">CRISPR 3.0:</span> zdravljenje dednih bolezni.</div></li>
+                <li><span class="bullet"></span><div><span class="label">Regenerativna medicina:</span> organi iz lastnih celic.</div></li>
+              </ul>
+
+              <p style="margin-top:8px;"><strong>2. AI: avtonomni znanstveni sistemi</strong></p>
+              <p class="muted">
+                AI laboratoriji, ki sami načrtujejo eksperimente, jih izvajajo, analizirajo rezultate in generirajo nove
+                hipoteze. Znanost postane <strong>×100 hitrejša</strong>.
+              </p>
+            </div>
+            <div>
+              <p><strong>3. Kvantna tehnologija</strong></p>
+              <ul class="list">
+                <li><span class="bullet"></span><div><span class="label">Kvantni senzorji:</span> ekstremna natančnost meritev.</div></li>
+                <li><span class="bullet"></span><div><span class="label">Kvantna komunikacija:</span> skoraj neprebojna varnost.</div></li>
+                <li><span class="bullet"></span><div><span class="label">Specializirani kvantni računalniki:</span> kemija, materiali.</div></li>
+              </ul>
+
+              <p style="margin-top:8px;"><strong>4. Materiali in biologija</strong></p>
+              <p class="muted">
+                Superprevodniki pri sobni temperaturi (verjetnost ~60%), pametni materiali, sintetični organizmi za
+                čiščenje okolja, biomanufaktura proteinov in zdravil – vse to spremeni industrijo in ekologijo.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TIMELINE -->
+      <section class="card" id="timeline">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Vizualni timeline 2026–2050</div>
+            <div class="card-subtitle">Scenarij prebojev v času</div>
+          </div>
+          <span class="badge">Horizont prihodnosti</span>
+        </div>
+        <div class="card-body timeline-card">
+          <div class="timeline-header">
+            <div class="timeline-title">Ključni mejniki</div>
+            <span class="badge green">Scenarij, ne preroštvo</span>
+          </div>
+          <div class="timeline-track">
+            <div class="timeline-line"></div>
+            <div class="timeline-years">
+              <div class="year-node">
+                <div class="year-dot"></div>
+                <div class="year-label">2026–2030</div>
+                <div class="year-tag">AI + zdravstvo</div>
+                <div class="year-desc">
+                  Eksplozija AI v diagnostiki, personalizirani terapiji, modeliranju podnebja. Prvi komercialni fuzijski
+                  prototipi.
+                </div>
+              </div>
+              <div class="year-node">
+                <div class="year-dot"></div>
+                <div class="year-label">2030–2035</div>
+                <div class="year-tag main">Fuzijski demonstratorji</div>
+                <div class="year-desc">
+                  Delujoči fuzijski reaktorji v testnem režimu, razširjena genska terapija, avtonomni AI laboratoriji v
+                  farmaciji in materialih.
+                </div>
+              </div>
+              <div class="year-node">
+                <div class="year-dot"></div>
+                <div class="year-label">2035–2040</div>
+                <div class="year-tag green">Prva fuzijska omrežja</div>
+                <div class="year-desc">
+                  Fuzija v energetskih omrežjih izbranih držav. Kvantni senzorji v industriji, napredna razsoljevanja
+                  vode, vertikalne farme.
+                </div>
+              </div>
+              <div class="year-node">
+                <div class="year-dot"></div>
+                <div class="year-label">2040–2045</div>
+                <div class="year-tag main">Globalna fuzijska širitev</div>
+                <div class="year-desc">
+                  Fuzija postane standardni vir energije v razvitih državah. AI znanstveni sistemi pospešijo odkritja v
+                  biologiji in materialih.
+                </div>
+              </div>
+              <div class="year-node">
+                <div class="year-dot"></div>
+                <div class="year-label">2045–2050</div>
+                <div class="year-tag green">Nova era</div>
+                <div class="year-desc">
+                  Energetska neodvisnost, stabilizacija podnebja, masovna biomanufaktura, napredna medicina, nova
+                  družbena arhitektura okoli znanosti in etike.
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="footer-note">
+            Timeline je <strong>scenarij</strong>, ki združuje današnje trende v energiji, AI, zdravstvu in materialih.
+            Ni zagotovilo, je pa realističen okvir, če znanost ostane v središču družbenih odločitev.
+          </p>
+        </div>
+      </section>
+
+      <!-- DRUŽBA -->
+      <section class="card" id="druzba">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Vpliv na družbo</div>
+            <div class="card-subtitle">Kaj pomeni era prebojev za človeštvo</div>
+          </div>
+          <span class="badge">Transformacija</span>
+        </div>
+        <div class="card-body">
+          <div class="grid-2">
+            <div>
+              <p><strong>1. Ekonomija</strong></p>
+              <ul class="list">
+                <li><span class="bullet"></span><div><span class="label">Cena energije:</span> skoraj nič.</div></li>
+                <li><span class="bullet"></span><div><span class="label">Cena transporta:</span> drastično nižja.</div></li>
+                <li><span class="bullet"></span><div><span class="label">Cena proizvodnje:</span> pade na novo raven.</div></li>
+              </ul>
+
+              <p style="margin-top:8px;"><strong>2. Družbeni učinki</strong></p>
+              <p class="muted">
+                Revščina se zmanjša, dostop do vode, hrane in zdravstva se izboljša, energetska neenakost izgine. Človeštvo
+                prvič dobi možnost, da so omejitve bolj politične in etične kot materialne.
+              </p>
+            </div>
+            <div>
+              <p><strong>3. Politični učinki</strong></p>
+              <ul class="list">
+                <li><span class="bullet"></span><div><span class="label">Viri:</span> države ne tekmujejo več za nafto in plin.</div></li>
+                <li><span class="bullet"></span><div><span class="label">Stabilnost:</span> manj motivacije za konflikte.</div></li>
+                <li><span class="bullet"></span><div><span class="label">Globalno sodelovanje:</span> znanost kot skupni jezik.</div></li>
+              </ul>
+
+              <p style="margin-top:8px;"><strong>4. Nova era človeškega razvoja</strong></p>
+              <p class="muted">
+                Rešitev energetike, vode, hrane, zdravstva in podnebja odpre prostor za nove razprave: kako želimo živeti,
+                kakšne vrednote postaviti v središče in kako organizirati družbo okoli znanosti, etike in odgovornosti.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MEJE -->
+      <section class="card" id="meje">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Meje in tveganja</div>
+            <div class="card-subtitle">Zakaj preboji niso samodejno dobra novica</div>
+          </div>
+          <span class="badge">Kritični pogled</span>
+        </div>
+        <div class="card-body">
+          <div class="grid-2">
+            <div>
+              <p><strong>1. Kompleksnost sistemov</strong></p>
+              <p class="muted">
+                Podnebje, ekonomija, geopolitika, biologija – nelinearni sistemi, kjer rešitev na enem področju lahko
+                povzroči težave na drugem. Znanost daje modele, a ti so vedno približki.
+              </p>
+
+              <p style="margin-top:8px;"><strong>2. Človeški faktor</strong></p>
+              <p class="muted">
+                Znanost lahko ponudi rešitve, a družba je politično razdeljena, ekonomsko motivirana, kulturno odporna in
+                pogosto prestrašena. Tehnologija ni problem – <strong>implementacija</strong> je.
+              </p>
+            </div>
+            <div>
+              <p><strong>3. Etika in odgovornost</strong></p>
+              <p class="muted">
+                AI, biotehnologija in fuzija odpirajo vprašanja: kdo nadzira algoritme, kdo ima dostop do podatkov, kdo
+                določa meje uporabe, kako preprečiti zlorabe. Brez etike znanost postane nevarna.
+              </p>
+
+              <p style="margin-top:8px;"><strong>4. Neenakost dostopa</strong></p>
+              <p class="muted">
+                Rešitve obstajajo, a niso enakomerno dostopne. Bogate države napredujejo, revne zaostajajo. Znanost mora
+                biti povezana z vprašanjem pravičnosti, sicer preboji poglobijo razlike.
+              </p>
+            </div>
+          </div>
+          <div class="quote">
+            Preboji do 2050 so realni, a niso samodejno dobri. Bistvo znanosti v družbi je, da nam da
+            <strong>najboljši kompas</strong> – kako ravnati odgovorno, ne le kako narediti več.
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      var links = document.querySelectorAll(".nav-link");
+      links.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var targetId = btn.getAttribute("data-target");
+          var target = document.getElementById(targetId);
+          if (!target) return;
+
+          links.forEach(function (b) { b.classList.remove("active"); });
+          btn.classList.add("active");
+
+          var top = target.getBoundingClientRect().top + window.scrollY - 16;
+          window.scrollTo({
+            top: top,
+            behavior: "smooth"
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
