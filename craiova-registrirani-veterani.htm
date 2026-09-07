@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<title>Craiova 26 - seznam veteranov</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #0d1b2a;
+        color: #e0e6ed;
+        margin: 0;
+        padding: 30px;
+        text-align: center;
+    }
+
+    h1 {
+        color: #fff;
+        margin-bottom: 40px;
+        font-size: 32px;
+    }
+
+    .btn-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .btn3d {
+        background: linear-gradient(#1b263b, #0d1b2a);
+        border: 1px solid #415a77;
+        color: #e0e6ed;
+        padding: 15px 20px;
+        font-size: 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        box-shadow: 0 6px #000;
+        transition: all 0.15s ease-in-out;
+    }
+
+    .btn3d:hover {
+        background: linear-gradient(#25324d, #0d1b2a);
+    }
+
+    .btn3d:active {
+        box-shadow: 0 2px #000;
+        transform: translateY(4px);
+    }
+</style>
+</head>
+<body>
+
+<h1>Craiova 26 – seznam veteranov</h1>
+
+<div class="btn-container">
+    <button class="btn3d" onclick="openLink(0)">Registracija</button>
+    <button class="btn3d" onclick="openLink(1)">Veterani – Višina</button>
+    <button class="btn3d" onclick="openLink(2)">Veteranke – Višina</button>
+    <button class="btn3d" onclick="openLink(3)">Veteranke – Discus</button>
+</div>
+
+<script>
+const links = [
+    "https://www.bamacs2026.balkan-masters-athletics.org/?page_id=447&lang=ro",
+    "http://localhost/craiova/veterani-filt.htm",
+    "http://localhost/craiova/veteranke-višina-filt.htm",
+    "http://localhost/craiova/veteranke-disk.filt.htm"
+];
+
+function openLink(i) {
+    window.open(links[i], "_blank");
+}
+</script>
+
+</body>
+</html>

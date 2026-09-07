@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<title>Registracije – Ženske Discus</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #0d1b2a;
+        color: #e0e6ed;
+        margin: 0;
+        padding: 20px;
+    }
+    h1 { margin-bottom: 20px; color: #fff; }
+    .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-bottom: 20px;
+        align-items: flex-end;
+    }
+    .filter-group {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+    .filter-row {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+    }
+    select {
+        padding: 6px 10px;
+        background: #1b263b;
+        color: #fff;
+        border: 1px solid #415a77;
+        border-radius: 4px;
+    }
+    .clear-one {
+        cursor: pointer;
+        padding: 4px 8px;
+        background: #e63946;
+        border: none;
+        border-radius: 4px;
+        color: #fff;
+        font-size: 12px;
+        font-weight: bold;
+    }
+    .clear-all {
+        cursor: pointer;
+        padding: 6px 12px;
+        background: #e63946;
+        border: none;
+        border-radius: 4px;
+        color: #fff;
+        font-weight: bold;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #1b263b;
+    }
+    th, td {
+        padding: 8px;
+        border-bottom: 1px solid #415a77;
+    }
+    th {
+        background: #415a77;
+        color: #fff;
+    }
+</style>
+</head>
+<body>
+
+<h1>Registracije – Ženske Discus</h1>
+
+<div class="filters">
+    <div class="filter-group">
+        <label for="filterCategory">Kategorija:</label>
+        <div class="filter-row">
+            <select id="filterCategory">
+                <option value="">Vse</option>
+            </select>
+            <button class="clear-one" onclick="clearOne('filterCategory')">X</button>
+        </div>
+    </div>
+
+    <div class="filter-group">
+        <label for="filterCountry">Država:</label>
+        <div class="filter-row">
+            <select id="filterCountry">
+                <option value="">Vse</option>
+            </select>
+            <button class="clear-one" onclick="clearOne('filterCountry')">X</button>
+        </div>
+    </div>
+
+    <div class="filter-group">
+        <label for="filterName">Ime:</label>
+        <div class="filter-row">
+            <select id="filterName">
+                <option value="">Vse</option>
+            </select>
+            <button class="clear-one" onclick="clearOne('filterName')">X</button>
+        </div>
+    </div>
+
+    <button class="clear-all" onclick="clearAll()">X počisti vse</button>
+</div>
+
+<table id="regTable">
+    <thead>
+        <tr>
+            <th>Kategorija</th>
+            <th>#</th>
+            <th>Ime / Priimek</th>
+            <th>Država</th>
+            <th>SB</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+// --- PODATKI ZA ŽENSKE DISCUS ---
+const data = [
+    {cat:"F35", no:"606", name:"FILLIPOU Evdokia", country:"GRE", sb:""},
+    {cat:"F35", no:"978", name:"ISIK Ezgi Demirel", country:"TURNEJA", sb:""},
+    {cat:"F35", no:"984", name:"KAMIS Macide Senel", country:"TURNEJA", sb:""},
+    {cat:"F40", no:"170", name:"GENOA ASYA", country:"BUL", sb:""},
+    {cat:"F40", no:"812", name:"VARGA Violeta", country:"SRB", sb:""},
+    {cat:"F40", no:"591", name:"OSTAPCHUK Tetiana", country:"UKR", sb:"31.74"},
+    {cat:"F45", no:"176", name:"NIKOLOVA Elena", country:"BUL", sb:""},
+    {cat:"F50", no:"871", name:"PIRNAT Erika", country:"SLO", sb:""},
+    {cat:"F50", no:"139", name:"YORDANOVA Nataša", country:"BUL", sb:""},
+    {cat:"F55", no:"136", name:"BORISOVA Neli", country:"BUL", sb:""},
+    {cat:"F55", no:"783", name:"DUNOVIĆ Maja", country:"SRB", sb:""},
+    {cat:"F55", no:"341", name:"PÂRJU Mariana", country:"KOLO", sb:""},
+    {cat:"F55", no:"528", name:"ŠARIĆ Sandra", country:"CRO", sb:""},
+    {cat:"F55", no:"893", name:"VALENČIČ Anita", country:"SLO", sb:""},
+    {cat:"F55", no:"827", name:"VULIĆEVIĆ Mirjana", country:"SRB", sb:""},
+    {cat:"F60", no:"182", name:"BORISOVA Rozalina", country:"BUL", sb:""},
+    {cat:"F60", no:"482", name:"MILITARU Daniela", country:"KOLO", sb:""},
+    {cat:"F60", no:"351", name:"NEMȚANU Veronica", country:"KOLO", sb:""},
+    {cat:"F60", no:"633", name:"POLOMARKAKI Maria", country:"GRE", sb:""},
+    {cat:"F65", no:"814", name:"BANKOVIĆ Milena", country:"SRB", sb:""},
+    {cat:"F65", no:"179", name:"BUSHMAN Krasimira", country:"BUL", sb:""},
+    {cat:"F65", no:"638", name:"FILIPPAKI Sofia", country:"GRE", sb:""},
+    {cat:"F65", no:"110", name:"KOYNOVA Vanya", country:"BUL", sb:""},
+    {cat:"F65", no:"124", name:"VALEVA Dinka", country:"BUL", sb:""},
+    {cat:"F70", no:"284", name:"ANTOLIĆ Ankica", country:"CRO", sb:""},
+    {cat:"F70", no:"286", name:"GRGURIĆ PAJNIĆ Slavica", country:"CRO", sb:""},
+    {cat:"F70", no:"180", name:"STOILOVA Ljudmila", country:"BUL", sb:""},
+    {cat:"F75", no:"302", name:"BOGDAN Minodora", country:"KOLO", sb:""},
+    {cat:"F75", no:"858", name:"ČAD Marjeta", country:"SLO", sb:""}
+];
+
+// --- FILTRI ---
+function populateFilters() {
+    const catSet = new Set();
+    const countrySet = new Set();
+    const nameSet = new Set();
+
+    data.forEach(r => {
+        catSet.add(r.cat);
+        countrySet.add(r.country);
+        nameSet.add(r.name);
+    });
+
+    fillSelect("filterCategory", catSet);
+    fillSelect("filterCountry", countrySet);
+    fillSelect("filterName", nameSet);
+
+    document.getElementById("filterCategory").addEventListener("change", renderTable);
+    document.getElementById("filterCountry").addEventListener("change", renderTable);
+    document.getElementById("filterName").addEventListener("change", renderTable);
+}
+
+function fillSelect(id, set) {
+    const sel = document.getElementById(id);
+    set.forEach(v => {
+        const opt = document.createElement("option");
+        opt.value = v;
+        opt.textContent = v;
+        sel.appendChild(opt);
+    });
+}
+
+function clearOne(id) {
+    document.getElementById(id).value = "";
+    renderTable();
+}
+
+function clearAll() {
+    ["filterCategory","filterCountry","filterName"].forEach(id => {
+        document.getElementById(id).value = "";
+    });
+    renderTable();
+}
+
+// --- TABELA ---
+function renderTable() {
+    const cat = document.getElementById("filterCategory").value;
+    const country = document.getElementById("filterCountry").value;
+    const name = document.getElementById("filterName").value;
+
+    const tbody = document.querySelector("#regTable tbody");
+    tbody.innerHTML = "";
+
+    data
+        .filter(r =>
+            (!cat || r.cat === cat) &&
+            (!country || r.country === country) &&
+            (!name || r.name === name)
+        )
+        .forEach(r => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${r.cat}</td>
+                <td>${r.no}</td>
+                <td>${r.name}</td>
+                <td>${r.country}</td>
+                <td>${r.sb}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+}
+
+populateFilters();
+renderTable();
+</script>
+
+</body>
+</html>

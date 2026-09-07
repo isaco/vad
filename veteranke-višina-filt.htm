@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<title>Registracije – Ženske Višina</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #0d1b2a;
+        color: #e0e6ed;
+        margin: 0;
+        padding: 20px;
+    }
+    h1 { margin-bottom: 20px; color: #fff; }
+    .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-bottom: 20px;
+        align-items: flex-end;
+    }
+    .filter-group {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+    .filter-row {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+    }
+    select {
+        padding: 6px 10px;
+        background: #1b263b;
+        color: #fff;
+        border: 1px solid #415a77;
+        border-radius: 4px;
+    }
+    .clear-one {
+        cursor: pointer;
+        padding: 4px 8px;
+        background: #e63946;
+        border: none;
+        border-radius: 4px;
+        color: #fff;
+        font-size: 12px;
+        font-weight: bold;
+    }
+    .clear-all {
+        cursor: pointer;
+        padding: 6px 12px;
+        background: #e63946;
+        border: none;
+        border-radius: 4px;
+        color: #fff;
+        font-weight: bold;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #1b263b;
+    }
+    th, td {
+        padding: 8px;
+        border-bottom: 1px solid #415a77;
+    }
+    th {
+        background: #415a77;
+        color: #fff;
+    }
+</style>
+</head>
+<body>
+
+<h1>Registracije – Ženske Višina</h1>
+
+<div class="filters">
+    <div class="filter-group">
+        <label for="filterCategory">Kategorija:</label>
+        <div class="filter-row">
+            <select id="filterCategory">
+                <option value="">Vse</option>
+            </select>
+            <button class="clear-one" onclick="clearOne('filterCategory')">X</button>
+        </div>
+    </div>
+
+    <div class="filter-group">
+        <label for="filterCountry">Država:</label>
+        <div class="filter-row">
+            <select id="filterCountry">
+                <option value="">Vse</option>
+            </select>
+            <button class="clear-one" onclick="clearOne('filterCountry')">X</button>
+        </div>
+    </div>
+
+    <div class="filter-group">
+        <label for="filterName">Ime:</label>
+        <div class="filter-row">
+            <select id="filterName">
+                <option value="">Vse</option>
+            </select>
+            <button class="clear-one" onclick="clearOne('filterName')">X</button>
+        </div>
+    </div>
+
+    <button class="clear-all" onclick="clearAll()">X počisti vse</button>
+</div>
+
+<table id="regTable">
+    <thead>
+        <tr>
+            <th>Kategorija</th>
+            <th>#</th>
+            <th>Ime / Priimek</th>
+            <th>Država</th>
+            <th>SB</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+// --- PODATKI ZA ŽENSKE VIŠINA ---
+const data = [
+    {cat:"F45", no:"403", name:"BUGHEANU Mihaela", country:"KOLO", sb:""},
+    {cat:"F45", no:"788", name:"KOCIĆ Snežana", country:"SRB", sb:""},
+    {cat:"F50", no:"171", name:"ATANASOVA Ventsislava", country:"BUL", sb:""},
+    {cat:"F55", no:"939", name:"KURTCAN Aycan", country:"TURNEJA", sb:""},
+    {cat:"F55", no:"150", name:"YANKULOVA Yordanka", country:"BUL", sb:""},
+    {cat:"F60", no:"957", name:"BENLI Ayten", country:"TURNEJA", sb:""},
+    {cat:"F60", no:"288", name:"HALTER OSTOJIN Eva", country:"CRO", sb:""},
+    {cat:"F60", no:"111", name:"MILENOVA Elena", country:"BUL", sb:""},
+    {cat:"F60", no:"592", name:"ŠEVČENKO Olena", country:"UKR", sb:"1.30"},
+    {cat:"F65", no:"638", name:"FILIPPAKI Sofia", country:"GRE", sb:""},
+    {cat:"F70", no:"894", name:"PREZELJ Stanka", country:"SLO", sb:""},
+    {cat:"F75", no:"858", name:"ČAD Marjeta", country:"SLO", sb:""}
+];
+
+// --- FILTRI ---
+function populateFilters() {
+    const catSet = new Set();
+    const countrySet = new Set();
+    const nameSet = new Set();
+
+    data.forEach(r => {
+        catSet.add(r.cat);
+        countrySet.add(r.country);
+        nameSet.add(r.name);
+    });
+
+    fillSelect("filterCategory", catSet);
+    fillSelect("filterCountry", countrySet);
+    fillSelect("filterName", nameSet);
+
+    document.getElementById("filterCategory").addEventListener("change", renderTable);
+    document.getElementById("filterCountry").addEventListener("change", renderTable);
+    document.getElementById("filterName").addEventListener("change", renderTable);
+}
+
+function fillSelect(id, set) {
+    const sel = document.getElementById(id);
+    set.forEach(v => {
+        const opt = document.createElement("option");
+        opt.value = v;
+        opt.textContent = v;
+        sel.appendChild(opt);
+    });
+}
+
+function clearOne(id) {
+    document.getElementById(id).value = "";
+    renderTable();
+}
+
+function clearAll() {
+    ["filterCategory","filterCountry","filterName"].forEach(id => {
+        document.getElementById(id).value = "";
+    });
+    renderTable();
+}
+
+// --- TABELA ---
+function renderTable() {
+    const cat = document.getElementById("filterCategory").value;
+    const country = document.getElementById("filterCountry").value;
+    const name = document.getElementById("filterName").value;
+
+    const tbody = document.querySelector("#regTable tbody");
+    tbody.innerHTML = "";
+
+    data
+        .filter(r =>
+            (!cat || r.cat === cat) &&
+            (!country || r.country === country) &&
+            (!name || r.name === name)
+        )
+        .forEach(r => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${r.cat}</td>
+                <td>${r.no}</td>
+                <td>${r.name}</td>
+                <td>${r.country}</td>
+                <td>${r.sb}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+}
+
+populateFilters();
+renderTable();
+</script>
+
+</body>
+</html>
