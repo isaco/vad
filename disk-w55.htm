@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<title>Craiova 26 - seznam veteranov</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #0d1b2a;
+        color: #e0e6ed;
+        margin: 0;
+        padding: 30px;
+        text-align: center;
+    }
+
+    h1 {
+        color: #fff;
+        margin-bottom: 40px;
+        font-size: 32px;
+    }
+
+    .btn-container {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        max-width: 480px;
+        margin: 0 auto;
+    }
+
+    .btn3d {
+        background: linear-gradient(#1b263b, #0d1b2a);
+        border: 1px solid #415a77;
+        color: #e0e6ed;
+        padding: 14px 20px;
+        font-size: 18px;
+        border-radius: 8px;
+        cursor: pointer;
+        box-shadow: 0 6px #000;
+        transition: all 0.15s ease-in-out;
+        text-align: left;
+    }
+
+    .btn3d span {
+        font-weight: bold;
+    }
+
+    .btn3d:hover {
+        background: linear-gradient(#25324d, #0d1b2a);
+    }
+
+    .btn3d:active {
+        box-shadow: 0 2px #000;
+        transform: translateY(4px);
+    }
+</style>
+</head>
+<body>
+
+<h1>Craiova 26 – seznam veteranov</h1>
+
+<div class="btn-container">
+    <button class="btn3d" onclick="openLink(0)"><span>Registrirani veterani</span> – seznam</button>
+    <button class="btn3d" onclick="openLink(1)"><span>Veteranke – met diska</span> – filtrirana tabela</button>
+    
+
+    <button class="btn3d" onclick="openLink(3)"><span>Anita Valenčič</span> – MastersRankings profil</button>
+    <button class="btn3d" onclick="openLink(4)"><span>Mirjana Vulićević</span> – MastersRankings profil</button>
+    <button class="btn3d" onclick="openLink(5)"><span>Mariana Pârju</span> – MastersRankings profil</button>
+    <button class="btn3d" onclick="openLink(6)"><span>Neli Borisova</span> – MastersRankings profil</button>
+    <button class="btn3d" onclick="openLink(7)"><span>Maja Dunović</span> – MastersRankings profil</button>
+    <button class="btn3d" onclick="openLink(8)"><span>Sandra Šarić</span> – MastersRankings profil</button>
+</div>
+
+<script>
+const links = [
+    "https://isaco.github.io/vad/craiova-registrirani-veterani.htm",
+    "https://isaco.github.io/vad/veteranke-disk.filt.htm",
+    
+    "https://mastersrankings.com/athlete-profile/?x8=8750865762240529ANITAVALENCIC",
+    "https://mastersrankings.com/athlete-profile/?x8=0220420337183114MIRJANAVULIUEVIU",
+    "https://mastersrankings.com/athlete-profile/?x8=0820490648141118MARIANAPARJU",
+    "https://mastersrankings.com/athlete-profile/?x8=2636261866220315NELIBORISOVA",
+    "https://mastersrankings.com/athlete-profile/?x8=6024771759210405MAJADUNOVIC",
+    "https://mastersrankings.com/athlete-profile/?x8=1220430351142528SANDRASARIC"
+];
+
+function openLink(i) {
+    window.open(links[i], "_blank");
+}
+</script>
+
+</body>
+</html>
