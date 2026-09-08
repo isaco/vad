@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<title>Od Listine k življenju – procesna pot</title>
+<style>
+    body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #0f172a;
+        color: #e5e7eb;
+        margin: 0;
+        padding: 40px 20px;
+    }
+    .page-wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+    h1, h2 {
+        font-weight: 600;
+        color: #f9fafb;
+        margin-bottom: 0.5rem;
+    }
+    h1 {
+        font-size: 2rem;
+        text-align: center;
+    }
+    h2 {
+        font-size: 1.2rem;
+        margin-top: 2.5rem;
+    }
+    .subtitle {
+        text-align: center;
+        color: #9ca3af;
+        margin-bottom: 2rem;
+    }
+
+    /* Horizontal process timeline */
+    .process-flow {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-top: 2rem;
+        position: relative;
+    }
+    .process-step {
+        flex: 1 1 150px;
+        min-width: 150px;
+        background: #111827;
+        border-radius: 12px;
+        padding: 1rem;
+        position: relative;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+        border: 1px solid #1f2937;
+    }
+    .process-step::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: -12px;
+        width: 24px;
+        height: 2px;
+        background: linear-gradient(to right, #3b82f6, #22c55e);
+        opacity: 0.7;
+    }
+    .process-step:last-child::before {
+        display: none;
+    }
+    .step-title {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #bfdbfe;
+        margin-bottom: 0.35rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+    }
+    .step-label {
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: #f9fafb;
+        margin-bottom: 0.35rem;
+    }
+    .step-text {
+        font-size: 0.9rem;
+        color: #9ca3af;
+        line-height: 1.4;
+    }
+
+    /* Vertical loop: učenje in izboljšave */
+    .loop-section {
+        margin-top: 3rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1rem;
+    }
+    .loop-card {
+        background: #020617;
+        border-radius: 12px;
+        padding: 1rem;
+        border: 1px solid #1f2937;
+    }
+    .loop-title {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #a5b4fc;
+        margin-bottom: 0.3rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+    }
+    .loop-text {
+        font-size: 0.9rem;
+        color: #9ca3af;
+        line-height: 1.4;
+    }
+
+    /* Legend */
+    .legend {
+        margin-top: 2.5rem;
+        background: #020617;
+        border-radius: 12px;
+        padding: 1rem 1.2rem;
+        border: 1px solid #1f2937;
+        font-size: 0.9rem;
+        color: #9ca3af;
+    }
+    .legend strong {
+        color: #e5e7eb;
+    }
+
+    @media (max-width: 768px) {
+        .process-step::before {
+            display: none;
+        }
+    }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+    <h1>Od Listine k življenju</h1>
+    <p class="subtitle">Procesna pot: od vprašanja do sistemske spremembe in nazaj v učenje</p>
+
+    <h2>Glavna procesna pot</h2>
+    <div class="process-flow">
+        <div class="process-step">
+            <div class="step-title">1. Iskrica</div>
+            <div class="step-label">Osebno zanimanje</div>
+            <p class="step-text">
+                Človek v Listini prepozna del svojega življenja: »Tudi mene se to dotika.«
+                Zanimanje odpre prostor razmišljanja in vprašanj.
+            </p>
+        </div>
+        <div class="process-step">
+            <div class="step-title">2. Povezovanje</div>
+            <div class="step-label">Od posameznika k skupnosti</div>
+            <p class="step-text">
+                Zanimanje se poveže z drugimi ljudmi, družino, lokalno skupnostjo, civilno družbo.
+                Nastajajo pobude, pogovori, skupni pogledi.
+            </p>
+        </div>
+        <div class="process-step">
+            <div class="step-title">3. Preizkus</div>
+            <div class="step-label">Majhni koraki</div>
+            <p class="step-text">
+                Prepoznane potrebe se preizkusijo v praksi: ena skupina, en projekt, en lokalni poskus.
+                Izkušnja pokaže, kaj deluje in kaj ne.
+            </p>
+        </div>
+        <div class="process-step">
+            <div class="step-title">4. Strokovna presoja</div>
+            <div class="step-label">Znanje in analiza</div>
+            <p class="step-text">
+                Strokovna okolja pomagajo razumeti problem, preveriti možnosti, predlagati izboljšave
+                ter spremljati učinke preizkusov.
+            </p>
+        </div>
+        <div class="process-step">
+            <div class="step-title">5. Sistem</div>
+            <div class="step-label">Sistemska možnost</div>
+            <p class="step-text">
+                Ko se pokaže širša pomembnost, vstopijo institucije, lokalne skupnosti in politika.
+                Nastanejo sistemske rešitve, programi, strukture.
+            </p>
+        </div>
+    </div>
+
+    <h2>Cikel učenja in izboljšav</h2>
+    <div class="loop-section">
+        <div class="loop-card">
+            <div class="loop-title">NAMERA</div>
+            <p class="loop-text">
+                Kaj želimo doseči? Katera življenjska potreba je v ospredju?
+            </p>
+        </div>
+        <div class="loop-card">
+            <div class="loop-title">DEJANJE</div>
+            <p class="loop-text">
+                Kaj konkretno naredimo? Kateri preizkus ali ukrep izvedemo?
+            </p>
+        </div>
+        <div class="loop-card">
+            <div class="loop-title">IZKUŠNJA</div>
+            <p class="loop-text">
+                Kaj se je dejansko zgodilo? Kdo je bil dosežen? Kakšni so učinki?
+            </p>
+        </div>
+        <div class="loop-card">
+            <div class="loop-title">PRESOJA</div>
+            <p class="loop-text">
+                Kaj je bilo dobro, kaj ni delovalo? Kaj smo se naučili?
+            </p>
+        </div>
+        <div class="loop-card">
+            <div class="loop-title">IZBOLJŠAVA</div>
+            <p class="loop-text">
+                Kaj spremenimo, okrepimo ali opustimo? Kako prilagodimo sistem?
+            </p>
+        </div>
+        <div class="loop-card">
+            <div class="loop-title">NOV KORAK</div>
+            <p class="loop-text">
+                Novi preizkus ali širša uvedba izboljšanih rešitev. Proces se nadaljuje.
+            </p>
+        </div>
+    </div>
+
+    <div class="legend">
+        <p>
+            <strong>Legenda:</strong> Zgornja linija prikazuje pot od osebnega zanimanja do sistemske rešitve
+            (OSEBNO ZANIMANJE → POVEZOVANJE → PREIZKUS → STROKOVNA PRESOJA → SISTEMSKA MOŽNOST).
+            Spodnji cikel prikazuje logiko učenja (NAMERA → DEJANJE → IZKUŠNJA → PRESOJA → IZBOLJŠAVA → NOV KORAK),
+            ki omogoča, da Listina ostane živ dokument in se ne okameni v stereotipe.
+        </p>
+    </div>
+</div>
+</body>
+</html>
