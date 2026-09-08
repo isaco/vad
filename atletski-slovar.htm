@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slovar atletskih kratic – World Athletics</title>
+<style>
+:root{
+  --bg:#061a3a;
+  --bg2:#0a2854;
+  --panel:#0d3268;
+  --panel2:#123d7a;
+  --text:#f2f6ff;
+  --muted:#b9c9e5;
+  --accent:#55b7ff;
+  --border:#31598d;
+  --hover:#174a89;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Segoe UI,Arial,sans-serif;
+  background:linear-gradient(135deg,var(--bg),#0b2c5c 55%,#061a3a);
+  color:var(--text);
+  min-height:100vh;
+}
+.container{max-width:1450px;margin:auto;padding:28px}
+header{
+  background:linear-gradient(135deg,#103e7a,#082550);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:25px 28px;
+  box-shadow:0 12px 35px rgba(0,0,0,.35);
+}
+h1{margin:0 0 8px;font-size:30px}
+.subtitle{color:var(--muted);font-size:15px}
+.controls{
+  margin:18px 0;
+  display:flex;gap:10px;flex-wrap:wrap;
+}
+input,button{
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:11px 14px;
+  font-size:15px;
+}
+input{
+  flex:1;min-width:260px;
+  background:#071f43;color:white;outline:none;
+}
+button{
+  background:#124783;color:white;cursor:pointer;
+}
+button:hover{background:#1a5b9f}
+.info{
+  color:var(--muted);
+  margin:8px 0 14px;
+}
+.table-wrap{
+  overflow:auto;
+  border:1px solid var(--border);
+  border-radius:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.28);
+}
+table{width:100%;border-collapse:collapse;background:rgba(7,29,62,.95)}
+th{
+  position:sticky;top:0;z-index:2;
+  background:#123f79;color:#fff;
+  text-align:left;padding:13px 12px;
+  cursor:pointer;white-space:nowrap;
+}
+td{padding:11px 12px;border-top:1px solid #23466f;vertical-align:top}
+tbody tr:hover{background:var(--hover)}
+.abbr{
+  font-weight:700;color:#6dc4ff;white-space:nowrap;
+}
+.eng{font-weight:600}
+.sl{color:#e6f0ff}
+.desc{color:#bdcce3;font-size:13px;line-height:1.35}
+footer{
+  margin-top:18px;color:var(--muted);font-size:13px;
+  padding:10px 2px;
+}
+.badge{
+  display:inline-block;background:#0c5a98;border:1px solid #3989c7;
+  border-radius:20px;padding:4px 9px;margin-left:7px;font-size:12px;
+}
+@media(max-width:700px){
+  .container{padding:14px}
+  h1{font-size:23px}
+  th,td{padding:9px 8px}
+}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+<h1>🏃 Slovar atletskih kratic in oznak &nbsp; &nbsp;
+    <font size=2><font color = 'orange'>(Made by Iztok Valenčič)</font>
+</h1>
+  <div class="subtitle">
+    Kratice, simboli in oznake iz priloženega dokumenta World Athletics – Words and Terms,
+    s slovenskim prevodom.
+  </div>
+</header>
+
+<div class="controls">
+  <input id="search" type="search"
+    placeholder="🔎 Išči po kratici, angleškem ali slovenskem izrazu...">
+  <button onclick="clearSearch()">Počisti</button>
+  <button onclick="sortBy(0)">Sortiraj po kratici</button>
+  <button onclick="sortBy(1)">Sortiraj po angleškem</button>
+  <button onclick="sortBy(2)">Sortiraj po slovenskem</button>
+</div>
+
+<div class="info">Prikazanih: <span id="count"></span><span class="badge">UTF-8</span></div>
+
+<div class="table-wrap">
+<table id="dict">
+<thead>
+<tr>
+<th onclick="sortBy(0)">Kratica / oznaka</th>
+<th onclick="sortBy(1)">Angleški izraz</th>
+<th onclick="sortBy(2)">Slovenski prevod</th>
+<th>Pojasnilo</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
+
+<footer>
+Vir: priloženi PDF »Words and terms«, posodobljen 3. 9. 2025.
+Slovenski prevodi so pripravljeni kot prevodi izrazov iz dokumenta; pri nekaterih oznakah je dodana
+razlaga zaradi lažjega razumevanja v atletskem kontekstu.
+</footer>
+</div>
+
+<script>
+const data = [
+["AR","Area Record","Rekord območja / celine","Rekord za določeno območje, npr. evropski ali afriški rekord."],
+["CLR","Club Record","Klubski rekord","Rekord atletskega kluba."],
+["CollR","Collegiate Record","Univerzitetni rekord","Rekord v univerzitetni konkurenci."],
+["CoR","Course Record","Rekord proge","Najboljši rezultat na določeni progi oziroma trasi."],
+["CR","Championship Record","Rekord prvenstva","Rekord, dosežen na določenem prvenstvu."],
+["DNF","Did Not Finish","Ni končal","Tekmovalec je nastop začel, vendar discipline ni končal."],
+["DNS","Did Not Start","Ni startal","Tekmovalec je bil prijavljen, vendar ni nastopil."],
+["DoB","Date of Birth","Datum rojstva","Datum rojstva atleta."],
+["DQ","Disqualified","Diskvalificiran","Tekmovalec je bil diskvalificiran."],
+["DQ RULE","Disqualification Rule","Pravilo za diskvalifikacijo","Konkretno pravilo, na podlagi katerega je bil tekmovalec diskvalificiran."],
+["FR","Facility Record","Rekord objekta","Rekord, dosežen na določenem športnem objektu."],
+["HiR","High School Record","Srednješolski rekord","Rekord srednješolske konkurence."],
+["INITIAL MR","Initial Meet/Meeting Record","Začetni rekord tekmovanja","Rekord tekmovanja na začetku tekmovanja."],
+["INITIAL PB","Initial Personal Best","Začetni osebni rekord","Osebni rekord atleta na začetku tekmovanja."],
+["INITIAL SB","Initial Season Best","Začetni najboljši rezultat sezone","Najboljši rezultat atleta na začetku sezone oziroma tekmovanja."],
+["INITIAL WR","Initial World Record","Začetni svetovni rekord","Svetovni rekord na začetku tekmovanja."],
+["LeR","League Record","Rekord lige","Rekord v določeni ligi."],
+["MR","Meet/Meeting Record","Rekord tekmovanja","Rekord, dosežen na tekmovanju."],
+["NH","No Height","Brez veljavne višine","Pri skoku v višino ali s palico atlet nima veljavnega rezultata."],
+["NM","No Mark","Brez rezultata","Atlet nima veljavnega dosežka oziroma rezultata."],
+["NR","National Record","Državni rekord","Državni rekord."],
+["OGQ","Olympic Games Qualifying Mark","Kvalifikacijska norma za olimpijske igre","Rezultat oziroma norma za nastop na olimpijskih igrah."],
+["OOC","Out of the Competition","Izven tekmovanja","Nastop oziroma rezultat ni več v tekmovalni konkurenci."],
+["PB","Personal Best","Osebni rekord","Najboljši rezultat atleta v karieri."],
+["RC","Red Card","Rdeči karton","Rdeči karton."],
+["REACT.","Reaction Time","Reakcijski čas","Čas od startnega signala do začetka odziva tekača."],
+["RegR","Regional Record","Regionalni rekord","Rekord določene regije."],
+["SB","Season Best","Najboljši rezultat sezone","Najboljši rezultat atleta v tekoči sezoni."],
+["SCR","Scratch","Odjava / umik nastopa","Umik prijave atleta iz discipline ali tekmovanja."],
+["SR","Seeding Result","Rezultat za razvrščanje","Rezultat, uporabljen pri razvrščanju atletov v skupine ali teke."],
+["WCQ","World Championships Qualifying","Kvalifikacija za svetovno prvenstvo","Kvalifikacijska oznaka za svetovno prvenstvo."],
+["WICQ","World Indoor Championships Qualifying","Kvalifikacija za svetovno dvoransko prvenstvo","Kvalifikacijska oznaka za svetovno dvoransko prvenstvo."],
+["WB","World Best","Svetovni najboljši rezultat","Najboljši dosežek na svetu."],
+["WL","World Lead","Svetovni vodilni rezultat","Najboljši rezultat na svetu v tekoči sezoni."],
+["WR","World Record","Svetovni rekord","Svetovni rekord."],
+["WU20Q","World U20 Qualifying","Kvalifikacija za svetovno prvenstvo U20","Kvalifikacijska oznaka za kategorijo U20."],
+["YC","Yellow Card","Rumeni karton","Rumeni karton."],
+["YoB","Year of Birth","Leto rojstva","Leto rojstva atleta."],
+["YRC","Second Yellow Card","Drugi rumeni karton","Drugi rumeni karton, ki ima za posledico rdeči karton."],
+["Q","Automatic Qualification","Avtomatska kvalifikacija","Velika Q pomeni neposredno oziroma avtomatsko kvalifikacijo."],
+["q","Qualification – best of the rest","Kvalifikacija – najboljši med preostalimi","Mala q označuje kvalifikacijo po najboljših preostalih rezultatih."],
+["qD","Qualification by Draw","Kvalifikacija z žrebom","Kvalifikacija za naslednji krog z žrebom."],
+["qJ","Qualification by Jury of Appeal","Kvalifikacija po odločitvi pritožbene komisije","Kvalifikacija za naslednji krog po odločitvi žirije za pritožbe."],
+["qR","Qualification by Referee","Kvalifikacija po odločitvi sodnika","Kvalifikacija za naslednji krog po odločitvi sodnika."],
+["r","Retired","Odstopil / prenehal z nastopom","Oznaka za atleta, ki je odstopil v skoku ali mnogoboju."],
+["o","Valid attempt","Veljaven poskus","Veljaven poskus pri skoku v višino ali skoku s palico."],
+["x","Failed attempt","Neuspešen poskus","Neuspešen poskus v skakalni ali metalni disciplini."],
+["-","Passed attempt","Preskočen poskus","Atlet je poskus v tehnični disciplini izpustil."],
+[">","Bent knee","Upognjeno koleno","Oznaka pri tekmovalni hoji za upognjeno koleno."],
+["~","Loss of contact","Izguba stika s podlago","Oznaka pri tekmovalni hoji za izgubo stika s podlago."]
+];
+
+const tbody=document.querySelector("#dict tbody");
+const search=document.getElementById("search");
+let current=data.slice();
+
+function render(){
+  const q=search.value.trim().toLowerCase();
+  const filtered=current.filter(r=>r.join(" ").toLowerCase().includes(q));
+  tbody.innerHTML=filtered.map(r=>`
+    <tr>
+      <td class="abbr">${esc(r[0])}</td>
+      <td class="eng">${esc(r[1])}</td>
+      <td class="sl">${esc(r[2])}</td>
+      <td class="desc">${esc(r[3])}</td>
+    </tr>`).join("");
+  document.getElementById("count").textContent=filtered.length+" / "+current.length;
+}
+function esc(s){
+  return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+}
+function sortBy(col){
+  current.sort((a,b)=>a[col].localeCompare(b[col],"sl",{numeric:true,sensitivity:"base"}));
+  render();
+}
+function clearSearch(){search.value="";render();}
+search.addEventListener("input",render);
+render();
+</script>
+</body>
+</html>
