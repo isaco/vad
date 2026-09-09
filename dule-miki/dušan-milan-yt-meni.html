@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Legende atletike</title>
+
+<style>
+    * { box-sizing: border-box; }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: Arial, Helvetica, sans-serif;
+        background: radial-gradient(circle at top, #163c69 0%, #081a32 45%, #030b17 100%);
+        color: white;
+    }
+
+    header {
+        text-align: center;
+        padding: 35px 20px 25px;
+    }
+
+    h1 {
+        margin: 0;
+        font-size: clamp(34px, 5vw, 62px);
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: #ffffff;
+        text-shadow: 0 3px 0 #071321, 0 6px 15px rgba(0,0,0,.8);
+    }
+
+    .podnaslov {
+        margin-top: 12px;
+        color: #b9d8f5;
+        font-size: 18px;
+        letter-spacing: 2px;
+    }
+
+    .main {
+        width: 94%;
+        max-width: 1400px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 35px;
+        padding: 20px 0 50px;
+    }
+
+    .athlete {
+        position: relative;
+        padding: 25px;
+        border-radius: 25px;
+        background: linear-gradient(145deg, rgba(31,78,121,.85), rgba(4,19,38,.95));
+        border: 1px solid rgba(255,255,255,.15);
+        box-shadow: 0 20px 45px rgba(0,0,0,.55), inset 0 1px 1px rgba(255,255,255,.15);
+        transition: .4s;
+    }
+
+    .athlete:hover {
+        transform: translateY(-7px);
+        box-shadow: 0 28px 55px rgba(0,0,0,.7), inset 0 1px 1px rgba(255,255,255,.2);
+    }
+
+    .athlete h2 {
+        text-align: center;
+        font-size: 30px;
+        margin: 5px 0 25px;
+        letter-spacing: 1px;
+        text-shadow: 0 3px 8px black;
+    }
+
+    .gallery {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+    }
+
+    .photo {
+        width: 100%;
+        height: 300px;
+        object-fit: contain;
+        background: #061525;
+        border-radius: 18px;
+        border: 2px solid rgba(255,255,255,.2);
+        box-shadow: 0 12px 25px rgba(0,0,0,.6);
+        transition: .4s;
+    }
+
+    .photo:hover {
+        transform: scale(1.035);
+        border-color: rgba(255,255,255,.5);
+    }
+
+    .video-btn {
+        display: block;
+        width: 85%;
+        max-width: 400px;
+        margin: 28px auto 5px;
+        padding: 17px 25px;
+        border: none;
+        border-radius: 14px;
+        font-size: 19px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        color: white;
+        background: linear-gradient(145deg, #2678bd, #0d477c);
+        cursor: pointer;
+        box-shadow: 0 8px 0 #062746, 0 14px 25px rgba(0,0,0,.55), inset 0 1px 2px rgba(255,255,255,.4);
+        transition: all .15s ease;
+    }
+
+    .video-btn:hover {
+        background: linear-gradient(145deg, #3495e5, #12568f);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 0 #062746, 0 18px 30px rgba(0,0,0,.65), inset 0 1px 3px rgba(255,255,255,.5);
+    }
+
+    .video-btn:active {
+        transform: translateY(7px);
+        box-shadow: 0 2px 0 #062746, 0 5px 10px rgba(0,0,0,.5);
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,.88);
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .modal-content {
+        position: relative;
+        width: 95%;
+        max-width: 1100px;
+        background: linear-gradient(145deg, #102f52, #040d19);
+        border-radius: 22px;
+        padding: 18px;
+        box-shadow: 0 25px 70px rgba(0,0,0,.9), inset 0 1px 1px rgba(255,255,255,.15);
+    }
+
+    .modal-title {
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        margin: 5px 45px 15px;
+    }
+
+    .video-container {
+        position: relative;
+        width: 100%;
+        padding-bottom: 56.25%;
+        height: 0;
+        overflow: hidden;
+        border-radius: 14px;
+        background: black;
+    }
+
+    .video-container video {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        border: 0;
+        object-fit: cover;
+    }
+
+    .close {
+        position: absolute;
+        right: 15px;
+        top: 10px;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        border: none;
+        font-size: 25px;
+        font-weight: bold;
+        color: white;
+        background: #9b1c1c;
+        cursor: pointer;
+        box-shadow: 0 5px 0 #571010, 0 8px 15px rgba(0,0,0,.5);
+        transition: .15s;
+    }
+
+    .close:hover {
+        background: #c52a2a;
+        transform: translateY(-2px);
+    }
+
+    .close:active {
+        transform: translateY(4px);
+        box-shadow: 0 1px 0 #571010;
+    }
+
+    footer {
+        text-align: center;
+        padding: 15px 10px 30px;
+        color: #8eabc8;
+        font-size: 14px;
+        letter-spacing: 1px;
+    }
+
+    @media (max-width: 850px) {
+        .main { grid-template-columns: 1fr; width: 94%; }
+        .photo { height: 280px; }
+        .athlete h2 { font-size: 26px; }
+    }
+
+    @media (max-width: 520px) {
+        .gallery { grid-template-columns: 1fr; }
+        .photo { height: 320px; }
+        .video-btn { width: 100%; }
+        .athlete { padding: 18px; }
+    }
+</style>
+
+</head>
+
+<body>
+
+<header>
+<h1>Legende atletike</h1>
+<div class="podnaslov">Dušan Košutič &nbsp; • &nbsp; Milan Spasojević</div>
+</header>
+
+<main class="main">
+
+<section class="athlete">
+    <h2>Dušan Košutič</h2>
+
+    <div class="gallery">
+        <img class="photo" src="F:/dušan-košutič/košutič-daljina.JPG" alt="Dušan Košutič – daljina">
+        <img class="photo" src="F:/dušan-košutič/dušan-k.JPG" alt="Dušan Košutič">
+    </div>
+
+    <button class="video-btn"
+        onclick="openVideoMP4(
+            'Legende Atletike - Dušan Košutić.mp4',
+            'Dušan Košutič – video'
+        )">
+        ▶ &nbsp; Dušan Košutič
+    </button>
+</section>
+
+<section class="athlete">
+    <h2>Milan Spasojević</h2>
+
+    <div class="gallery">
+        <img class="photo" src="F:/milan-spasojević/miki-s.JPG" alt="Milan Spasojević">
+        <img class="photo" src="F:/milan-spasojević/ms-ok.JPG" alt="Milan Spasojević">
+    </div>
+
+    <button class="video-btn"
+        onclick="openVideoMP4(
+            'Legende Atletike - Milan Spasojević.mp4',
+            'Milan Spasojević – video'
+        )">
+        ▶ &nbsp; Milan Spasojević
+    </button>
+</section>
+
+</main>
+
+<footer>
+    Legende atletike &nbsp; • &nbsp; Dušan Košutič &nbsp; • &nbsp; Milan Spasojević
+</footer>
+
+<!-- MODAL ZA MP4 VIDEO -->
+<div id="videoModal" class="modal">
+<div class="modal-content">
+
+    <button class="close" onclick="closeVideo()">×</button>
+
+    <div id="modalTitle" class="modal-title">Video</div>
+
+    <div class="video-container">
+        <video id="localVideo" autoplay muted playsinline>
+            <source id="videoSource" src="" type="video/mp4">
+        </video>
+    </div>
+
+</div>
+</div>
+
+<script>
+function openVideoMP4(fileName, title) {
+
+    const modal = document.getElementById("videoModal");
+    const video = document.getElementById("localVideo");
+    const source = document.getElementById("videoSource");
+    const modalTitle = document.getElementById("modalTitle");
+
+    source.src = fileName;
+    video.load();
+    video.play();
+
+    modalTitle.textContent = title;
+
+    modal.style.display = "flex";
+    document.body.style.overflow = "hidden";
+}
+
+function closeVideo() {
+
+    const modal = document.getElementById("videoModal");
+    const video = document.getElementById("localVideo");
+
+    video.pause();
+    video.currentTime = 0;
+
+    modal.style.display = "none";
+    document.body.style.overflow = "auto";
+}
+
+window.onclick = function(event) {
+    const modal = document.getElementById("videoModal");
+    if (event.target === modal) closeVideo();
+};
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") closeVideo();
+});
+</script>
+
+</body>
+</html>

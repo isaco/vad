@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dušan Košutić – biografski in atletski podatki</title>
+<style>
+    * { box-sizing: border-box; }
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #071a33;
+        color: #eef5ff;
+        line-height: 1.5;
+    }
+    .container {
+        max-width: 1250px;
+        margin: 0 auto;
+        padding: 25px 18px 45px;
+    }
+    h1 {
+        margin: 0 0 6px;
+        text-align: center;
+        font-size: 2.1rem;
+        color: #ffffff;
+    }
+    .subtitle {
+        text-align: center;
+        color: #a9c9ee;
+        margin-bottom: 25px;
+        font-size: 1rem;
+    }
+    .card {
+        background: #0d294d;
+        border: 1px solid #1d4b79;
+        border-radius: 14px;
+        padding: 18px;
+        margin-bottom: 20px;
+        box-shadow: 0 8px 25px rgba(0,0,0,.22);
+    }
+    h2 {
+        margin: 0 0 14px;
+        color: #7fc3ff;
+        font-size: 1.25rem;
+        border-bottom: 1px solid #245786;
+        padding-bottom: 8px;
+    }
+    .table-wrap { overflow-x: auto; }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 650px;
+    }
+    th, td {
+        padding: 10px 12px;
+        border-bottom: 1px solid #21486e;
+        vertical-align: top;
+        text-align: left;
+    }
+    th {
+        width: 28%;
+        color: #9ed1ff;
+        font-weight: 700;
+        background: #0a2342;
+    }
+    tr:last-child td, tr:last-child th { border-bottom: 0; }
+    .highlight {
+        color: #fff;
+        font-weight: 700;
+    }
+    .note {
+        color: #b7c9dc;
+        font-size: .9rem;
+        margin-top: 8px;
+    }
+    .search-box {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 9px;
+        border: 1px solid #34658e;
+        background: #06172c;
+        color: white;
+        font-size: 1rem;
+        outline: none;
+        margin-bottom: 12px;
+    }
+    .search-box:focus { border-color: #70b8ef; }
+    .small-table {
+        min-width: 520px;
+    }
+    .small-table th {
+        width: auto;
+    }
+    .footer {
+        text-align: center;
+        color: #88a7c5;
+        font-size: .85rem;
+        margin-top: 25px;
+    }
+    @media (max-width: 700px) {
+        .container { padding: 15px 10px 30px; }
+        h1 { font-size: 1.55rem; }
+        th, td { padding: 8px; }
+    }
+</style>
+</head>
+<body>
+<div class="container">
+
+    <h1>DUŠAN KOŠUTIĆ</h1>
+    <div class="subtitle">Biografski in atletski podatki</div>
+
+    <div class="card">
+        <h2>Osnovni podatki</h2>
+        <div class="table-wrap">
+        <table>
+            <tr><th>Ime in priimek</th><td class="highlight">Košutić, Dušan</td></tr>
+            <tr><th>Rojen</th><td>Beograd, 31. V. 1947</td></tr>
+            <tr><th>Država / okolje</th><td>Jugoslavija</td></tr>
+            <tr><th>Višina</th><td>187 cm</td></tr>
+            <tr><th>Teža</th><td>73 kg</td></tr>
+            <tr><th>Poklic / izobrazba</th><td>Advokat; diplomiral na Pravnem fakultetu v Beogradu</td></tr>
+            <tr><th>Atletsko obdobje</th><td>1965–1974</td></tr>
+            <tr><th>Reprezentančni nastopi</th><td>7-krat (1965–1971) in 3-krat kot junior</td></tr>
+        </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Atletski klubi</h2>
+        <div class="table-wrap">
+        <table>
+            <tr><th>Obdobje</th><th>Klub</th><th>Opomba</th></tr>
+            <tr><td>1965–1966</td><td>AK Morava</td><td>Član kluba</td></tr>
+            <tr><td>1967–1971</td><td>AK Partizan (Beograd)</td><td>Član kluba</td></tr>
+            <tr><td>od 1972</td><td>AK Radnički (Kragujevac)</td><td>Član kluba</td></tr>
+        </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Razvoj rezultatov – skok v daljino (LJ)</h2>
+        <input class="search-box" id="searchLJ" type="text" placeholder="Išči po letu ali rezultatu …">
+        <div class="table-wrap">
+        <table id="ljTable" class="small-table">
+            <thead><tr><th>Leto</th><th>Rezultat (m)</th></tr></thead>
+            <tbody>
+                <tr><td>1965</td><td>6,61</td></tr>
+                <tr><td>1966</td><td>7,04</td></tr>
+                <tr><td>1967</td><td>7,34</td></tr>
+                <tr><td>1968</td><td>7,30</td></tr>
+                <tr><td>1969</td><td>nm</td></tr>
+                <tr><td>1970</td><td>7,34</td></tr>
+                <tr><td>1971</td><td>7,78</td></tr>
+                <tr><td>1972</td><td>7,36</td></tr>
+                <tr><td>1973</td><td>7,11</td></tr>
+                <tr><td>1974</td><td>6,92</td></tr>
+            </tbody>
+        </table>
+        </div>
+        <div class="note">nm = ni rezultata / brez veljavnega rezultata.</div>
+    </div>
+
+    <div class="card">
+        <h2>Osebni najboljši rezultati (PBS)</h2>
+        <div class="table-wrap">
+        <table>
+            <tr><th>Disciplina</th><th>Rezultat</th><th>Leto</th></tr>
+            <tr><td>100 m</td><td class="highlight">10,9 s</td><td>1971</td></tr>
+            <tr><td>200 m</td><td class="highlight">22,1 s</td><td>1971</td></tr>
+            <tr><td>Troskok (TJ)</td><td class="highlight">15,36 m</td><td>1971</td></tr>
+            <tr><td>Skok v daljino – indoor (LJ)</td><td class="highlight">7,66 m</td><td>1972</td></tr>
+            <tr><td>Troskok – indoor (TJ)</td><td class="highlight">15,12 m</td><td>1969</td></tr>
+        </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Nastopi na evropskih prvenstvih</h2>
+        <div class="table-wrap">
+        <table>
+            <tr><th>Leto</th><th>Tekmovanje</th><th>Disciplina</th><th>Rezultat / uvrstitev</th></tr>
+            <tr><td>1971</td><td>EP</td><td>Skok v daljino (LJ)</td><td>7,60 m – kvalifikacije (Q)</td></tr>
+            <tr><td>1969</td><td>EP v dvorani</td><td>Troskok (TJ)</td><td>14,81 m – 9. mesto (IX)</td></tr>
+        </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Tekmovalni in strokovni podatki</h2>
+        <div class="table-wrap">
+        <table>
+            <tr><th>Jugoslovanski prvak</th><td>1-krat kot junior</td></tr>
+            <tr><th>Trener</th><td>D. Milosavljević</td></tr>
+            <tr><th>Reprezentanca</th><td>7 nastopov v obdobju 1965–1971; 3 nastopi kot junior</td></tr>
+        </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Funkcije in priznanja</h2>
+        <div class="table-wrap">
+        <table>
+            <tr><th>Atletska zveza</th><td>Bil je član UO ASS in opravljal tudi druge funkcije.</td></tr>
+            <tr><th>Priznanja</th><td>Dobitnik Zlatnih plaketa ASJ in ASS.</td></tr>
+            <tr><th>Opomba vira</th><td>(a)</td></tr>
+        </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Celoten zapis vira</h2>
+        <div class="table-wrap">
+        <table>
+            <tr>
+                <th>Prepis</th>
+                <td>
+                    KOŠUTIĆ, Dušan (Beograd, 31.V 1947 -), atl. reprez. iz Ćuprije,
+                    član AK Morava (1965-66), AK Partizan (Beograd) 1967-71 i AK
+                    Radnički (Kragujevac) od 1972. god. Advokat, dipl. na Pravnom
+                    fakultetu u Beogradu, visok 187cm, težak 73kg. Atl. se bavio u
+                    periodu 1965-74, reprez. 7 puta (1965-71) i 3 puta kao junior.
+                    Razvoj (LJ): 1965- 6,61; 1966- 7,04; 1967- 7,34; 1968- 7,30;
+                    1969- nm; 1970- 7,34; 1971- 7,78; 1972- 7,36; 1973- 7,11;
+                    1974- 6,92. PBS: 100: 10.9 (1971); 200- 22,1 (1971);
+                    TJ- 15,36 (1971); indoor: LJ- 7,66 (1972); TJ- 15,12 (1969).
+                    Učesnik EP 1971 (LJ- 7,60 Q) i EP u dvorani 1969
+                    (TJ-14,81 IX). Prvak Jugoslov. 1 put kao junior.
+                    Trener: D. Milosavljević. Bio je član UO ASS a obavljao je
+                    i druge funkc. Dobitnik Zlatnih plaketa ASJ in ASS. (a)
+                </td>
+            </tr>
+        </table>
+        </div>
+    </div>
+
+    <div class="footer">
+        <font color='orange'>Made by Iztok Valenčič - vir:  Dušan Prezlj - kopija iz knjige</font>
+    </div>
+</div>
+
+<script>
+function setupSearch(inputId, tableId) {
+    const input = document.getElementById(inputId);
+    const table = document.getElementById(tableId);
+    const rows = table.querySelectorAll("tbody tr");
+
+    input.addEventListener("input", function () {
+        const q = this.value.toLowerCase().trim();
+        rows.forEach(row => {
+            row.style.display = row.textContent.toLowerCase().includes(q) ? "" : "none";
+        });
+    });
+}
+setupSearch("searchLJ", "ljTable");
+</script>
+</body>
+</html>
