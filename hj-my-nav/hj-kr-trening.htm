@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <title>Trening HJ - Kranj 6.9.26</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+            background: #0b1220;
+            color: #e5e7eb;
+        }
+
+        header {
+            padding: 16px 24px;
+            border-bottom: 1px solid #1f2937;
+            background: linear-gradient(90deg, #0b1220, #111827);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 20px;
+            letter-spacing: 0.03em;
+        }
+
+        .layout {
+            display: flex;
+            gap: 12px;
+            padding: 12px;
+            height: calc(100vh - 64px);
+            box-sizing: border-box;
+        }
+
+        .video-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #111827;
+            border-radius: 10px;
+            border: 1px solid #1f2937;
+            overflow: hidden;
+        }
+
+        .video-header {
+            padding: 8px 12px;
+            font-size: 13px;
+            border-bottom: 1px solid #1f2937;
+            background: #020617;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            background: #020617;
+        }
+
+        .controls-bar {
+            display: flex;
+            gap: 8px;
+            padding: 8px 12px;
+            border-top: 1px solid #1f2937;
+            background: #020617;
+        }
+
+        button {
+            padding: 6px 12px;
+            font-size: 13px;
+            border-radius: 999px;
+            border: 1px solid #374151;
+            background: #1f2937;
+            color: #e5e7eb;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #2563eb;
+            border-color: #2563eb;
+        }
+
+        .spacer {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Trening HJ - Kranj 6.9.26 &nbsp;&nbsp;
+        <a href='hj-koncentracija.za skok.pdf' target='_blank'>navodila</a>
+    </h1>
+</header>
+
+<div class="layout">
+    <div class="video-panel">
+        <div class="video-header">Video 1: dp-kr</div>
+        <video id="video1" controls>
+            <!-- prilagodi pot, če je potrebno -->
+            <source src="dp-kr.mp4" type="video/mp4">
+            Vaš brskalnik ne podpira video elementa.
+        </video>
+        <div class="controls-bar">
+            <button onclick="playBoth()">Play oba</button>
+            <button onclick="pauseBoth()">Pause oba</button>
+            <div class="spacer"></div>
+        </div>
+    </div>
+
+    <div class="video-panel">
+        <div class="video-header">Video 2: ici-kr1</div>
+        <video id="video2" controls>
+            <!-- če je .mpr drugačen format, zamenjaj tip ali končnico -->
+            <source src="ici-kr1.mp4" type="video/mp4">
+            Vaš brskalnik ne podpira video elementa.
+        </video>
+        <div class="controls-bar">
+            <button onclick="syncToFirst()">Poravnaj čas z Video 1</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const v1 = document.getElementById('video1');
+    const v2 = document.getElementById('video2');
+
+    function playBoth() {
+        if (!v1.paused) {
+            v2.currentTime = v1.currentTime;
+        }
+        v1.play();
+        v2.play();
+    }
+
+    function pauseBoth() {
+        v1.pause();
+        v2.pause();
+    }
+
+    function syncToFirst() {
+        v2.currentTime = v1.currentTime;
+    }
+</script>
+</body>
+</html>

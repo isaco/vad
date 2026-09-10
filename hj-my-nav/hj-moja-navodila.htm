@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <title>HJ – navodila in materiali</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top, #1b3b6b 0%, #050814 55%, #02030a 100%);
+            color: #f5f7ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .wrapper {
+            max-width: 900px;
+            width: 90%;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+        }
+
+        .subtitle {
+            margin-bottom: 2.5rem;
+            color: #b9c4e8;
+            font-size: 0.95rem;
+        }
+
+        .btn-row {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-3d {
+            position: relative;
+            padding: 0.9rem 1.8rem;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #e9f0ff;
+            background: linear-gradient(145deg, #2b5bb0, #1b3b6b);
+            box-shadow:
+                0 10px 18px rgba(0, 0, 0, 0.55),
+                0 0 0 1px rgba(255, 255, 255, 0.04),
+                inset 0 0 12px rgba(255, 255, 255, 0.12);
+            transition:
+                transform 0.12s ease-out,
+                box-shadow 0.12s ease-out,
+                background 0.12s ease-out;
+        }
+
+        .btn-3d::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: radial-gradient(circle at 20% 0%, rgba(255, 255, 255, 0.25), transparent 55%);
+            opacity: 0.9;
+            pointer-events: none;
+        }
+
+        .btn-3d:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                0 14px 24px rgba(0, 0, 0, 0.7),
+                0 0 0 1px rgba(255, 255, 255, 0.06),
+                inset 0 0 14px rgba(255, 255, 255, 0.18);
+            background: linear-gradient(145deg, #3366c7, #1f447c);
+        }
+
+        .btn-3d:active {
+            transform: translateY(1px);
+            box-shadow:
+                0 6px 10px rgba(0, 0, 0, 0.6),
+                0 0 0 1px rgba(255, 255, 255, 0.03),
+                inset 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Modal */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.65);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal {
+            background: #0b1224;
+            border-radius: 18px;
+            max-width: 720px;
+            width: 90%;
+            box-shadow:
+                0 18px 40px rgba(0, 0, 0, 0.85),
+                0 0 0 1px rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            transform: translateY(10px);
+            opacity: 0;
+            transition: opacity 0.18s ease-out, transform 0.18s ease-out;
+        }
+
+        .modal-backdrop.show .modal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 0.9rem 1.4rem;
+            background: linear-gradient(135deg, #1f3f7a, #162544);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .modal-close {
+            border: none;
+            background: transparent;
+            color: #e0e6ff;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 1.4rem 1.4rem 1.1rem;
+        }
+
+        .modal-body img {
+            max-width: 100%;
+            border-radius: 12px;
+            display: block;
+            margin: 0 auto 1rem;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.7);
+        }
+
+        /* ✔ NEW: manjša slika samo za navodila-po-fazah.JPG */
+        .modal-body img.small-img {
+            max-width: 70%;
+            height: auto;
+        }
+
+        .modal-footer {
+            padding: 0.9rem 1.4rem 1.2rem;
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.8rem;
+        }
+
+        .link-btn {
+            padding: 0.55rem 1.1rem;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            background: #2b5bb0;
+            color: #e9f0ff;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.6);
+        }
+
+        .link-btn.secondary {
+            background: #262c3f;
+        }
+
+        .link-btn a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            .btn-row {
+                gap: 1rem;
+            }
+            .btn-3d {
+                width: 100%;
+                max-width: 260px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <h1>HJ – navodila za trening</h1>
+    <h4><font color='orange'>Made by Iztok Valenčič</font></h4>
+    <div class="subtitle">
+        Izberi gumb za hiter dostop do navodil, kartice in videa.
+    </div>
+
+    <div class="btn-row">
+        <button class="btn-3d" data-type="navodila">navodila po fazah</button>
+        <button class="btn-3d" data-type="kartica">kartica</button>
+        <button class="btn-3d" data-type="video">video</button>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title" id="modalTitle">NASLOV</div>
+            <button class="modal-close" id="modalClose" aria-label="Zapri">&times;</button>
+        </div>
+        <div class="modal-body">
+            <img id="modalImage" src="" alt="">
+        </div>
+        <div class="modal-footer">
+            <button class="link-btn secondary" id="closeFooterBtn">Zapri</button>
+            <button class="link-btn">
+                <a id="modalLink" href="#" target="_blank" rel="noopener noreferrer">Odpri povezavo</a>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        var backdrop = document.getElementById('modalBackdrop');
+        var modalTitle = document.getElementById('modalTitle');
+        var modalImage = document.getElementById('modalImage');
+        var modalLink = document.getElementById('modalLink');
+        var closeBtn = document.getElementById('modalClose');
+        var closeFooterBtn = document.getElementById('closeFooterBtn');
+
+        var config = {
+            navodila: {
+                title: 'Navodila po fazah',
+                img: 'hj-navodila-po-fazah.JPG',
+                link: 'hj-navodila-po-fazah.htm'
+            },
+            kartica: {
+                title: 'Kartica',
+                img: 'dp-kartica.JPG',
+                link: 'dp-kartica.JPG'
+            },
+            video: {
+                title: 'Skoki Dušan & Iztok',
+                img: 'ikona-mp4.JPG',
+                link: 'hj-kr-trening.htm'
+            }
+        };
+
+        function openModal(type) {
+            var item = config[type];
+            if (!item) return;
+
+            modalTitle.textContent = item.title;
+            modalImage.src = item.img;
+            modalImage.alt = item.title;
+            modalLink.href = item.link;
+
+            /* ✔ NEW: dodaj razred small-img samo za navodila */
+            modalImage.classList.toggle('small-img', type === 'navodila');
+
+            backdrop.style.display = 'flex';
+            setTimeout(function () {
+                backdrop.classList.add('show');
+            }, 10);
+        }
+
+        function closeModal() {
+            backdrop.classList.remove('show');
+            setTimeout(function () {
+                backdrop.style.display = 'none';
+            }, 180);
+        }
+
+        document.querySelectorAll('.btn-3d').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var type = btn.getAttribute('data-type');
+                openModal(type);
+            });
+        });
+
+        closeBtn.addEventListener('click', closeModal);
+        closeFooterBtn.addEventListener('click', closeModal);
+
+        backdrop.addEventListener('click', function (e) {
+            if (e.target === backdrop) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    })();
+</script>
+</body>
+</html>
