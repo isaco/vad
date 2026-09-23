@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+  <meta charset="UTF-8">
+  <title>Dan Športa – Janez Matoh</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Global layout */
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #f5f7ff;
+      background: radial-gradient(circle at top left, #1b3b73 0%, #0b1a33 40%, #020817 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .page-wrapper {
+      max-width: 900px;
+      width: 100%;
+      padding: 32px 20px;
+      box-sizing: border-box;
+    }
+
+    .card {
+      background: linear-gradient(145deg, #0f2144, #07101f);
+      border-radius: 18px;
+      box-shadow:
+        0 24px 40px rgba(0, 0, 0, 0.65),
+        0 0 0 1px rgba(120, 170, 255, 0.12);
+      padding: 28px 28px 32px;
+    }
+
+    /* Header */
+    .title {
+      font-size: 2.1rem;
+      margin: 0 0 4px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      margin: 0 0 20px;
+      color: #c6d4ff;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .divider {
+      height: 1px;
+      border-radius: 999px;
+      background: linear-gradient(to right, transparent, #4f7cff, transparent);
+      margin-bottom: 22px;
+      opacity: 0.7;
+    }
+
+    /* Image */
+    .media-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .portrait {
+      width: 100%;
+      max-width: 420px;
+      border-radius: 16px;
+      box-shadow:
+        0 18px 32px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(150, 190, 255, 0.25);
+      object-fit: cover;
+      display: block;
+    }
+
+    /* 3D button */
+    .play-button {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 26px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #f5f7ff;
+      background: linear-gradient(135deg, #3b7cff, #1b4fd1);
+      box-shadow:
+        0 10px 18px rgba(0, 0, 0, 0.8),
+        0 0 0 1px rgba(180, 210, 255, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      transform: translateY(0);
+      transition:
+        transform 0.15s ease-out,
+        box-shadow 0.15s ease-out,
+        background 0.15s ease-out;
+    }
+
+    .play-button::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: inherit;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease-out;
+    }
+
+    .play-button:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 16px 26px rgba(0, 0, 0, 0.9),
+        0 0 0 1px rgba(200, 225, 255, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      background: linear-gradient(135deg, #4a8bff, #2358e0);
+    }
+
+    .play-button:hover::before {
+      opacity: 1;
+    }
+
+    .play-button:active {
+      transform: translateY(1px);
+      box-shadow:
+        0 6px 12px rgba(0, 0, 0, 0.85),
+        0 0 0 1px rgba(160, 190, 240, 0.4),
+        inset 0 2px 4px rgba(0, 0, 0, 0.45);
+      background: linear-gradient(135deg, #2f6ae0, #163f9f);
+    }
+
+    .play-icon {
+      width: 0;
+      height: 0;
+      border-left: 10px solid #f5f7ff;
+      border-top: 7px solid transparent;
+      border-bottom: 7px solid transparent;
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 8, 23, 0.78);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      backdrop-filter: blur(6px);
+    }
+
+    .modal {
+      background: linear-gradient(145deg, #0b1730, #050914);
+      border-radius: 16px;
+      box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.9),
+        0 0 0 1px rgba(130, 170, 240, 0.35);
+      padding: 16px 16px 18px;
+      max-width: 520px;
+      width: 90%;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .modal-title {
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #c6d4ff;
+    }
+
+    .modal-close {
+      border: none;
+      background: transparent;
+      color: #c6d4ff;
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 4px 8px;
+    }
+
+    .modal-video-wrapper {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow:
+        0 12px 24px rgba(0, 0, 0, 0.85),
+        0 0 0 1px rgba(150, 190, 255, 0.3);
+    }
+
+    video {
+      width: 100%;
+      display: block;
+      background: #000;
+    }
+
+    @media (max-width: 640px) {
+      .card {
+        padding: 22px 18px 26px;
+      }
+      .title {
+        font-size: 1.7rem;
+      }
+      .subtitle {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <div class="card">
+      <header>
+        <h1 class="title">Dan Športa</h1>
+        <h2 class="subtitle">Janez Matoh</h2>
+        <div class="divider"></div>
+      </header>
+
+      <section class="media-section">
+        <!-- Slika v isti mapi: j-matoh.png -->
+        <img src="j-matoh.png" alt="Janez Matoh – Dan Športa" class="portrait">
+
+        <!-- 3D gumb za predvajanje videa v modalnem oknu -->
+        <button class="play-button" id="openModalBtn">
+          <span class="play-icon"></span>
+          <span>Predvajaj video</span>
+        </button>
+      </section>
+    </div>
+  </div>
+
+  <!-- Modal za video -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <div class="modal-title" id="modalTitle">Dan Športa – video</div>
+        <button class="modal-close" id="closeModalBtn" aria-label="Zapri">
+          ×
+        </button>
+      </div>
+      <div class="modal-video-wrapper">
+        <video id="sportVideo" controls>
+          <source src="https://isaco.github.io/vad/jm-dan-športa.mp4" type="video/mp4">
+          Vaš brskalnik ne podpira video elementa.
+        </video>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var openBtn = document.getElementById('openModalBtn');
+      var closeBtn = document.getElementById('closeModalBtn');
+      var backdrop = document.getElementById('modalBackdrop');
+      var video = document.getElementById('sportVideo');
+
+      function openModal() {
+        backdrop.style.display = 'flex';
+        // Začnemo predvajanje, če je dovoljeno
+        try {
+          video.play();
+        } catch (e) {
+          // Nekateri brskalniki zahtevajo ročni klik za autoplay
+        }
+      }
+
+      function closeModal() {
+        backdrop.style.display = 'none';
+        video.pause();
+      }
+
+      openBtn.addEventListener('click', openModal);
+      closeBtn.addEventListener('click', closeModal);
+
+      backdrop.addEventListener('click', function (e) {
+        if (e.target === backdrop) {
+          closeModal();
+        }
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && backdrop.style.display === 'flex') {
+          closeModal();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
