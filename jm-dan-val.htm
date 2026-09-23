@@ -65,7 +65,7 @@
       gap: 18px;
     }
 
-    .portrait {
+    .portraitx {
       width: 100%;
       max-width: 420px;
       border-radius: 16px;
@@ -76,6 +76,14 @@
       display: block;
     }
 
+    .portrait {
+    height: 240px;   /* poljubno */
+    width: auto;
+    object-fit: cover; /* lepo odreže višek */
+}
+
+      
+      
     /* 3D button */
     .play-button {
       position: relative;
@@ -221,20 +229,21 @@
 <body>
   <div class="page-wrapper">
     <div class="card">
+        <center>
       <header>
         <h1 class="title">Dan Športa</h1>
         <h2 class="subtitle">Janez Matoh</h2>
         <div class="divider"></div>
       </header>
-
+        </center>
       <section class="media-section">
         <!-- Slika v isti mapi: j-matoh.png -->
-        <img src="j-matoh.png" alt="Janez Matoh – Dan Športa" class="portrait">
+        <img src="j-matoh.png" width='300' height=auto alt="Janez Matoh – Dan Športa" class="portrait">
 
         <!-- 3D gumb za predvajanje videa v modalnem oknu -->
         <button class="play-button" id="openModalBtn">
           <span class="play-icon"></span>
-          <span>Predvajaj video</span>
+          <span>Predvajaj pogovor</span>
         </button>
       </section>
     </div>
