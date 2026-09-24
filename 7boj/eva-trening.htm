@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <title>Trening sedmeroboja - Eva Halter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background:#0b1220;
+            color:#e5e7eb;
+            margin:0;
+            padding:0;
+        }
+        .container {
+            max-width:1100px;
+            margin:0 auto;
+            padding:20px 15px 40px;
+        }
+        header {
+            display:flex;
+            align-items:center;
+            gap:15px;
+            margin-bottom:10px;
+        }
+        header img {
+            width:70px;
+            height:auto;
+            border-radius:6px;
+            border:2px solid #1f2937;
+        }
+        h1 {
+            margin:0;
+            font-size:26px;
+            color:#f9fafb;
+        }
+        h2 {
+            margin:2px 0 0;
+            font-size:16px;
+            color:#9ca3af;
+        }
+        .week-selector {
+            margin:20px 0 10px;
+        }
+        .week-selector button {
+            margin-right:8px;
+            padding:6px 12px;
+            border:none;
+            border-radius:4px;
+            background:#1f2937;
+            color:#e5e7eb;
+            cursor:pointer;
+            font-size:13px;
+        }
+        .week-selector button.active {
+            background:#2563eb;
+        }
+        table {
+            width:100%;
+            border-collapse:collapse;
+            margin-bottom:20px;
+            font-size:13px;
+        }
+        th, td {
+            border:1px solid #374151;
+            padding:6px 5px;
+            vertical-align:top;
+        }
+        th {
+            background:#111827;
+            color:#e5e7eb;
+            text-align:center;
+        }
+        td.day {
+            width:11%;
+            font-weight:bold;
+            text-align:center;
+            background:#030712;
+        }
+        .session-title {
+            font-weight:bold;
+            color:#bfdbfe;
+        }
+        .rest {
+            color:#fbbf24;
+            font-weight:bold;
+        }
+        .notes {
+            background:#020617;
+            border-radius:6px;
+            padding:12px 10px;
+            border:1px solid #1f2937;
+            margin-top:10px;
+        }
+        .notes h3 {
+            margin-top:0;
+            font-size:15px;
+            color:#f9fafb;
+        }
+        .notes ul {
+            margin:6px 0 0;
+            padding-left:18px;
+        }
+        .notes li {
+            margin-bottom:4px;
+        }
+        a {
+            color:#60a5fa;
+            text-decoration:none;
+        }
+        a:hover {
+            text-decoration:underline;
+        }
+        footer {
+            margin-top:25px;
+            font-size:13px;
+            color:#9ca3af;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <img src="stanka-evica.JPG" alt="Eva Halter">
+        <div>
+            <h1>Trening sedmeroboja - Eva Halter</h1>
+            <h2>Akedemija Dušan Prezelj</h2>
+        </div>
+    </header>
+
+    <div class="week-selector">
+        <span>Izberi teden:</span>
+        <button class="active" data-week="1">Teden 1</button>
+        <button data-week="2">Teden 2</button>
+        <button data-week="3">Teden 3</button>
+        <button data-week="4">Teden 4</button>
+    </div>
+
+    <!-- TEDEN 1 -->
+    <table data-week="1">
+        <thead>
+        <tr>
+            <th>Dan</th>
+            <th>Glavni poudarek</th>
+            <th>Vaje (serije × ponovitve / razdalja / čas)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="day">Ponedeljek</td>
+            <td>Moč + ogrevanje za ovire</td>
+            <td>
+                <span class="session-title">Ogrevanje</span><br>
+                - 10' lahkoten tek + mobilnost kolkov, ramen, gležnjev<br>
+                - Dinamične vaje za ovire (nizek položaj, koraki preko ovir) 3×20 m<br><br>
+                <span class="session-title">Moč – celotno telo</span><br>
+                - Počep z utežjo 3×8<br>
+                - Mrtvi dvig z manjšo obremenitvijo 3×6<br>
+                - Potisk s prsi z ročkami 3×10<br>
+                - Veslanje z elastiko 3×12<br><br>
+                <span class="session-title">Jedro</span><br>
+                - Plank 3×30 s<br>
+                - Bočni plank 2×20 s na stran
+            </td>
+        </tr>
+        <tr>
+            <td class="day">Torek</td>
+            <td>Tek 80 m + pliometrija</td>
+            <td>
+                <span class="session-title">Ogrevanje</span><br>
+                - 8' tek + gimnastične vaje (skip, poskoki) 4×40 m<br><br>
+                <span class="session-title">Pliometrija</span><br>
+                - Poskoki na mestu 3×15<br>
+                - Skoki z obema nogama naprej 3×8<br>
+                - Skoki na nizko stopničko 3×10<br><br>
+                <span class="session-title">Tek 80 m</span><br>
+                - 5×60–80 m progresivno, pavza 2' med ponovitvami
+            </td>
+        </tr>
+        <tr>
+            <td class="day">Sreda</td>
+            <td>Aktivni počitek + razgibavanje</td>
+            <td>
+                <span class="rest">POČITEK / REGENERACIJA</span><br>
+                - 20–30' hoja ali zelo lahek tek<br>
+                - Raztezanje celotnega telesa 10–15'<br>
+                - Vaje za dihanje in sprostitev 5–10'
+            </td>
+        </tr>
+        <tr>
+            <td class="day">Četrtek</td>
+            <td>Skok v višino + jedro</td>
+            <td>
+                <span class="session-title">Ogrevanje</span><br>
+                - 10' tek + koordinacijske vaje (lestev, kratki poskoki) 4×20 m<br><br>
+                <span class="session-title">Skok v višino – tehnika</span><br>
+                - Pristopni koraki brez skoka 4×5 ponovitev<br>
+                - Skoki z nizke višine 6–8 skokov, pavza 1–2'<br><br>
+                <span class="session-title">Jedro</span><br>
+                - Dvig medenice v leži 3×12<br>
+                - Rotacije trupa sede 3×15
+            </td>
+        </tr>
+        <tr>
+            <td class="day">Petek</td>
+            <td>Met krogle + moč zgornjega dela</td>
+            <td>
+                <span class="session-title">Ogrevanje</span><br>
+                - 8' tek + kroženje ramen, komolcev, zapestij<br><br>
+                <span class="session-title">Met krogle – tehnika</span><br>
+                - Met z mesta 6×1<br>
+                - Met z enostavnim zaletom 6×1, pavza 1'<br><br>
+                <span class="session-title">Moč zgornjega dela</span><br>
+                - Potisk nad glavo z ročkami 3×8<br>
+                - Veslanje v predklonu 3×10<br>
+                - Vaje za rotatorno manšeto 3×12
+            </td>
+        </tr>
+        <tr>
+            <td class="day">Sobota</td>
+            <td>Daljši tek + psihična priprava</td>
+            <td>
+                <span class="session-title">Tek</span><br>
+                - 20–30' zmeren tek (kontrola dihanja)<br><br>
+                <span class="session-title">Psihična priprava</span><br>
+                - Vizualizacija posameznih disciplin 10'<br>
+                - Kratek zapis ciljev za teden 5'<br>
+                - Tehnike sproščanja (dihanje 4–6, progresivna relaksacija) 10'
+            </td>
+        </tr>
+        <tr>
+            <td class="day">Nedelja</td>
+            <td>Počitek</td>
+            <td>
+                <span class="rest">POLNI POČITEK</span><br>
+                - Le lahke raztezne vaje po potrebi<br>
+                - Brez strukturiranega treninga
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- TEDEN 2 -->
+    <table data-week="2" style="display:none;">
+        <thead>
+        <tr>
+            <th>Dan</th>
+            <th>Glavni poudarek</th>
+            <th>Vaje (serije × ponovitve / razdalja / čas)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="day">Ponedeljek</td>
+            <td>Ovire + hitrost</td>
+            <td>
+                <span class="session-title">Ogrevanje</span><br>
+                - 10' tek + dinamične vaje za kolke in kolena<br><br>
+                <span class="session-title">Ovire</span><br>
+                - Hoja preko nizkih ovir 4×20 m<br>
+                - Tek preko 3–4 nizkih ovir 6×1, pavza 1–2'<br><br>
+                <span class="session-title">Hitrostni tek</span><br>
+                - 6×40 m zmerno hitro, pavza 2'
+            </td>
+        </tr>
+        <tr>
+            <td class="day">Torek</td>
+            <td>Moč spodnjega dela + pliometrija</td>
+            <td>
+                <span class="session-title">Moč</span><br>
+                - Počep na klop 3×10<br>
+                - Izpadni koraki 3×8 na nogo<br><br>
+                <span class="session-title">Pliometrija</span><br>
+                - Skoki v daljino z mesta 4×5<br>
+                - Poskoki v klanec 4×20 m
+            </td>
+        </tr>
+        <tr>
+            <td class="day">Sreda</td>
+            <td>Aktivni počitek</td>
+            <td>
+                <span class="rest">POČITEK / LAHKA AKTIVNOST</span><br>
+                - 20' hoja ali kolesarjenje<br>
+                - Raztezanje 10'<br>
+                - Vaje za ravnotežje 3×30 s
+            </td>
+        </tr>
+        <tr>
+            <td class="day">Četrtek</td>
+            <td>Skok v daljino + jedro</td>
+            <td>
+                <span class="session-title">Ogrevanje</span><br>
+                - 8' tek + poskoki 4×30 m<br><br>
+                <span class="session-title">Skok v daljino</span><br>
+                - Odskok z označenega mesta 6×1<br>
+                - Skoki z kratkim zaletom 4×1, pavza 1–2'<br><br>
+                <span class="session-title">Jedro</span><br>
+                - Plank z dvigom noge 3×20 s<br>
+                - Rotacije trupa stoje z elastiko 3×12
+            </td>
+        </tr>
+        <tr>
+            <td class="day">Petek</td>
+            <td>Met kopja / alternativni met</td>
+            <td>
+                <span class="session-title">Ogrevanje</span><br>
+                - Kroženje ramen, komolcev, zapestij 5'<br><br>
+                <span class="session-title">Met</span><br>
+                - Met medicinke z mesta 6×1<br>
+                - Met z zaletom 4×1, pavza 1–2'<br><br>
+                <span class="session-title">Stabilnost ramen</span><br>
+                - Vaje z elastiko 3×15
+            </td>
+        </tr>
+        <tr>
+            <td class="day">Sobota</td>
+            <td>Tek 800 m (specifična vzdržljivost)</td>
+            <td>
+                <span class="session-title">Ogrevanje</span><br>
+                - 10' tek + 4×60 m progresivno<br><br>
+                <span class="session-title">Glavni del</span><br>
+                - 3×400 m v kontroliranem ritmu, pavza 3'<br>
+                - Po potrebi 1×600 m v lažjem ritmu
+            </td>
+        </tr>
+        <tr>
+            <td class="day">Nedelja</td>
+            <td>Počitek</td>
+            <td>
+                <span class="rest">POLNI POČITEK</span><br>
+                - Le lahke raztezne vaje po potrebi
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- TEDEN 3 -->
+    <table data-week="3" style="display:none;">
+        <thead>
+        <tr>
+            <th>Dan</th>
+            <th>Glavni poudarek</th>
+            <th>Vaje (serije × ponovitve / razdalja / čas)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="day">Ponedeljek</td>
+            <td>Kombinacija ovire + tek</td>
+            <td>
+                <span class="session-title">Ogrevanje</span><br>
+                - 10' tek + dinamične vaje za ovire<br><br>
+                <span class="session-title">Ovire</span><br>
+                - 4× nizke ovire v ritmu, pavza 1'<br><br>
+                <span class="session-title">Tek</span><br>
+                - 4×60 m v tekmovalnem ritmu, pavza 2'
+            </td>
+        </tr>
+        <tr>
+            <td class="day">Torek</td>
+            <td>Moč – vzdržljivost</td>
+            <td>
+                <span class="session-title">Krožni trening</span><br>
+                - 6–8 vaj (počet, izpadni koraki, sklece ob steni, veslanje z elastiko, dvig medenice, plank)<br>
+                - 2–3 krogi, 30–40 s dela / 20 s pavze
+            </td>
+        </tr>
+        <tr>
+            <td class="day">Sreda</td>
+            <td>Aktivni počitek + psihična priprava</td>
+            <td>
+                <span class="rest">POČITEK / MENTALNI FOKUS</span><br>
+                - 20' lahka hoja<br>
+                - Raztezanje 10'<br>
+                - Vizualizacija celotnega sedmeroboja 10'
+            </td>
+        </tr>
+        <tr>
+            <td class="day">Četrtek</td>
+            <td>Skok v višino / daljino – izbira glede na počutje</td>
+            <td>
+                <span class="session-title">Ogrevanje</span><br>
+                - 8' tek + poskoki 4×20 m<br><br>
+                <span class="session-title">Skoki</span><br>
+                - 6–8 tehničnih skokov (višina ali daljina), pavza 1–2'<br><br>
+                <span class="session-title">Jedro</span><br>
+                - Vaje za stabilnost trupa 3×12
+            </td>
+        </tr>
+        <tr>
+            <td class="day">Petek</td>
+            <td>Met krogle / kopja – lahka tehnika</td>
+            <td>
+                <span class="session-title">Tehnika</span><br>
+                - 6–8 lahkih metov z mesta<br>
+                - 3–4 meti z zaletom, brez maksimalnega napora<br><br>
+                <span class="session-title">Raztezanje</span><br>
+                - Rame, hrbet, kolki 10'
+            </td>
+        </tr>
+        <tr>
+            <td class="day">Sobota</td>
+            <td>Specifična vzdržljivost (800 m)</td>
+            <td>
+                <span class="session-title">Glavni del</span><br>
+                - 2×600 m v ritmu blizu tekme, pavza 4'<br>
+                - 1×400 m hitreje, po občutku
+            </td>
+        </tr>
+        <tr>
+            <td class="day">Nedelja</td>
+            <td>Počitek</td>
+            <td>
+                <span class="rest">POLNI POČITEK</span><br>
+                - Sledenje počutju, brez strukturiranega treninga
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- TEDEN 4 (LAŽJI / PRIPRAVA NA TEST) -->
+    <table data-week="4" style="display:none;">
+        <thead>
+        <tr>
+            <th>Dan</th>
+            <th>Glavni poudarek</th>
+            <th>Vaje (serije × ponovitve / razdalja / čas)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="day">Ponedeljek</td>
+            <td>Lahka hitrost + ovire</td>
+            <td>
+                <span class="session-title">Ogrevanje</span><br>
+                - 8' tek + 3×40 m pospeševanja<br><br>
+                <span class="session-title">Ovire</span><br>
+                - 3× nizke ovire v ritmu, brez maksimalnega napora
+            </td>
+        </tr>
+        <tr>
+            <td class="day">Torek</td>
+            <td>Lahka moč</td>
+            <td>
+                <span class="session-title">Moč</span><br>
+                - Počep z lastno težo 2×12<br>
+                - Izpadni koraki 2×10 na nogo<br>
+                - Sklece ob steni 2×12
+            </td>
+        </tr>
+        <tr>
+            <td class="day">Sreda</td>
+            <td>Aktivni počitek</td>
+            <td>
+                <span class="rest">POČITEK</span><br>
+                - Hoja 20'<br>
+                - Raztezanje 10'
+            </td>
+        </tr>
+        <tr>
+            <td class="day">Četrtek</td>
+            <td>Tehnični pregledi disciplin</td>
+            <td>
+                - Kratki tehnični prehodi: ovire, skok, met (2–3 ponovitve vsake)<br>
+                - Brez intenzivnosti, fokus na občutek in varnost
+            </td>
+        </tr>
+        <tr>
+            <td class="day">Petek</td>
+            <td>Psihična priprava + lahka aktivnost</td>
+            <td>
+                - 15' lahka hoja ali tek<br>
+                - Vizualizacija tekmovalnega dne 10'<br>
+                - Dihalne vaje 5–10'
+            </td>
+        </tr>
+        <tr>
+            <td class="day">Sobota</td>
+            <td>Testni dan / simulacija</td>
+            <td>
+                - Po občutku: 2–3 izbrane discipline v zelo zmerni obliki<br>
+                - Fokus na zaporedje, ne na rezultat
+            </td>
+        </tr>
+        <tr>
+            <td class="day">Nedelja</td>
+            <td>Počitek</td>
+            <td>
+                <span class="rest">POLNI POČITEK</span><br>
+                - Regeneracija, hidracija, spanje
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="notes">
+        <h3>Pomembne opombe za discipline sedmeroboja</h3>
+        <ul>
+            <li><strong>Ovire:</strong> pri kategoriji F60 naj bo višina ovir prilagojena, poudarek na ritmu in varnem koraku, ne na maksimalni hitrosti.</li>
+            <li><strong>Skoki (višina, daljina):</strong> ogrevanje za gležnje in kolena je ključno; število skokov naj bo zmerno, raje več tehničnih kot maksimalnih poskusov.</li>
+            <li><strong>Met krogle / kopja:</strong> stabilnost ramen in trupa je pomembnejša od same razdalje; redno vključuj vaje za rotatorno manšeto.</li>
+            <li><strong>Tek 800 m:</strong> pri F60 je cilj kontroliran ritem brez preobremenitve; spremljaj srčni utrip in počutje, po potrebi skrajšaj razdaljo.</li>
+            <li><strong>Pliometrija:</strong> uporabljaj nizke obremenitve, mehko podlago in dovolj pavz; ob bolečinah v sklepih vaje zamenjaj z manj eksplozivnimi.</li>
+            <li><strong>Psihična priprava:</strong> vizualizacija, dihanje in realno postavljanje ciljev zmanjšujejo stres na tekmi in pomagajo pri koncentraciji.</li>
+            <li><strong>Počitek:</strong> pri veteranskih kategorijah je počitek enako pomemben kot trening; ob znakih utrujenosti brez slabe vesti dodatno zmanjša volumen.</li>
+        </ul>
+    </div>
+
+    <footer>
+        <p>Več o sedmeroboju in disciplinah: <a href="7boj.htm">odpri stran 7boj.htm</a></p>
+    </footer>
+</div>
+
+<script>
+    (function () {
+        var buttons = document.querySelectorAll('.week-selector button');
+        var tables = document.querySelectorAll('table[data-week]');
+        buttons.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var w = btn.getAttribute('data-week');
+                buttons.forEach(function (b) { b.classList.remove('active'); });
+                btn.classList.add('active');
+                tables.forEach(function (t) {
+                    t.style.display = (t.getAttribute('data-week') === w) ? '' : 'none';
+                });
+            });
+        });
+    })();
+</script>
+</body>
+</html>
