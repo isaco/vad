@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<title>Napredna analiza zaleta, odriva in Fosbury flopa (VAD)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+  :root {
+    --vad-bg: #050814;
+    --vad-bg-alt: #0b1020;
+    --vad-card: #11182a;
+    --vad-border: #1f2940;
+    --vad-text: #e5ecff;
+    --vad-muted: #9aa4c6;
+    --vad-accent: #3ea6ff;
+    --vad-green: #3dd68c;
+    --vad-blue: #3ea6ff;
+    --vad-orange: #ffb347;
+    --vad-purple: #b58cff;
+    --vad-grid: rgba(255,255,255,0.04);
+  }
+
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: radial-gradient(circle at top, #101633 0, #050814 55%, #02030a 100%);
+    color: var(--vad-text);
+    padding: 32px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .page { max-width: 1200px; width: 100%; }
+
+  .header {
+    margin-bottom: 24px;
+    padding: 20px 24px;
+    border-radius: 16px;
+    background:
+      linear-gradient(135deg, rgba(62,166,255,0.12), transparent),
+      linear-gradient(225deg, rgba(181,140,255,0.12), transparent),
+      var(--vad-bg-alt);
+    border: 1px solid var(--vad-border);
+  }
+
+  .header h1 {
+    font-size: 1.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .header h1 span { color: var(--vad-accent); }
+
+  .module {
+    margin-bottom: 28px;
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.05);
+    background: var(--vad-card);
+  }
+
+  .module h2 {
+    margin-bottom: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+  }
+
+  .module ul {
+    list-style: none;
+    color: var(--vad-muted);
+    font-size: 0.85rem;
+    line-height: 1.55;
+  }
+
+  .module ul li::before {
+    content: "•";
+    margin-right: 6px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .svg-box {
+    margin-top: 20px;
+    padding: 16px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+</style>
+</head>
+
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <h1><span>Napredna analiza</span> zaleta, odriva in Fosbury flopa</h1>
+    <p style="color:var(--vad-muted);margin-top:6px;">
+      Profesionalni tehnični modul za skok v višino – VAD športna znanost.
+    </p>
+  </header>
+
+  <!-- MODULE 1: ZADNJI TRI KORAKI ZALETA -->
+  <section class="module">
+    <h2 style="color:var(--vad-blue);">Napredna analiza zadnjih treh korakov zaleta</h2>
+
+    <ul>
+      <li><strong style="color:var(--vad-text);">3. korak:</strong> daljši, hitrejši, začetek znižanja težišča.</li>
+      <li><strong style="color:var(--vad-text);">2. korak:</strong> najdaljši korak, močna rotacija stopala, priprava na odriv.</li>
+      <li><strong style="color:var(--vad-text);">1. korak (zadnji):</strong> kratek, eksploziven, agresiven stik s podlago.</li>
+      <li><strong style="color:var(--vad-text);">Znižanje težišča:</strong> 3–5 cm pred odrivom → večja vertikalna sila.</li>
+      <li><strong style="color:var(--vad-text);">Kot vstopa:</strong> 30–35° proti letvi → optimalna rotacija telesa.</li>
+      <li><strong style="color:var(--vad-text);">Centrifugalna sila:</strong> ukrivljen zalet ustvarja rotacijo za Fosbury flop.</li>
+    </ul>
+  </section>
+
+  <!-- MODULE 2: SVG BIOMEHANIKA ODRIVA -->
+  <section class="module">
+    <h2 style="color:var(--vad-green);">SVG diagram biomehanike odriva</h2>
+
+    <div class="svg-box">
+      <svg width="100%" height="260" viewBox="0 0 400 260"
+           xmlns="http://www.w3.org/2000/svg">
+
+        <!-- Ground -->
+        <line x1="20" y1="220" x2="380" y2="220"
+              stroke="#3ea6ff" stroke-width="2" />
+
+        <!-- Force vector -->
+        <line x1="200" y1="220" x2="240" y2="140"
+              stroke="#ffb347" stroke-width="4" />
+        <text x="245" y="140" fill="#ffb347" font-size="12">Sila odriva</text>
+
+        <!-- Angle arc -->
+        <path d="M200 220 A40 40 0 0 1 230 190"
+              stroke="#b58cff" stroke-width="3" fill="none" />
+        <text x="235" y="185" fill="#b58cff" font-size="12">Kot odriva 18–22°</text>
+
+        <!-- Body -->
+        <circle cx="200" cy="150" r="22" fill="#e5ecff" />
+        <rect x="190" y="170" width="20" height="50"
+              fill="#e5ecff" rx="6" />
+
+        <!-- Leg -->
+        <line x1="200" y1="220" x2="180" y2="180"
+              stroke="#e5ecff" stroke-width="4" />
+
+        <!-- Labels -->
+        <text x="40" y="240" fill="#9aa4c6" font-size="12">Podlaga</text>
+        <text x="150" y="130" fill="#9aa4c6" font-size="12">Težišče</text>
+
+      </svg>
+    </div>
+  </section>
+
+  <!-- MODULE 3: SVG FOSBURY FLOP -->
+  <section class="module">
+    <h2 style="color:var(--vad-orange);">SVG diagram Fosbury flopa (fazni model)</h2>
+
+    <div class="svg-box">
+      <svg width="100%" height="300" viewBox="0 0 400 300"
+           xmlns="http://www.w3.org/2000/svg">
+
+        <!-- Bar -->
+        <line x1="50" y1="140" x2="350" y2="140"
+              stroke="#ff6b6b" stroke-width="4" />
+        <text x="360" y="145" fill="#ff6b6b" font-size="12">Letva</text>
+
+        <!-- Approach curve -->
+        <path d="M20 260 C120 200 220 180 320 160"
+              stroke="#3ea6ff" stroke-width="3" fill="none" />
+        <text x="40" y="200" fill="#3ea6ff" font-size="12">Ukrivljen zalet</text>
+
+        <!-- Takeoff -->
+        <circle cx="200" cy="180" r="10" fill="#3dd68c" />
+        <text x="215" y="185" fill="#3dd68c" font-size="12">Odriv</text>
+
+        <!-- Flight arc -->
+        <path d="M200 180 C240 120 280 120 320 140"
+              stroke="#b58cff" stroke-width="3" fill="none" />
+        <text x="260" y="110" fill="#b58cff" font-size="12">Faza leta</text>
+
+        <!-- Body over bar -->
+        <ellipse cx="300" cy="140" rx="30" ry="12"
+                 fill="#e5ecff" />
+        <text x="290" y="130" fill="#e5ecff" font-size="12">Prehod</text>
+
+        <!-- Landing -->
+        <circle cx="340" cy="200" r="12" fill="#ffb347" />
+        <text x="355" y="205" fill="#ffb347" font-size="12">Pristanek</text>
+
+      </svg>
+    </div>
+  </section>
+
+  <p class="footer-note">
+    Modul združuje biomehaniko, nevromišične adaptacije in napredno tehniko Fosbury flopa.
+  </p>
+
+</div>
+</body>
+</html>

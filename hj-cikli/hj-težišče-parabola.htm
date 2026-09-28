@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<title>Napredna analiza težišča in parabole leta (VAD)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+  :root {
+    --vad-bg: #050814;
+    --vad-bg-alt: #0b1020;
+    --vad-card: #11182a;
+    --vad-border: #1f2940;
+    --vad-text: #e5ecff;
+    --vad-muted: #9aa4c6;
+    --vad-accent: #3ea6ff;
+    --vad-green: #3dd68c;
+    --vad-blue: #3ea6ff;
+    --vad-orange: #ffb347;
+    --vad-purple: #b58cff;
+  }
+
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: radial-gradient(circle at top, #101633 0, #050814 55%, #02030a 100%);
+    color: var(--vad-text);
+    padding: 32px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .page { max-width: 1200px; width: 100%; }
+
+  .header {
+    margin-bottom: 24px;
+    padding: 20px 24px;
+    border-radius: 16px;
+    background:
+      linear-gradient(135deg, rgba(62,166,255,0.12), transparent),
+      linear-gradient(225deg, rgba(181,140,255,0.12), transparent),
+      var(--vad-bg-alt);
+    border: 1px solid var(--vad-border);
+  }
+
+  .header h1 {
+    font-size: 1.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .header h1 span { color: var(--vad-accent); }
+
+  .module {
+    margin-bottom: 28px;
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.05);
+    background: var(--vad-card);
+  }
+
+  .module h2 {
+    margin-bottom: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+  }
+
+  .module ul {
+    list-style: none;
+    color: var(--vad-muted);
+    font-size: 0.85rem;
+    line-height: 1.55;
+  }
+
+  .module ul li::before {
+    content: "•";
+    margin-right: 6px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .svg-box {
+    margin-top: 20px;
+    padding: 16px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .footer-note {
+    margin-top: 10px;
+    font-size: 0.78rem;
+    color: var(--vad-muted);
+  }
+</style>
+</head>
+
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <h1><span>Napredna analiza</span> težišča in parabole leta</h1>
+    <p style="color:var(--vad-muted);margin-top:6px;">
+      Biomehanska razlaga gibanja težišča med odrivom, letom in pristankom pri Fosbury flopu.
+    </p>
+  </header>
+
+  <!-- MODULE 1: TEŽIŠČE -->
+  <section class="module">
+    <h2 style="color:var(--vad-green);">Biomehanika gibanja težišča</h2>
+
+    <ul>
+      <li><strong style="color:var(--vad-text);">Težišče (CG):</strong> točka, kjer se uravnotežijo vse sile telesa; pri skoku v višino se premika po parabolični poti.</li>
+      <li><strong style="color:var(--vad-text);">Pred odrivom:</strong> težišče je nizko, tik nad podporno nogo.</li>
+      <li><strong style="color:var(--vad-text);">Med odrivom:</strong> težišče se dvigne vertikalno in rahlo naprej.</li>
+      <li><strong style="color:var(--vad-text);">V fazi leta:</strong> težišče potuje nad letvijo, medtem ko telo rotira okoli njega.</li>
+      <li><strong style="color:var(--vad-text);">Pri pristanku:</strong> težišče se zniža in stabilizira, rotacija se zaključi.</li>
+      <li><strong style="color:var(--vad-text);">Ključni cilj:</strong> dvig težišča nad letvijo z minimalnim dotikom telesa.</li>
+    </ul>
+  </section>
+
+  <!-- MODULE 2: SVG PARABOLA LETA -->
+  <section class="module">
+    <h2 style="color:var(--vad-blue);">SVG diagram parabole leta</h2>
+
+    <div class="svg-box">
+      <svg width="100%" height="300" viewBox="0 0 400 300"
+           xmlns="http://www.w3.org/2000/svg">
+
+        <!-- Ground -->
+        <line x1="40" y1="260" x2="360" y2="260"
+              stroke="#3ea6ff" stroke-width="2" />
+        <text x="50" y="275" fill="#9aa4c6" font-size="12">Podlaga</text>
+
+        <!-- Parabolic path -->
+        <path d="M60 260 C150 120 250 120 340 260"
+              stroke="#b58cff" stroke-width="3" fill="none" />
+        <text x="160" y="110" fill="#b58cff" font-size="12">Parabola leta</text>
+
+        <!-- CG points -->
+        <circle cx="100" cy="220" r="8" fill="#3dd68c" />
+        <circle cx="200" cy="140" r="8" fill="#3dd68c" />
+        <circle cx="300" cy="220" r="8" fill="#3dd68c" />
+
+        <text x="90" y="210" fill="#3dd68c" font-size="12">Odriv</text>
+        <text x="190" y="130" fill="#3dd68c" font-size="12">Najvišja točka CG</text>
+        <text x="290" y="210" fill="#3dd68c" font-size="12">Pristanek</text>
+
+        <!-- Bar -->
+        <line x1="80" y1="160" x2="320" y2="160"
+              stroke="#ff6b6b" stroke-width="4" />
+        <text x="330" y="165" fill="#ff6b6b" font-size="12">Letva</text>
+
+      </svg>
+    </div>
+  </section>
+
+  <!-- MODULE 3: FAZE LETA -->
+  <section class="module">
+    <h2 style="color:var(--vad-orange);">Faze gibanja težišča</h2>
+
+    <ul>
+      <li><strong style="color:var(--vad-text);">1. Odriv:</strong> generacija sile, dvig težišča, začetek parabole.</li>
+      <li><strong style="color:var(--vad-text);">2. Let:</strong> težišče potuje po paraboli, telo rotira okoli CG.</li>
+      <li><strong style="color:var(--vad-text);">3. Prehod nad letvijo:</strong> težišče nad letvijo, telo v loku, minimalen dotik.</li>
+      <li><strong style="color:var(--vad-text);">4. Pristanek:</strong> znižanje težišča, kontrolirana rotacija, stabilizacija.</li>
+    </ul>
+  </section>
+
+  <p class="footer-note">
+    Analiza težišča in parabole leta omogoča natančno razumevanje biomehanike skoka v višino.
+    Optimalna pot težišča je ključna za dosegan

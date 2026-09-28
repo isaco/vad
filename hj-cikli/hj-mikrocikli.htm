@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+  <meta charset="UTF-8">
+  <title>Mikrocikli – Skok v višino (VAD)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    :root {
+      --vad-bg: #050814;
+      --vad-bg-alt: #0b1020;
+      --vad-card: #11182a;
+      --vad-border: #1f2940;
+      --vad-text: #e5ecff;
+      --vad-muted: #9aa4c6;
+      --vad-accent: #3ea6ff;
+      --vad-green: #3dd68c;
+      --vad-blue: #3ea6ff;
+      --vad-orange: #ffb347;
+      --vad-purple: #b58cff;
+      --vad-red: #ff6b6b;
+      --vad-grid: rgba(255,255,255,0.04);
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #101633 0, #050814 55%, #02030a 100%);
+      color: var(--vad-text);
+      padding: 32px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .page { max-width: 1200px; width: 100%; }
+
+    .header {
+      margin-bottom: 24px;
+      padding: 20px 24px;
+      border-radius: 16px;
+      background:
+        linear-gradient(135deg, rgba(62,166,255,0.12), transparent),
+        linear-gradient(225deg, rgba(181,140,255,0.12), transparent),
+        var(--vad-bg-alt);
+      border: 1px solid var(--vad-border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .title-block h1 {
+      font-size: 1.8rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .title-block h1 span { color: var(--vad-accent); }
+
+    .title-block p {
+      margin-top: 6px;
+      color: var(--vad-muted);
+      font-size: 0.95rem;
+    }
+
+    /* GRAPH CARD */
+    .graph-card {
+      margin-bottom: 24px;
+      padding: 24px;
+      border-radius: 18px;
+      background: var(--vad-card);
+      border: 1px solid var(--vad-border);
+    }
+
+    .graph-title {
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 12px;
+    }
+
+    .graph {
+      position: relative;
+      height: 180px;
+      margin-top: 20px;
+      background: rgba(255,255,255,0.02);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .graph-line {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 2px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .curve {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      background: none;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+    }
+
+    /* Volume curve */
+    .curve-volume {
+      background: linear-gradient(
+        to top,
+        rgba(62,166,255,0.25) 0%,
+        rgba(62,166,255,0.15) 40%,
+        rgba(62,166,255,0.05) 100%
+      );
+      clip-path: polygon(
+        0% 70%, 25% 85%, 50% 60%, 75% 40%, 100% 55%, 100% 100%, 0% 100%
+      );
+    }
+
+    /* Intensity curve */
+    .curve-intensity {
+      background: linear-gradient(
+        to top,
+        rgba(255,179,71,0.25) 0%,
+        rgba(255,179,71,0.15) 40%,
+        rgba(255,179,71,0.05) 100%
+      );
+      clip-path: polygon(
+        0% 40%, 25% 55%, 50% 75%, 75% 90%, 100% 80%, 100% 100%, 0% 100%
+      );
+    }
+
+    .legend {
+      margin-top: 12px;
+      display: flex;
+      gap: 20px;
+      font-size: 0.85rem;
+      color: var(--vad-muted);
+    }
+
+    .legend span::before {
+      content: "";
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      margin-right: 6px;
+      border-radius: 3px;
+    }
+
+    .legend-volume::before { background: var(--vad-blue); }
+    .legend-intensity::before { background: var(--vad-orange); }
+
+    /* MICROCYCLE TABLE */
+    .table-card {
+      padding: 22px 24px 26px;
+      border-radius: 18px;
+      background: var(--vad-card);
+      border: 1px solid var(--vad-border);
+      margin-bottom: 24px;
+    }
+
+    .table-title {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+
+    th, td {
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    th { color: var(--vad-muted); }
+
+    tbody tr:last-child td { border-bottom: none; }
+
+    .day {
+      font-weight: 600;
+      color: var(--vad-accent);
+    }
+
+  </style>
+</head>
+
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-content">
+      <div class="title-block">
+        <h1><span>Mikrocikli</span> – skok v višino</h1>
+        <p>4-tedenski mezocikel z obremenitvenimi krivuljami (volumen / intenzivnost).</p>
+      </div>
+      <div style="text-align:right;">
+        <div class="vad-logo"><span>V</span>AD • SPORT SCIENCE</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- GRAPH -->
+  <section class="graph-card">
+    <div class="graph-title">Obremenitvene krivulje – 4-tedenski mezocikel</div>
+<!--
+    <div class="graph">
+      <div class="curve curve-volume"></div>
+      <div class="curve curve-intensity"></div>
+      <div class="graph-line"></div>
+    </div>
+
+    <div class="legend">
+      <span class="legend-volume">Volumen</span>
+      <span class="legend-intensity">Intenzivnost</span>
+    </div>
+  </section>
+-->
+    
+  <svg width="100%" height="220" viewBox="0 0 400 220"
+     xmlns="http://www.w3.org/2000/svg"
+     style="background:#0b1020;border-radius:12px">
+  <!-- Grid -->
+  <defs>
+    <linearGradient id="volGrad" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#3ea6ff" stop-opacity="0.15"/>
+      <stop offset="40%" stop-color="#3ea6ff" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#3ea6ff" stop-opacity="0.6"/>
+    </linearGradient>
+    <linearGradient id="intGrad" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#ffb347" stop-opacity="0.15"/>
+      <stop offset="40%" stop-color="#ffb347" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#ffb347" stop-opacity="0.6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Axes -->
+  <line x1="30" y1="180" x2="380" y2="180" stroke="#444b63" stroke-width="1"/>
+  <line x1="30" y1="40" x2="30" y2="180" stroke="#444b63" stroke-width="1"/>
+
+  <!-- Volume area (matematično: naraščanje do 2. tedna, nato padec) -->
+  <path d="
+    M 30 150
+    C 90 130 150 110 210 90
+    C 270 70 330 90 380 110
+    L 380 180
+    L 30 180 Z"
+    fill="url(#volGrad)" />
+
+  <!-- Intensity area (matematično: nižja na začetku, vrh v 3. tednu, znižanje v taperju) -->
+  <path d="
+    M 30 130
+    C 90 120 150 100 210 70
+    C 270 50 330 60 380 80
+    L 380 180
+    L 30 180 Z"
+    fill="url(#intGrad)" />
+
+  <!-- Baseline -->
+  <line x1="30" y1="180" x2="380" y2="180" stroke="#2a3148" stroke-width="2"/>
+
+  <!-- Ticks (tedni) -->
+  <g fill="#9aa4c6" font-size="10">
+    <text x="70"  y="195" text-anchor="middle">Teden 1</text>
+    <text x="150" y="195" text-anchor="middle">Teden 2</text>
+    <text x="230" y="195" text-anchor="middle">Teden 3</text>
+    <text x="310" y="195" text-anchor="middle">Teden 4</text>
+  </g>
+
+  <!-- Legend -->
+  <g font-size="11" fill="#9aa4c6">
+    <rect x="40" y="50" width="14" height="14" rx="3" fill="#3ea6ff"/>
+    <text x="60" y="61">Volumen</text>
+    <rect x="140" y="50" width="14" height="14" rx="3" fill="#ffb347"/>
+    <text x="160" y="61">Intenzivnost</text>
+  </g>
+
+  <!-- Title -->
+  <text x="30" y="25" fill="#e5ecff" font-size="13" font-weight="600">
+    Obremenitvene krivulje – 4-tedenski mezocikel (skok v višino)
+  </text>
+</svg>
+</section>  
+    
+    
+
+  <!-- MICROCYCLE TABLE -->
+  <section class="table-card">
+    <div class="table-title">Mikrocikel 1 – Tehnika + eksplozivnost</div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Dan</th>
+          <th>Vsebina treninga</th>
+          <th>Obremenitev</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="day">Ponedeljek</td>
+          <td>Tehnika zaleta (ritem, markerji), 6–8 odrivov</td>
+          <td>Srednja intenzivnost, nizek volumen</td>
+        </tr>
+        <tr>
+          <td class="day">Torek</td>
+          <td>Pliometrija (poskoki, skoki na škatlo), jedro</td>
+          <td>Srednji volumen, visoka intenzivnost</td>
+        </tr>
+        <tr>
+          <td class="day">Sreda</td>
+          <td>Regeneracija (plavanje, mobilnost)</td>
+          <td>Nizek volumen</td>
+        </tr>
+        <tr>
+          <td class="day">Četrtek</td>
+          <td>Odrivi + prehod preko letve (Fosbury flop)</td>
+          <td>Visoka intenzivnost</td>
+        </tr>
+        <tr>
+          <td class="day">Petek</td>
+          <td>Hitrost zaleta (šprinti 20–40 m)</td>
+          <td>Srednja intenzivnost</td>
+        </tr>
+        <tr>
+          <td class="day">Sobota</td>
+          <td>Kombinacija: zalet + odriv + prehod</td>
+          <td>Visoka intenzivnost, srednji volumen</td>
+        </tr>
+        <tr>
+          <td class="day">Nedelja</td>
+          <td>Počitek</td>
+          <td>Regeneracija</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- MICROCYCLE 2 -->
+  <section class="table-card">
+    <div class="table-title">Mikrocikel 2 – Povečanje intenzivnosti</div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Dan</th>
+          <th>Vsebina treninga</th>
+          <th>Obremenitev</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="day">Ponedeljek</td>
+          <td>Tehnika zaleta + hitrostni odrivi</td>
+          <td>Srednja intenzivnost</td>
+        </tr>
+        <tr>
+          <td class="day">Torek</td>
+          <td>Pliometrija (enonožni odrivi, drop jumps)</td>
+          <td>Visoka intenzivnost</td>
+        </tr>
+        <tr>
+          <td class="day">Sreda</td>
+          <td>Regeneracija</td>
+          <td>Nizek volumen</td>
+        </tr>
+        <tr>
+          <td class="day">Četrtek</td>
+          <td>Odrivi + prehod preko letve (višje letve)</td>
+          <td>Visoka intenzivnost</td>
+        </tr>
+        <tr>
+          <td class="day">Petek</td>
+          <td>Hitrost zaleta (kontrola korakov)</td>
+          <td>Srednja intenzivnost</td>
+        </tr>
+        <tr>
+          <td class="day">Sobota</td>
+          <td>Mini-simulacija skoka (3–5 poskusov)</td>
+          <td>Visoka intenzivnost</td>
+        </tr>
+        <tr>
+          <td class="day">Nedelja</td>
+          <td>Počitek</td>
+          <td>Regeneracija</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- MICROCYCLE 3 -->
+  <section class="table-card">
+    <div class="table-title">Mikrocikel 3 – Tekmovalna priprava</div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Dan</th>
+          <th>Vsebina treninga</th>
+          <th>Obremenitev</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="day">Ponedeljek</td>
+          <td>Tehnika zaleta (natančnost točke odriva)</td>
+          <td>Srednja intenzivnost</td>
+        </tr>
+        <tr>
+          <td class="day">Torek</td>
+          <td>Pliometrija (kratki, eksplozivni odrivi)</td>
+          <td>Visoka intenzivnost</td>
+        </tr>
+        <tr>
+          <td class="day">Sreda</td>
+          <td>Regeneracija</td>
+          <td>Nizek volumen</td>
+        </tr>
+        <tr>
+          <td class="day">Četrtek</td>
+          <td>Simulacija tekme (dvigovanje letve)</td>
+          <td>Visoka intenzivnost</td>
+        </tr>
+        <tr>
+          <td class="day">Petek</td>
+          <td>Hitrost zaleta</td>
+          <td>Srednja intenzivnost</td>
+        </tr>
+        <tr>
+          <td class="day">Sobota</td>
+          <td>Regeneracija + mobilnost</td>
+          <td>Nizek volumen</td>
+        </tr>
+        <tr>
+          <td class="day">Nedelja</td>
+          <td>Počitek</td>
+          <td>Regeneracija</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- MICROCYCLE 4 -->
+  <section class="table-card">
+    <div class="table-title">Mikrocikel 4 – Znižanje volumna (taper)</div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Dan</th>
+          <th>Vsebina treninga</th>
+          <th>Obremenitev</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="day">Ponedeljek</td>
+          <td>Lahka tehnika zaleta</td>
+          <td>Nizek volumen</td>
+        </tr>
+        <tr>
+          <td class="day">Torek</td>
+          <td>Kratki eksplozivni odrivi</td>
+          <td>Srednja intenzivnost</td>
+        </tr>
+        <tr>
+          <td class="day">Sreda</td>
+          <td>Regeneracija</td>
+          <td>Nizek volumen</td>
+        </tr>
+        <tr>
+          <td class="day">Četrtek</td>
+          <td>2–3 poskusi na ciljni višini</td>
+          <td>Srednja intenzivnost</td>
+        </tr>
+        <tr>
+          <td class="day">Petek</td>
+          <td>Mobilnost + aktivacija</td>
+          <td>Nizek volumen</td>
+        </tr>
+        <tr>
+          <td class="day">Sobota</td>
+          <td>Počitek</td>
+          <td>Regeneracija</td>
+        </tr>
+        <tr>
+          <td class="day">Nedelja</td>
+          <td>TEKMA</td>
+          <td>Vrhunska forma</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+    
+<p>
+<section class="table-card" style="margin-top:24px;">
+  <div class="table-title">Mezocikli – skok v višino (letni makrocikel)</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Mezocikel</th>
+        <th>Trajanje</th>
+        <th>Faza</th>
+        <th>Glavni fokus</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <span class="phase-tag tag-green">M1</span><br>
+          Osnovna priprava
+        </td>
+        <td>4 tedni (november)</td>
+        <td>Pripravljalna</td>
+        <td>
+          Razvoj splošne kondicije, osnovne moči spodnjega dela telesa,
+          stabilnosti trupa in kolčnega sklepa, uvod v tehniko zaleta.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="phase-tag tag-green">M2</span><br>
+          Osnovna + specifična priprava
+        </td>
+        <td>4–6 tednov (december–januar)</td>
+        <td>Pripravljalna</td>
+        <td>
+          Nadaljevanje osnovne moči, več pliometrije nizke intenzivnosti,
+          več koordinacije zaleta, priprava na višje obremenitve.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="phase-tag tag-blue">M3</span><br>
+          Specifična eksplozivnost
+        </td>
+        <td>4 tedni (februar)</td>
+        <td>Razvojna</td>
+        <td>
+          Povečanje eksplozivne moči (pliometrija), natančna tehnika zaleta,
+          odriva in prehoda preko letve, povezava hitrosti zaleta z odrivom.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="phase-tag tag-blue">M4</span><br>
+          Specifična tekmovalna priprava
+        </td>
+        <td>4 tedni (marec)</td>
+        <td>Razvojna</td>
+        <td>
+          Višja intenzivnost odrivov, več poskusov na višjih letvah,
+          mini-simulacije tekme, finomehanika tehnike.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="phase-tag tag-orange">M5</span><br>
+          Predtekmovalni blok
+        </td>
+        <td>4 tedni (april)</td>
+        <td>Prehod v tekmovalno fazo</td>
+        <td>
+          Zmanjšanje volumna, ohranjanje visoke intenzivnosti,
+          kontrolne tekme, stabilizacija zaleta in odriva.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="phase-tag tag-orange">M6</span><br>
+          Tekmovalni blok I
+        </td>
+        <td>6–8 tednov (maj–junij)</td>
+        <td>Tekmovalna</td>
+        <td>
+          Glavna tekmovanja, ohranjanje eksplozivnosti pri nizkem volumnu,
+          optimizacija taktike dvigovanja letve, regeneracija med tekmami.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="phase-tag tag-orange">M7</span><br>
+          Tekmovalni blok II
+        </td>
+        <td>4–6 tednov (julij–avgust)</td>
+        <td>Tekmovalna</td>
+        <td>
+          Vrhunska forma na ključnih tekmah, fine prilagoditve obremenitve,
+          psihološka priprava, ohranjanje zdravja.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="phase-tag tag-purple">M8</span><br>
+          Prehodni blok
+        </td>
+        <td>4 tedni (september–oktober)</td>
+        <td>Prehodna</td>
+        <td>
+          Aktivna regeneracija, odprava drobnih poškodb, analiza sezone,
+          priprava novega makrocikla.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="footer-note">
+    Mezocikli se prilagajajo koledarju tekmovanj in individualnim odzivom skakalca na obremenitev.
+  </p>
+</section>
+    
+</p>
+
+</div>
+</body>
+</html>

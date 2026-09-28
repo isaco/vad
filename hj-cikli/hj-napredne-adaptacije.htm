@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<title>Napredne adaptacije in tehnika – Skok v višino (VAD)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+  :root {
+    --vad-bg: #050814;
+    --vad-bg-alt: #0b1020;
+    --vad-card: #11182a;
+    --vad-border: #1f2940;
+    --vad-text: #e5ecff;
+    --vad-muted: #9aa4c6;
+    --vad-accent: #3ea6ff;
+    --vad-green: #3dd68c;
+    --vad-blue: #3ea6ff;
+    --vad-orange: #ffb347;
+    --vad-purple: #b58cff;
+    --vad-red: #ff6b6b;
+    --vad-grid: rgba(255,255,255,0.04);
+  }
+
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: radial-gradient(circle at top, #101633 0, #050814 55%, #02030a 100%);
+    color: var(--vad-text);
+    padding: 32px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .page { max-width: 1200px; width: 100%; }
+
+  .header {
+    margin-bottom: 24px;
+    padding: 20px 24px;
+    border-radius: 16px;
+    background:
+      linear-gradient(135deg, rgba(62,166,255,0.12), transparent),
+      linear-gradient(225deg, rgba(181,140,255,0.12), transparent),
+      var(--vad-bg-alt);
+    border: 1px solid var(--vad-border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .title-block h1 {
+    font-size: 1.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .title-block h1 span { color: var(--vad-accent); }
+
+  .title-block p {
+    margin-top: 6px;
+    color: var(--vad-muted);
+    font-size: 0.95rem;
+  }
+
+  .vad-logo {
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    color: var(--vad-muted);
+  }
+
+  .vad-logo span { color: var(--vad-accent); }
+
+  .module {
+    margin-bottom: 28px;
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.05);
+    background: var(--vad-card);
+  }
+
+  .module h2 {
+    margin-bottom: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+  }
+
+  .module ul {
+    list-style: none;
+    color: var(--vad-muted);
+    font-size: 0.85rem;
+    line-height: 1.55;
+  }
+
+  .module ul li::before {
+    content: "•";
+    margin-right: 6px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .module-green { background: linear-gradient(135deg, rgba(61,214,140,0.18), rgba(5,8,20,0.9)); }
+  .module-blue  { background: linear-gradient(135deg, rgba(62,166,255,0.18), rgba(5,8,20,0.9)); }
+  .module-orange{ background: linear-gradient(135deg, rgba(255,179,71,0.18), rgba(5,8,20,0.9)); }
+
+  .footer-note {
+    margin-top: 10px;
+    font-size: 0.78rem;
+    color: var(--vad-muted);
+  }
+</style>
+</head>
+
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-content">
+      <div class="title-block">
+        <h1><span>Napredne adaptacije</span> in tehnika – skok v višino</h1>
+        <p>Sledijo : Adaptacije po fazah in še
+        <br>Trije ključni strokovni moduli: nevromišične adaptacije, biomehanika odriva, napredni Fosbury flop.</p>
+      </div>
+      <div style="text-align:right;">
+        <div class="vad-logo"><span>
+            <font color='red'>V</span>AD</font> • SPORT SCIENCE</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MODULE 1: NEVROMIŠIČNE ADAPTACIJE PRI PLIOMETRIJI -->
+   
+<section class="table-card" style="margin-top:24px;">
+  <div class="table-title">Adaptacije po fazah – skok v višino</div>
+
+  <div style="margin-bottom:20px;color:var(--vad-muted);font-size:0.9rem;">
+    Adaptacije so fiziološki, živčno-mišični, biomehanski in psihološki odzivi na trening.
+    Vsaka faza makrocikla ustvarja specifične spremembe, ki se med seboj nadgrajujejo.
+  </div>
+
+  <!-- PRIPRAVLJALNA FAZA -->
+  <article style="margin-bottom:28px;padding:20px;border-radius:16px;
+    background:linear-gradient(135deg,rgba(61,214,140,0.18),rgba(5,8,20,0.9));
+    border:1px solid rgba(255,255,255,0.05);">
+    <h3 style="margin-bottom:10px;letter-spacing:0.1em;text-transform:uppercase;
+      color:var(--vad-green);">Pripravljalna faza – osnovne adaptacije</h3>
+
+    <ul style="list-style:none;color:var(--vad-muted);font-size:0.85rem;line-height:1.55;">
+      <li><strong style="color:var(--vad-text);">Mišično‑skeletne adaptacije:</strong>
+        povečanje osnovne moči spodnjega dela telesa, izboljšanje stabilnosti kolčnega sklepa,
+        krepitev vezivnih struktur (kite, fascije) za kasnejše eksplozivne obremenitve.</li>
+
+      <li><strong style="color:var(--vad-text);">Nevromišične adaptacije:</strong>
+        izboljšanje koordinacije, aktivacije jedra, boljša sinhronizacija mišičnih skupin
+        pri osnovnih gibih (počep, izpadni korak, poskoki).</li>
+
+      <li><strong style="color:var(--vad-text);">Energetske adaptacije:</strong>
+        razvoj aerobne baze, boljša toleranca na nizko do srednjo intenzivnost,
+        hitrejša regeneracija med treningi.</li>
+
+      <li><strong style="color:var(--vad-text);">Tehnične adaptacije:</strong>
+        učenje ritma zaleta, orientacija v prostoru, stabilnost v zadnjih korakih pred odrivom.</li>
+
+      <li><strong style="color:var(--vad-text);">Psihološke adaptacije:</strong>
+        vzpostavitev rutine, motivacije in konsistentnosti treninga.</li>
+    </ul>
+  </article>
+
+  <!-- TEKMOVALNA FAZA -->
+  <article style="margin-bottom:28px;padding:20px;border-radius:16px;
+    background:linear-gradient(135deg,rgba(255,179,71,0.18),rgba(5,8,20,0.9));
+    border:1px solid rgba(255,255,255,0.05);">
+    <h3 style="margin-bottom:10px;letter-spacing:0.1em;text-transform:uppercase;
+      color:var(--vad-orange);">Tekmovalna faza – vrhunske adaptacije</h3>
+
+    <ul style="list-style:none;color:var(--vad-muted);font-size:0.85rem;line-height:1.55;">
+      <li><strong style="color:var(--vad-text);">Eksplozivne adaptacije:</strong>
+        povečanje hitrosti živčno-mišične aktivacije, krajši kontaktni čas,
+        večja sila odriva, optimizacija SSC (stretch-shortening cycle).</li>
+
+      <li><strong style="color:var(--vad-text);">Biomehanske adaptacije:</strong>
+        natančen kot odriva, optimalna postavitev bokov, stabilen prehod preko letve,
+        manjša variabilnost zadnjih korakov zaleta.</li>
+
+      <li><strong style="color:var(--vad-text);">Tehnične adaptacije:</strong>
+        finomehanika Fosbury flopa, stabilnost v fazi leta, učinkovite rotacije,
+        manj napak pri prehodu preko letve.</li>
+
+      <li><strong style="color:var(--vad-text);">Energetske adaptacije:</strong>
+        sposobnost ohranjanja eksplozivnosti pri nizkem volumnu,
+        hitra regeneracija med poskusi.</li>
+
+      <li><strong style="color:var(--vad-text);">Psihološke adaptacije:</strong>
+        tekmovalna samozavest, taktično dvigovanje letve,
+        obvladovanje pritiska in fokus v ključnih poskusih.</li>
+    </ul>
+  </article>
+
+  <!-- PREHODNA FAZA -->
+  <article style="margin-bottom:28px;padding:20px;border-radius:16px;
+    background:linear-gradient(135deg,rgba(181,140,255,0.18),rgba(5,8,20,0.9));
+    border:1px solid rgba(255,255,255,0.05);">
+    <h3 style="margin-bottom:10px;letter-spacing:0.1em;text-transform:uppercase;
+      color:var(--vad-purple);">Prehodna faza – regeneracijske adaptacije</h3>
+
+    <ul style="list-style:none;color:var(--vad-muted);font-size:0.85rem;line-height:1.55;">
+      <li><strong style="color:var(--vad-text);">Regeneracija tkiv:</strong>
+        zmanjšanje mikro-poškodb, obnova kite, fascij in mišičnih vlaken,
+        zmanjšanje vnetnih procesov.</li>
+
+      <li><strong style="color:var(--vad-text);">Nevrološka regeneracija:</strong>
+        znižanje živčno-mišične utrujenosti, ponovna vzpostavitev optimalne
+        živčne prevodnosti in odzivnosti.</li>
+
+      <li><strong style="color:var(--vad-text);">Biomehanska stabilizacija:</strong>
+        odprava tehničnih napak, analiza sezone, priprava korekcij za nov makrocikel.</li>
+
+      <li><strong style="color:var(--vad-text);">Psihološka obnova:</strong>
+        zmanjšanje stresa, mentalni odmor, ponovna motivacija za novo sezono.</li>
+
+      <li><strong style="color:var(--vad-text);">Funkcionalna mobilnost:</strong>
+        izboljšanje gibljivosti, sprostitev napetosti, odprava kompenzacij.</li>
+    </ul>
+  </article>
+
+  <p class="footer-note">
+    Adaptacije so odvisne od starosti, treninga, regeneracije in tekmovalnega koledarja.
+    Faze se med seboj nadgrajujejo in ustvarjajo pogoje za vrhunsko formo v tekmovalnem obdobju.
+  </p>
+</section>
+
+    
+    
+    
+    
+    
+  <section class="module module-green">
+    <h2>Nevromišične adaptacije pri pliometriji</h2>
+    <ul>
+      <li><strong style="color:var(--vad-text);">Povečana hitrost živčno-mišične aktivacije:</strong>
+        hitrejše vključevanje motoričnih enot, večja eksplozivnost odriva.</li>
+
+      <li><strong style="color:var(--vad-text);">Izboljšan stretch-shortening cycle (SSC):</strong>
+        krajši čas med ekscentrično in koncentrično fazo, večja sila odriva.</li>
+
+      <li><strong style="color:var(--vad-text);">Večja togost (stiffness) gležnja in kolena:</strong>
+        boljši prenos sile, stabilnost pri hitrih odrivih.</li>
+
+      <li><strong style="color:var(--vad-text);">Sinhronizacija mišičnih skupin:</strong>
+        bolj usklajeno delovanje gluteusa, kvadricepsa in mečnih mišic.</li>
+
+      <li><strong style="color:var(--vad-text);">Nevrološka ekonomičnost:</strong>
+        manj nepotrebne aktivacije antagonistov, večja učinkovitost odriva.</li>
+    </ul>
+  </section>
+
+  <!-- MODULE 2: BIOMEHANIKA ODRIVA -->
+  <section class="module module-blue">
+    <h2>Biomehanika odriva pri skoku v višino</h2>
+    <ul>
+      <li><strong style="color:var(--vad-text);">Optimalen kot odriva:</strong>
+        18–22° pri vrhunskih skakalcih; omogoča maksimalen dvig težišča.</li>
+
+      <li><strong style="color:var(--vad-text);">Postavitev bokov:</strong>
+        visoki boki v zadnjih korakih → večja vertikalna komponenta sile.</li>
+
+      <li><strong style="color:var(--vad-text);">Zadnji koraki zaleta:</strong>
+        hitra rotacija stopala, znižanje težišča, priprava na eksplozivni odriv.</li>
+
+      <li><strong style="color:var(--vad-text);">Kontaktni čas:</strong>
+        čim krajši (0.12–0.18 s), a dovolj dolg za generiranje sile.</li>
+
+      <li><strong style="color:var(--vad-text);">Sila odriva:</strong>
+        kombinacija horizontalne hitrosti in vertikalne sile → parabolična pot telesa.</li>
+    </ul>
+  </section>
+
+  <!-- MODULE 3: NAPREDNI FOSBURY FLOP -->
+  <section class="module module-orange">
+    <h2>Napredni tehnični model Fosbury flopa</h2>
+    <ul>
+      <li><strong style="color:var(--vad-text);">Zaletni lok:</strong>
+        ukrivljen tek ustvarja centrifugalno silo → rotacija telesa v odrivu.</li>
+
+      <li><strong style="color:var(--vad-text);">Vstop v odriv:</strong>
+        zadnji trije koraki: hitrejši, daljši, agresivni → optimalna orientacija telesa.</li>
+
+      <li><strong style="color:var(--vad-text);">Faza leta:</strong>
+        rotacija okoli vzdolžne osi, dvig bokov, sproščena glava in ramena.</li>
+
+      <li><strong style="color:var(--vad-text);">Prehod preko letve:</strong>
+        najvišja točka težišča je nad letvijo, ne telo; minimalni stik z letvijo.</li>
+
+      <li><strong style="color:var(--vad-text);">Pristanek:</strong>
+        kontroliran padec na zgornji del hrbta, ohranjanje rotacije za varnost.</li>
+    </ul>
+  </section>
+
+  <p class="footer-note">
+    Moduli predstavljajo napredne strokovne temelje za razvoj vrhunskega skakalca v višino.
+    Združujejo nevromišične, biomehanske in tehnične komponente v celovit sistem.
+  </p>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<title>VAD – Glavni meni (3D gumbi)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+  :root {
+    --vad-bg: #050814;
+    --vad-card: #0b1020;
+    --vad-border: #1f2940;
+    --vad-text: #e5ecff;
+    --vad-muted: #9aa4c6;
+    --vad-accent: #3ea6ff;
+    --vad-blue: #3ea6ff;
+    --vad-purple: #b58cff;
+    --vad-orange: #ffb347;
+    --vad-green: #3dd68c;
+  }
+
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: radial-gradient(circle at top, #101633 0, #050814 55%, #02030a 100%);
+    color: var(--vad-text);
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .page { max-width: 900px; width: 100%; }
+
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 20px;
+    border-radius: 16px;
+    background:
+      linear-gradient(135deg, rgba(62,166,255,0.12), transparent),
+      linear-gradient(225deg, rgba(181,140,255,0.12), transparent),
+      var(--vad-card);
+    border: 1px solid var(--vad-border);
+  }
+
+  .header h1 {
+    font-size: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .header h1 span { color: var(--vad-accent); }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 22px;
+  }
+
+  .btn-3d {
+    display: block;
+    padding: 18px 20px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--vad-text);
+    background: linear-gradient(180deg, #1a233a, #0b1020);
+    border: 1px solid var(--vad-border);
+    border-radius: 14px;
+    box-shadow:
+      0 6px 0 #000,
+      0 10px 20px rgba(0,0,0,0.5);
+    transition: all 0.15s ease-in-out;
+    cursor: pointer;
+  }
+
+  .btn-3d:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 10px 0 #000,
+      0 18px 28px rgba(0,0,0,0.6);
+  }
+
+  .btn-3d:active {
+    transform: translateY(2px);
+    box-shadow:
+      0 3px 0 #000,
+      0 8px 16px rgba(0,0,0,0.4);
+  }
+
+  .footer-note {
+    margin-top: 30px;
+    text-align: center;
+    color: var(--vad-muted);
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <h1><span>VAD</span> – HJ meni modulov
+      <font color='orange'> <font size=2><br>Made by Iztok Valenčič</font>
+    </h1>
+    <p style="color:var(--vad-muted);margin-top:6px;">
+      Izberi modul – odpre se v novem oknu.
+    </p>
+  </header>
+
+  <!-- MENU GRID -->
+  <div class="menu-grid">
+
+    <a class="btn-3d" href="hj-makrocikel-letni.htm" target="_blank">
+      Letni makrocikel – skok v višino
+    </a>
+
+    <a class="btn-3d" href="hj-mikrocikli.htm" target="_blank">
+      Mikrocikli – skok v višino
+    </a>
+
+    <a class="btn-3d" href="hj-4-tedni-mezocikli.htm" target="_blank">
+      4-tedni mezocikli
+    </a>
+
+    <a class="btn-3d" href="hj-adaptacije.htm" target="_blank">
+      Adaptacije po fazah
+    </a>
+
+    <a class="btn-3d" href="hj-napredne-adaptacije.htm" target="_blank">
+      Napredne adaptacije
+    </a>
+
+    <a class="btn-3d" href="hj-zalet-odriv-flop.htm" target="_blank">
+      Zalet, odriv, Fosbury flop
+    </a>
+
+    <a class="btn-3d" href="hj-rotacija-nad-letvijo.htm" target="_blank">
+      Rotacija nad letvijo
+    </a>
+
+    <a class="btn-3d" href="hj-te%C5%BEi%C5%A1%C4%8De-parabola.htm" target="_blank">
+      Težišče & parabola leta
+    </a>
+
+  </div>
+
+  <p class="footer-note">
+    VAD • Sport Science • High Jump Performance Modules
+  </p>
+
+</div>
+</body>
+</html>
