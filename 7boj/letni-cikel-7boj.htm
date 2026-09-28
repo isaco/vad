@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+  <meta charset="UTF-8">
+  <title>Letni makrocikel – Sedmeroboj (VAD)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --vad-bg: #050814;
+      --vad-bg-alt: #0b1020;
+      --vad-card: #11182a;
+      --vad-border: #1f2940;
+      --vad-text: #e5ecff;
+      --vad-muted: #9aa4c6;
+      --vad-accent: #3ea6ff;
+      --vad-green: #3dd68c;
+      --vad-blue: #3ea6ff;
+      --vad-orange: #ffb347;
+      --vad-purple: #b58cff;
+      --vad-red: #ff6b6b;
+      --vad-grid: rgba(255,255,255,0.04);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #101633 0, #050814 55%, #02030a 100%);
+      color: var(--vad-text);
+      padding: 32px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .page {
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    .header {
+      margin-bottom: 24px;
+      padding: 20px 24px;
+      border-radius: 16px;
+      background:
+        linear-gradient(135deg, rgba(62,166,255,0.12), transparent),
+        linear-gradient(225deg, rgba(181,140,255,0.12), transparent),
+        var(--vad-bg-alt);
+      border: 1px solid var(--vad-border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: "";
+      position: absolute;
+      inset: -40px;
+      background-image:
+        linear-gradient(90deg, var(--vad-grid) 1px, transparent 1px),
+        linear-gradient(180deg, var(--vad-grid) 1px, transparent 1px);
+      background-size: 32px 32px;
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .title-block h1 {
+      font-size: 1.8rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .title-block h1 span {
+      color: var(--vad-accent);
+    }
+
+    .title-block p {
+      margin-top: 6px;
+      color: var(--vad-muted);
+      font-size: 0.95rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(5,8,20,0.8);
+      border: 1px solid rgba(62,166,255,0.4);
+      font-size: 0.8rem;
+      color: var(--vad-muted);
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--vad-accent);
+      box-shadow: 0 0 8px rgba(62,166,255,0.8);
+    }
+
+    .vad-logo {
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      color: var(--vad-muted);
+    }
+
+    .vad-logo span {
+      color: var(--vad-accent);
+    }
+
+    /* Timeline */
+    .timeline-card {
+      margin-bottom: 24px;
+      padding: 24px 24px 28px;
+      border-radius: 18px;
+      background: var(--vad-card);
+      border: 1px solid var(--vad-border);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.55);
+    }
+
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .timeline-header h2 {
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .timeline-header p {
+      font-size: 0.9rem;
+      color: var(--vad-muted);
+    }
+
+    .timeline-axis {
+      position: relative;
+      margin-top: 10px;
+      padding-top: 18px;
+    }
+
+    .timeline-line {
+      position: relative;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(90deg,
+        var(--vad-green),
+        var(--vad-blue),
+        var(--vad-orange),
+        var(--vad-purple)
+      );
+      box-shadow: 0 0 12px rgba(62,166,255,0.6);
+    }
+
+    .timeline-months {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      font-size: 0.75rem;
+      color: var(--vad-muted);
+    }
+
+    .timeline-phases {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .phase {
+      border-radius: 14px;
+      padding: 14px 14px 16px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .phase::before {
+      content: "";
+      position: absolute;
+      inset: -40px;
+      opacity: 0.18;
+      background-image:
+        radial-gradient(circle at top, rgba(255,255,255,0.18), transparent 55%);
+      pointer-events: none;
+    }
+
+    .phase-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 4px;
+      opacity: 0.9;
+    }
+
+    .phase-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .phase-time {
+      font-size: 0.8rem;
+      color: var(--vad-muted);
+      margin-bottom: 8px;
+    }
+
+    .phase-list {
+      list-style: none;
+      font-size: 0.8rem;
+      color: var(--vad-muted);
+    }
+
+    .phase-list li::before {
+      content: "•";
+      margin-right: 6px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .phase-green { background: linear-gradient(135deg, rgba(61,214,140,0.18), rgba(5,8,20,0.9)); }
+    .phase-blue  { background: linear-gradient(135deg, rgba(62,166,255,0.18), rgba(5,8,20,0.9)); }
+    .phase-orange{ background: linear-gradient(135deg, rgba(255,179,71,0.18), rgba(5,8,20,0.9)); }
+    .phase-purple{ background: linear-gradient(135deg, rgba(181,140,255,0.18), rgba(5,8,20,0.9)); }
+
+    /* Cycles strip */
+    .cycles-strip {
+      margin-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: var(--vad-muted);
+      align-items: center;
+    }
+
+    .cycle-pill {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(5,8,20,0.9);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .cycle-pill span {
+      color: var(--vad-text);
+      font-weight: 500;
+    }
+
+    .cycle-arrow {
+      opacity: 0.6;
+    }
+
+    /* Table */
+    .table-card {
+      padding: 22px 24px 26px;
+      border-radius: 18px;
+      background: var(--vad-card);
+      border: 1px solid var(--vad-border);
+    }
+
+    .table-title {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+
+    thead {
+      background: rgba(255,255,255,0.02);
+    }
+
+    th, td {
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    th {
+      font-weight: 500;
+      color: var(--vad-muted);
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .phase-tag {
+      display: inline-flex;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .tag-green { background: rgba(61,214,140,0.12); color: var(--vad-green); }
+    .tag-blue  { background: rgba(62,166,255,0.12); color: var(--vad-blue); }
+    .tag-orange{ background: rgba(255,179,71,0.12); color: var(--vad-orange); }
+    .tag-purple{ background: rgba(181,140,255,0.12); color: var(--vad-purple); }
+
+    .footer-note {
+      margin-top: 10px;
+      font-size: 0.78rem;
+      color: var(--vad-muted);
+    }
+
+    @media (max-width: 900px) {
+      .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .timeline-phases {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 16px;
+      }
+      .timeline-phases {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-content">
+        <div class="title-block">
+          <h1><span>Letni makrocikel</span> – sedmeroboj</h1>
+          <p>Periodizacija treninga za eno sezono (12 mesecev) – povezava med obremenitvijo, regeneracijo in športno formo.</p>
+          <div style="margin-top:10px;">
+            <div class="badge">
+              <div class="badge-dot"></div>
+              VAD • Theory & Methodology of Training
+            </div>
+          </div>
+        </div>
+        <div style="text-align:right;">
+          <div class="vad-logo"><span>V</span>AD • SPORT SCIENCE</div>
+          <p style="margin-top:6px;font-size:0.8rem;color:var(--vad-muted);">
+            Makrocikel • Mezocikli • Mikrocikli • Trening enota
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <!-- TIMELINE -->
+    <section class="timeline-card">
+      <div class="timeline-header">
+        <div>
+          <h2>Časovna os sezone</h2>
+          <p>Struktura letnega makrocikla za sedmeroboj – faze priprave, razvoja, tekmovanj in prehoda.</p>
+        </div>
+        <div style="font-size:0.8rem;color:var(--vad-muted);">
+          Sedmeroboj • kombinacija tekov, skokov in metov<br>
+          Cilj: vrhunec forme v tekmovalnem obdobju (maj–avgust)
+        </div>
+      </div>
+
+      <div class="timeline-axis">
+        <div class="timeline-line"></div>
+        <div class="timeline-months">
+          <span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>Maj</span><span>Jun</span><span>Jul</span><span>Avg</span><span>Sep</span><span>Okt</span>
+        </div>
+
+        <div class="timeline-phases">
+          <!-- PRIPRAVLJALNA FAZA -->
+          <article class="phase phase-green">
+            <div class="phase-label">Pripravljalna faza</div>
+            <div class="phase-title">Osnovna priprava</div>
+            <div class="phase-time">November – januar</div>
+            <ul class="phase-list">
+              <li>Razvoj splošne kondicije (tek, kros, plavanje)</li>
+              <li>Osnovna moč: počep, potisk, dvigi, jedro</li>
+              <li>Stabilnost in gibljivost (mobilnost, core)</li>
+              <li>Učenje osnovne tehnike disciplin (tek čez ovire, meti, skoki)</li>
+            </ul>
+          </article>
+
+          <!-- RAZVOJNA FAZA -->
+          <article class="phase phase-blue">
+            <div class="phase-label">Razvojna faza</div>
+            <div class="phase-title">Specifična priprava</div>
+            <div class="phase-time">Februar – april</div>
+            <ul class="phase-list">
+              <li>Povečanje intenzivnosti in specifične obremenitve</li>
+              <li>Kombinacija 2–3 disciplin na trening (tek + skok, met + tek)</li>
+              <li>Intervalni trening hitrosti in eksplozivnosti</li>
+              <li>Napredna tehnika skokov, metov in ovir</li>
+            </ul>
+          </article>
+
+          <!-- TEKMOVALNA FAZA -->
+          <article class="phase phase-orange">
+            <div class="phase-label">Tekmovalna faza</div>
+            <div class="phase-title">Vrhunska forma</div>
+            <div class="phase-time">Maj – avgust</div>
+            <ul class="phase-list">
+              <li>Simulacije sedmeroboja (zaporedje disciplin)</li>
+              <li>Taktični trening – razporeditev energije po disciplinah</li>
+              <li>Optimizacija regeneracije med tekmami</li>
+              <li>Stabilizacija forme, nadzor obremenitve</li>
+            </ul>
+          </article>
+
+          <!-- PREHODNA FAZA -->
+          <article class="phase phase-purple">
+            <div class="phase-label">Prehodna faza</div>
+            <div class="phase-title">Aktivna regeneracija</div>
+            <div class="phase-time">September – oktober</div>
+            <ul class="phase-list">
+              <li>Znižanje obremenitve, brez visokih intenzivnosti</li>
+              <li>Plavanje, kolesarjenje, joga, mobilnost</li>
+              <li>Psihološka regeneracija, odmik od tekmovanj</li>
+              <li>Analiza sezone, priprava novega plana</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- CYCLES STRIP -->
+        <div class="cycles-strip">
+          <div class="cycle-pill">
+            <span>Makrocikel</span> • 1 sezona
+          </div>
+          <span class="cycle-arrow">⟶</span>
+          <div class="cycle-pill">
+            <span>Mezocikel</span> • 4–6 tednov (tematski blok)
+          </div>
+          <span class="cycle-arrow">⟶</span>
+          <div class="cycle-pill">
+            <span>Mikrocikel</span> • 1 teden (operativni plan)
+          </div>
+          <span class="cycle-arrow">⟶</span>
+          <div class="cycle-pill">
+            <span>Trening enota</span> • posamezen trening
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TABLE DETAIL -->
+    <section class="table-card">
+      <div class="table-title">Struktura faz in mezociklov – sedmeroboj</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Faza</th>
+            <th>Trajanje</th>
+            <th>Glavni cilji</th>
+            <th>Tipični poudarki treninga</th>
+            <th>Ključni kazalniki</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <span class="phase-tag tag-green">Pripravljalna</span><br>
+              Osnovna priprava
+            </td>
+            <td>November – januar<br>1–2 mezocikla</td>
+            <td>
+              Razvoj osnovne moči, stabilnosti, aerobne baze.<br>
+              Utemeljitev tehnike disciplin brez tekmovalnega pritiska.
+            </td>
+            <td>
+              Splošna kondicija (tek, kros, plavanje).<br>
+              Osnovna moč (počep, potisk, dvigi, jedro).<br>
+              Mobilnost, stabilnost, koordinacija.<br>
+              Učenje osnovne tehnike tekov, skokov, metov.
+            </td>
+            <td>
+              Test moči (1RM ali submaksimalni testi).<br>
+              Osnovna hitrost (šprinti 30–60 m).<br>
+              Gibljivost (ROM, mobilnost).<br>
+              Subjektivna utrujenost in počutje.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="phase-tag tag-blue">Razvojna</span><br>
+              Specifična priprava
+            </td>
+            <td>Februar – april<br>2 mezocikla</td>
+            <td>
+              Specifične adaptacije za sedmeroboj – eksplozivnost, hitrost, tehnika.<br>
+              Povezava med disciplinami v enem treningu.
+            </td>
+            <td>
+              Povečanje intenzivnosti (večja hitrost, večja eksplozivnost).<br>
+              Kombinacija 2–3 disciplin na dan (npr. ovire + skok v daljino).<br>
+              Intervalni trening hitrosti in eksplozivnosti.<br>
+              Napredna tehnika skokov in metov.
+            </td>
+            <td>
+              Napredek v tehnični natančnosti (video analiza).<br>
+              Eksplozivna moč (skoki, meti, šprinti).<br>
+              Toleranca na specifično utrujenost.<br>
+              Konsistentnost izvedbe disciplin.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="phase-tag tag-orange">Tekmovalna</span><br>
+              Vrhunska forma
+            </td>
+            <td>Maj – avgust<br>2–3 mezocikli</td>
+            <td>
+              Doseganje vrhunske forme ob ključnih tekmovanjih.<br>
+              Stabilnost rezultatov in taktična optimizacija.
+            </td>
+            <td>
+              Simulacije sedmeroboja (zaporedje disciplin).<br>
+              Taktični trening – razporeditev energije po disciplinah.<br>
+              Zmanjšanje volumna, ohranjanje intenzivnosti.<br>
+              Regeneracija med tekmami (spanje, prehrana, aktivni počitek).
+            </td>
+            <td>
+              Rezultati na tekmovanjih (PB, SB).<br>
+              Stabilnost forme skozi sezono.<br>
+              Število disciplin z doseženim ciljnim rezultatom.<br>
+              Poškodbe in utrujenost (monitoring).
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="phase-tag tag-purple">Prehodna</span><br>
+              Aktivna regeneracija
+            </td>
+            <td>September – oktober<br>1 mezocikel</td>
+            <td>
+              Psihološka in fizična regeneracija.<br>
+              Analiza sezone in priprava novega makrocikla.
+            </td>
+            <td>
+              Nizka obremenitev, brez visokih intenzivnosti.<br>
+              Plavanje, kolesarjenje, joga, mobilnost.<br>
+              Individualne aktivnosti za ohranjanje osnovne kondicije.<br>
+              Sestanki, refleksija, načrtovanje.
+            </td>
+            <td>
+              Analiza rezultatov po disciplinah.<br>
+              Subjektivna motivacija in mentalno stanje.<br>
+              Pripravljenost na nov ciklus (testi osnovne kondicije).<br>
+              Jasno definiran plan za naslednjo sezono.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="footer-note">
+        Ta model je referenčni okvir. V praksi se prilagodi starosti, nivoju športnika, koledarju tekmovanj in individualnim odzivom na obremenitev.
+      </p>
+    </section>
+  </div>
+</body>
+</html>
+
