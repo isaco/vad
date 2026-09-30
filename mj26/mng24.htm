@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program usposabljanja kadrov - 24-urni menedžment vrhunskega športnika</title>
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --primary-light: #3b82f6;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header h2 {
+            color: var(--primary-light);
+            font-size: 1.4rem;
+            font-weight: 500;
+        }
+
+        .principle-card {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            color: white;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            margin-bottom: 2.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .principle-card h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .principle-card .formula {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .toc-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .toc-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary-light);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .toc-card .num {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--primary-light);
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+
+        .toc-card h3 {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            margin-bottom: 0.75rem;
+        }
+
+        .toc-card .btn-open {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            margin-top: auto;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.25s ease-in-out;
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-container {
+            background-color: var(--card-bg);
+            width: 100%;
+            max-width: 750px;
+            max-height: 85vh;
+            border-radius: var(--radius);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: scale(0.95);
+            transition: transform 0.25s ease-in-out;
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            padding: 1.25rem 1.5rem;
+            background-color: var(--bg-color);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 1.25rem;
+            color: var(--primary-color);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.75rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            line-height: 1;
+            padding: 0 0.25rem;
+            transition: color 0.15s;
+        }
+
+        .modal-close:hover {
+            color: var(--text-color);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+            font-size: 1rem;
+            color: var(--text-color);
+        }
+
+        .modal-body ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-body li {
+            margin-bottom: 0.4rem;
+        }
+
+        .modal-body p {
+            margin-bottom: 1rem;
+        }
+
+        .modal-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        .modal-body th, .modal-body td {
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 0.8rem;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .modal-body th {
+            background-color: var(--bg-color);
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: #dbeafe;
+            color: #1e40af;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem 0.5rem;
+            }
+            header h1 {
+                font-size: 1.6rem;
+            }
+            .toc-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>PROGRAM USPOSABLJANJA KADROV</h1>
+            <h2>24-URNI MENEDŽMENT VRHUNSKEGA ŠPORTNIKA</h2>
+            <p style="margin-top:0.5rem; color:var(--text-muted);">Individualni in kolektivni šport</p>
+        </header>
+
+        <section class="principle-card">
+            <h3>Temeljno načelo</h3>
+            <p>Ne usposabljamo novih »vsevednih« strokovnjakov, ampak kadre, ki znajo svoje specializirano znanje vključiti v skupni 24-urni proces športnika oziroma ekipe.</p>
+            <div class="formula">
+                <span>SPECIALISTIČNO ZNANJE</span>
+                <span>→</span>
+                <span>PROCESNA POVEZANOST</span>
+                <span>→</span>
+                <span>KOORDINIRANO ODLOČANJE</span>
+            </div>
+        </section>
+
+        <h2 style="margin-bottom: 1rem; color: var(--primary-color);">Kazalo poglavij</h2>
+        <div class="toc-grid" id="toc"></div>
+    </div>
+
+    <!-- Modalno okno -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 id="modalTitle">Naslov poglavja</h2>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body" id="modalContent"></div>
+        </div>
+    </div>
+
+    <script>
+        const chapters = [
+            {
+                id: "I",
+                title: "PROFILI KADROV",
+                hours: "",
+                content: `
+                    <p>Predlagam 8 temeljnih profilov:</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Profil</th>
+                                <th>Osnovna funkcija</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1. 24-urni koordinator športnika</td><td>vodi in povezuje celoten proces</td></tr>
+                            <tr><td>2. strokovni vodja 24-urnega procesa</td><td>metodološko in razvojno usmerja sistem</td></tr>
+                            <tr><td>3. trener/procesni trener</td><td>povezuje športno pripravo z ostalimi vsebinami</td></tr>
+                            <tr><td>4. kineziolog/diagnostik</td><td>spremljanje funkcionalnega stanja in obremenitev</td></tr>
+                            <tr><td>5. zdravstveni strokovni partner</td><td>zdravstvena preventiva, obravnava in rehabilitacija</td></tr>
+                            <tr><td>6. psihološko-regeneracijski strokovnjak</td><td>psihološka priprava, stres, spanje, regeneracija</td></tr>
+                            <tr><td>7. prehransko-življenjski strokovnjak</td><td>prehrana, hidracija in življenjski režim</td></tr>
+                            <tr><td>8. podatkovno-tehnološki analitik</td><td>podatki, senzorika, digitalni sistem in interpretacija</td></tr>
+                        </tbody>
+                    </table>
+                    <p>Pri kolektivnih športih se doda še:</p>
+                    <ul>
+                        <li><strong>9. koordinator 24-urnega ekipnega procesa.</strong></li>
+                    </ul>
+                `
+            },
+            {
+                id: "II",
+                title: "KLJUČNI PROFIL: 24-URNI KOORDINATOR ŠPORTNIKA",
+                hours: "",
+                content: `
+                    <p>To je nova oziroma nadgrajena funkcija.</p>
+                    <p><strong>Ne nadomešča:</strong> trenerja, zdravnika, kineziologa, psihologa ali nutricionista.</p>
+                    <p><strong>Njegova posebna kompetenca je:</strong> razumeti celoten proces in zagotoviti, da posamezne stroke delujejo povezano.</p>
+                    <p><strong>Usposobljen mora biti za:</strong></p>
+                    <ul>
+                        <li>procesno razmišljanje</li>
+                        <li>komunikacijo</li>
+                        <li>osnovno razumevanje vseh strok</li>
+                        <li>upravljanje informacij</li>
+                        <li>koordinacijo</li>
+                        <li>načrtovanje</li>
+                        <li>spremljanje</li>
+                        <li>krizno odzivanje</li>
+                        <li>delo s športnikom</li>
+                        <li>varovanje podatkov</li>
+                        <li>digitalna orodja</li>
+                    </ul>
+                `
+            },
+            {
+                id: "III",
+                title: "SKUPNI TEMELJNI PROGRAM (MODUL A)",
+                hours: "20 ur",
+                content: `
+                    <p>Vsi profili, tudi trenerji in specialisti, opravijo skupni modul:</p>
+                    <p><strong>MODUL A – FILOZOFIJA 24-URNEGA MENEDŽMENTA</strong></p>
+                    <p><strong>Vsebina:</strong></p>
+                    <ul>
+                        <li>športnik kot središče sistema</li>
+                        <li>24-urni življenjski cikel</li>
+                        <li>trening in netreninško okolje</li>
+                        <li>razvoj športne uspešnosti</li>
+                        <li>celostna obravnava</li>
+                        <li>procesno razmišljanje</li>
+                        <li>interdisciplinarnost</li>
+                        <li>vloga posameznih strok</li>
+                        <li>odgovornost deležnikov</li>
+                    </ul>
+                `
+            },
+            {
+                id: "IV",
+                title: "MODUL B – 24-URNI ŽIVLJENJSKI CIKEL",
+                hours: "20 ur",
+                content: `
+                    <p><strong>Tematska področja:</strong></p>
+                    <ul>
+                        <li>spanje, prehrana, hidracija</li>
+                        <li>trening, regeneracija, počitek</li>
+                        <li>mentalna priprava, izobraževanje</li>
+                        <li>potovanja, tekmovanja</li>
+                        <li>socialno okolje, digitalno okolje</li>
+                    </ul>
+                    <p style="background-color:#eff6ff; padding:0.75rem; border-left:4px solid var(--primary-light); margin-top:1rem;">
+                        <strong>Poseben poudarek:</strong> Kako posamezen dogodek ob 10.00 vpliva na stanje športnika ob 20.00 in naslednji dan?
+                    </p>
+                `
+            },
+            {
+                id: "V",
+                title: "MODUL C – ŠPORTNA ZMOGLJIVOST IN OBREMENITEV",
+                hours: "25 ur",
+                content: `
+                    <p><strong>Vsebine modula:</strong></p>
+                    <ul>
+                        <li>trening in periodizacija</li>
+                        <li>intenzivnost in volumen</li>
+                        <li>notranja / zunanja obremenitev</li>
+                        <li>utrujenost in regeneracija</li>
+                        <li>spremljanje odziva športnika</li>
+                        <li>pretreniranost</li>
+                        <li>individualizacija</li>
+                    </ul>
+                `
+            },
+            {
+                id: "VI",
+                title: "MODUL D – DIAGNOSTIKA IN SPREMLJANJE",
+                hours: "25 ur",
+                content: `
+                    <p><strong>Vsebine modula:</strong></p>
+                    <ul>
+                        <li>osnovna kineziološka diagnostika</li>
+                        <li>funkcionalno testiranje</li>
+                        <li>biomehanika in meritve</li>
+                        <li>senzorika in interpretacija podatkov</li>
+                        <li>spremljanje trendov</li>
+                        <li>določanje opozorilnih znakov</li>
+                    </ul>
+                    <p style="background-color:#eff6ff; padding:0.75rem; border-left:4px solid var(--primary-light); margin-top:1rem;">
+                        <strong>Pomembno:</strong> koordinator ne postane diagnostik. Mora pa razumeti: <em>kaj merimo – zakaj merimo – kdo interpretira – kaj lahko iz rezultata sledi.</em>
+                    </p>
+                `
+            },
+            {
+                id: "VII",
+                title: "MODUL E – ZDRAVJE IN PREVENTIVA",
+                hours: "20 ur",
+                content: `
+                    <p><strong>Vsebine modula:</strong></p>
+                    <ul>
+                        <li>športne poškodbe in preventiva</li>
+                        <li>rehabilitacija in bolezni</li>
+                        <li>zdravstveni pregled</li>
+                        <li>komunikacija z zdravnikom</li>
+                        <li>vrnitev v trening in tekmovanje</li>
+                        <li>zdravstvena varnost</li>
+                    </ul>
+                `
+            },
+            {
+                id: "VIII",
+                title: "MODUL F – PSIHOLOGIJA",
+                hours: "20 ur",
+                content: `
+                    <p><strong>Vsebine modula:</strong></p>
+                    <ul>
+                        <li>stres, motivacija, koncentracija</li>
+                        <li>tekmovalni pritisk</li>
+                        <li>mentalna regeneracija</li>
+                        <li>odnosi v timu in komunikacija</li>
+                        <li>krizne situacije in izgorelost</li>
+                        <li>psihološka varnost</li>
+                    </ul>
+                `
+            },
+            {
+                id: "IX",
+                title: "MODUL G – PREHRANA IN REGENERACIJA",
+                hours: "20 ur",
+                content: `
+                    <p><strong>Vsebine modula:</strong></p>
+                    <ul>
+                        <li>energijske potrebe in hidracija</li>
+                        <li>prehrana pred in po treningu</li>
+                        <li>tekmovalna prehrana in potovanja</li>
+                        <li>regeneracijska prehrana</li>
+                        <li>spanje in regeneracijski postopki</li>
+                    </ul>
+                `
+            },
+            {
+                id: "X",
+                title: "MODUL H – PODATKI, DIGITALIZACIJA IN AI",
+                hours: "20 ur",
+                content: `
+                    <p>To je posebej pomemben prihodnji modul.</p>
+                    <p><strong>Vsebine modula:</strong></p>
+                    <ul>
+                        <li>digitalni profil športnika</li>
+                        <li>podatkovni tok in senzorji</li>
+                        <li>športne aplikacije in dashboard</li>
+                        <li>analiza trendov in opozorilni sistemi</li>
+                        <li>AI kot podporno orodje</li>
+                        <li>podatkovna varnost in etika uporabe podatkov</li>
+                    </ul>
+                    <p style="background-color:#eff6ff; padding:0.75rem; border-left:4px solid var(--primary-light); margin-top:1rem;">
+                        <strong>Ključno pravilo:</strong> Podatek ni odločitev. Podatek je podlaga za strokovno odločitev.
+                    </p>
+                `
+            },
+            {
+                id: "XI",
+                title: "MODUL I – KOORDINACIJA",
+                hours: "30 ur",
+                content: `
+                    <p>To je osrednji modul bodočega koordinatorja.</p>
+                    <p><strong>Vsebine modula:</strong></p>
+                    <ul>
+                        <li>koordinacijska struktura in odgovornosti</li>
+                        <li>komunikacijski protokol</li>
+                        <li>tedenski sestanki</li>
+                        <li>krizna komunikacija</li>
+                        <li>reševanje konfliktov</li>
+                        <li>določanje prioritet</li>
+                        <li>koordinacija strokovnjakov</li>
+                        <li>dokumentiranje in odločanje</li>
+                    </ul>
+                `
+            },
+            {
+                id: "XII",
+                title: "MODUL J – ŠPORTNIK KOT SOUPRAVLJAVEC",
+                hours: "15 ur",
+                content: `
+                    <p>Poseben modul. Športnika učimo:</p>
+                    <ul>
+                        <li>razumeti lastne podatke</li>
+                        <li>spremljati svoje stanje in prepoznati spremembe</li>
+                        <li>komunicirati s strokovnjaki</li>
+                        <li>sodelovati pri načrtovanju</li>
+                        <li>razumeti odgovornost ter razvijati samostojnost</li>
+                    </ul>
+                    <p style="background-color:#eff6ff; padding:0.75rem; border-left:4px solid var(--primary-light); margin-top:1rem;">
+                        <strong>Zelo pomemben premik:</strong><br>
+                        OD: <em>»strokovnjaki upravljajo športnika«</em><br>
+                        K: <em>»strokovnjaki skupaj s športnikom upravljajo njegov proces«</em>
+                    </p>
+                `
+            },
+            {
+                id: "XIII",
+                title: "INDIVIDUALNI ŠPORT",
+                hours: "",
+                content: `
+                    <p>Pri individualnem športniku je sistem:</p>
+                    <p style="text-align:center; font-weight:bold; margin: 1rem 0;">
+                        ŠPORTNIK<br>↓<br>24-URNI KOORDINATOR<br>↓<br>TRENER<br>↙ ↓ ↓ ↓ ↘<br>FŠ | MEDICINA | PSIHOLOGIJA | PREHRANA | ANALITIKA
+                    </p>
+                    <p><strong>Posebne vsebine usposabljanja:</strong></p>
+                    <ul>
+                        <li>individualni profil in periodizacija</li>
+                        <li>dnevna samoevalvacija in osebna odgovornost</li>
+                        <li>individualni zdravstveni profil</li>
+                        <li>individualna regeneracija</li>
+                        <li>individualni tekmovalni načrt</li>
+                        <li>osebno upravljanje kariere</li>
+                    </ul>
+                `
+            },
+            {
+                id: "XIV",
+                title: "KOLEKTIVNI ŠPORT",
+                hours: "",
+                content: `
+                    <p>Tu potrebujemo drugačno arhitekturo:</p>
+                    <p style="text-align:center; font-weight:bold; margin: 1rem 0;">
+                        EKIPA ↔ INDIVIDUALNI ŠPORTNIKI ↔ STROKOVNI TIM
+                    </p>
+                    <p><strong>Predlagam funkcijo: 24-URNI KOORDINATOR EKIPE</strong></p>
+                    <p>Ta povezuje: glavnega trenerja, pomočnike, kondicijskega trenerja, zdravnika, fizioterapevta, kineziologa, psihologa, nutricionista, analitika ter vodstvo kluba/zveze.</p>
+                `
+            },
+            {
+                id: "XV",
+                title: "POSEBNI MODULI ZA KOLEKTIVNE ŠPORTE",
+                hours: "",
+                content: `
+                    <ul>
+                        <li><strong>K1 – 24-urni menedžment ekipe</strong> (20 ur)</li>
+                        <li><strong>K2 – individualizacija znotraj ekipe</strong> (20 ur)</li>
+                        <li><strong>K3 – ekipna regeneracija</strong> (15 ur)</li>
+                        <li><strong>K4 – upravljanje obremenitev celotne ekipe</strong> (20 ur)</li>
+                        <li><strong>K5 – komunikacija trener–igralec–strokovni tim</strong> (15 ur)</li>
+                        <li><strong>K6 – poškodbe in vrnitev igralca</strong> (15 ur)</li>
+                        <li><strong>K7 – potovanja in tekmovalni cikli</strong> (15 ur)</li>
+                        <li><strong>K8 – ekipna psihologija in odnosi</strong> (20 ur)</li>
+                        <li><strong>K9 – analiza ekipnih podatkov</strong> (20 ur)</li>
+                    </ul>
+                `
+            },
+            {
+                id: "XVI",
+                title: "POSEBEN PROBLEM KOLEKTIVNEGA ŠPORTA",
+                hours: "",
+                content: `
+                    <p><strong>Največji izziv:</strong> Ekipa trenira skupaj, športniki pa imajo različne potrebe.</p>
+                    <p>Zato mora sistem omogočiti:</p>
+                    <p style="text-align:center; font-weight:bold; margin:1rem 0; color:var(--primary-color);">
+                        ENOTEN EKIPNI OKVIR + INDIVIDUALNI 24-URNI PROFIL VSAKEGA IGRALCA
+                    </p>
+                    <p>To pomeni EKIPNI TRENING, vendar:</p>
+                    <ul>
+                        <li>individualna regeneracija</li>
+                        <li>individualna prehrana</li>
+                        <li>individualna zdravstvena obravnava</li>
+                        <li>individualna psihološka podpora</li>
+                        <li>individualno spremljanje obremenitve</li>
+                    </ul>
+                `
+            },
+            {
+                id: "XVII",
+                title: "STOPNJE USPOSOBLJENOSTI",
+                hours: "",
+                content: `
+                    <p>Predlagam tri stopnje:</p>
+                    <div style="margin-bottom:1rem;">
+                        <p><strong>1. STOPNJA: 24-H ATHLETE BASIC</strong> (80–100 ur)</p>
+                        <p style="color:var(--text-muted); font-size:0.9rem;">Za trenerje, športnike in strokovne sodelavce.</p>
+                    </div>
+                    <div style="margin-bottom:1rem;">
+                        <p><strong>2. STOPNJA: 24-H ATHLETE PROFESSIONAL</strong> (180–220 ur)</p>
+                        <p style="color:var(--text-muted); font-size:0.9rem;">Za koordinatorje, vodje strokovnih timov in športne direktorje (vključno s praktičnim delom).</p>
+                    </div>
+                    <div>
+                        <p><strong>3. STOPNJA: 24-H ATHLETE MASTER COORDINATOR</strong> (300+ ur)</p>
+                        <p style="color:var(--text-muted); font-size:0.9rem;">Za nacionalne koordinatorje, panožne zveze, OKS-ZŠZ in vodje razvojnih projektov (vključno s praktičnim pilotnim projektom).</p>
+                    </div>
+                `
+            },
+            {
+                id: "XVIII",
+                title: "PRAKTIČNI DEL",
+                hours: "",
+                content: `
+                    <p>Usposabljanje ne sme biti samo predavalno. Vsak kandidat za koordinatorja mora izdelati:</p>
+                    <ol style="margin-left:1.5rem;">
+                        <li>profil športnika</li>
+                        <li>24-urni dnevni načrt</li>
+                        <li>tedenski načrt</li>
+                        <li>procesno karto deležnikov</li>
+                        <li>koordinacijski protokol</li>
+                        <li>krizni scenarij</li>
+                        <li>mesečno poročilo</li>
+                        <li>razvojni predlog</li>
+                    </ol>
+                `
+            },
+            {
+                id: "XIX",
+                title: "SIMULACIJSKI LABORATORIJ 24 UR",
+                hours: "",
+                content: `
+                    <p>To bi bila zelo zanimiva novost pri usposabljanju.</p>
+                    <p>Kandidat dobi simulacijo: <em>športnik ima pomembno tekmovanje čez 10 dni.</em></p>
+                    <p>Nato se pojavijo nepredvideni dejavniki: slab spanec, povečana utrujenost, manjša bolečina, sprememba treninga, potovanje, stres, sprememba prehrane.</p>
+                    <p style="background-color:#eff6ff; padding:0.75rem; border-left:4px solid var(--primary-light); margin-top:1rem;">
+                        <strong>Kandidat mora skupaj s strokovnim timom:</strong><br>
+                        prepoznati → povezati → prioritetizirati → koordinirati → ukrepati → spremljati.
+                    </p>
+                `
+            },
+            {
+                id: "XX",
+                title: "CERTIFIKACIJA",
+                hours: "",
+                content: `
+                    <p>Predlog naziva: <strong>»CERTIFICIRANI 24-URNI KOORDINATOR VRHUNSKEGA ŠPORTNIKA«</strong></p>
+                    <p><strong>Ravni certifikata:</strong> osnovna, profesionalna, mojstrska raven.</p>
+                    <p><strong>Nosilci razvoja:</strong> OKS-ZŠZ + Fakulteta za šport + sodelujoče strokovne institucije.</p>
+                    <p style="font-size:0.9rem; color:var(--text-muted); margin-top:0.5rem;">* Pri zdravstvenih poklicih ostanejo v veljavi njihove lastne poklicne kompetence, licence in odgovornosti.</p>
+                `
+            },
+            {
+                id: "XXI",
+                title: "KONČNI MODEL IN KLJUČNA NOVOSI",
+                hours: "",
+                content: `
+                    <p><strong>Celoten sistem (potek):</strong></p>
+                    <p style="text-align:center; font-weight:bold; margin: 1rem 0;">
+                        SKUPNA OSNOVA: 24-URNI MENEDŽMENT<br>↓<br>
+                        DVE SPECIALIZACIJI: INDIVIDUALNI / KOLEKTIVNI ŠPORT<br>↓<br>
+                        TRI RAVNI KADROV: BASIC / PROFESSIONAL / MASTER COORDINATOR<br>↓<br>
+                        STALNO PROCESNO UČENJE: USPOSABLJANJE → PILOT → MERJENJE → EVALVACIJA → NADGRADNJA
+                    </p>
+                    <hr style="margin:1.5rem 0; border:none; border-top:1px solid var(--border-color);">
+                    <p><strong>Ključna vsebinska novost - vzporedna gradnja za tri uporabnike:</strong></p>
+                    <ol style="margin-left:1.5rem;">
+                        <li><strong>STROKOVNI KADER:</strong> da zna delati v interdisciplinarnem procesu;</li>
+                        <li><strong>ŠPORTNIK:</strong> da zna soupravljati svoj razvoj;</li>
+                        <li><strong>ORGANIZACIJA (ZVEZA / KLUB / OKS-ZŠZ):</strong> da zna ustvariti pogoje, v katerih lahko strokovni sistem dejansko deluje.</li>
+                    </ol>
+                    <p style="margin-top:1rem;">Tako 24-urni menedžment ne postane samo nov program usposabljanja, ampak nov način organiziranja in izvajanja vrhunskega športa.</p>
+                `
+            }
+        ];
+
+        // Render TOC
+        const tocContainer = document.getElementById('toc');
+        chapters.forEach((ch, index) => {
+            const card = document.createElement('div');
+            card.className = 'toc-card';
+            card.onclick = () => openModal(index);
+            
+            card.innerHTML = `
+                <div>
+                    <div class="num">Poglavje ${ch.id}</div>
+                    <h3>${ch.title}</h3>
+                </div>
+                ${ch.hours ? `<span class="badge">${ch.hours}</span>` : ''}
+                <div class="btn-open">Opreti vsebino &rarr;</div>
+            `;
+            tocContainer.appendChild(card);
+        });
+
+        // Modal logic
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalContent = document.getElementById('modalContent');
+        const modalClose = document.getElementById('modalClose');
+
+        function openModal(index) {
+            const ch = chapters[index];
+            modalTitle.innerText = `${ch.id}. ${ch.title}`;
+            modalContent.innerHTML = (ch.hours ? `<span class="badge">${ch.hours}</span>` : '') + ch.content;
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        modalClose.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
