@@ -1,0 +1,777 @@
+﻿Lokacija,Kategorija,Disciplina,Priimek_ime,Klub,Rekord,Datum,Kraj,Starost
+Dvorana,M35,50 m,Lorenčič Aleksander,Ptuj,6.6399999999999997,21.01.2018,Schilleiten,37
+Dvorana,M40,50 m,Himelrajh Božo,Štajerska,6.4699999999999998,10.01.2004,Schilleiten,41
+Dvorana,M45,50 m,Himelrajh Božo,Štajerska,6.6100000000000003,05.02.2012,Schilleiten,49
+Dvorana,M50,50 m,Himelrajh Božo,Štajerska,6.54,13.01.2013,Schilleiten,50
+Dvorana,M55,50 m,Himelrajh Božo,Štajerska,6.8799999999999999,21.01.2018,Schilleiten,55
+Dvorana,M65,50 m,Mauko Zdravko,Radenci,7.8799999999999999,29.01.2023,Schilleiten,66
+Dvorana,M75,50 m,Sluga Marko,"VAD, Ljubljana",9.4199999999999999,13.01.2013,Schilleiten,77
+Dvorana,M35,60 m,Žumer Jan,"MASS, Ljubljana",7.0199999999999996,27.01.2018,Dunaj,
+Dvorana,M40,60 m,Klarič Aljaž,"Kladivar, Celje",7.5300000000000002,18.02.2017,Celje,40
+Dvorana,M45,60 m,Himelrajh Božo,Maribor,7.7000000000000002,08.02.2009,Linz,46
+Dvorana,M50,60 m,Himelrajh Božo,Štajerska,7.5800000000000001,20.03.2013,San Sebastian,50
+Dvorana,M55,60 m,Eržen Boštjan,"MASS, Ljubljana",7.8399999999999999,05.03.2022,Novo mesto,56
+Dvorana,M60,60 m,Šoba Albert,"MASS, Ljubljana",8.1099999999999994,04.03.2023,Zagreb,63
+Dvorana,M65,60 m,Nikolič Drago,"MASS, Ljubljana",8.6999999999999993,10.03.2018,Beograd,66
+Dvorana,M70,60 m,Kragelj Bogdan,Gorica,9.0099999999999998,10.03.2018,Beograd,70
+Dvorana,M75,60 m,Kragelj Bogdan,Gorica,9.4299999999999997,04.03.2023,Zagreb,75
+Dvorana,M80,60 m,Snedič Alojz,Kladivar Celje,9.4800000000000004,04.03.2023,Zagreb,
+Dvorana,M85,60 m,Rant Miro,"Triglav, Kranj",11.699999999999999,04.03.2017,Reka,
+Dvorana,M35,200 m,Požes Aljaž,AK Krka,24.27,04.03.2023,Zagreb,
+Dvorana,M40,200 m,Kocjančič Rok,Piran,25.739999999999998,10.03.2018,Beograd,43
+Dvorana,M45,200 m,Himelrajh Božo,Maribor,25,04.03.2012,Budimpešta,49
+Dvorana,M50,200 m,Himelrajh Božo,Štajerska,24.93,21.03.2013,San Sebastian,50
+Dvorana,M55,200 m,Eržen Boštjan,"MASS, Ljubljana",25.170000000000002,26.03.2023,Torun,57
+Dvorana,M60,200 m,Nikolič Drago,"VAD, Ljubljana",26.620000000000001,06.03.2015,Budimpešta,63
+Dvorana,M65,200 m,Šoba Albert,"MASS, Ljubljana",27.48,15.02.2025,Zagreb,65
+Dvorana,M70,200 m,Kragelj Bogdan,Gorica,30.879999999999999,10.03.2018,Beograd,70
+Dvorana,M75,200 m,Berne Anton,Pivka,37.670000000000002,09.03.2019,Zagreb,76
+Dvorana,M80,200 m,Soklič Ludvik,Triglav,37.840000000000003,23.02.2019,Novo mesto,80
+Dvorana,M85,200 m,Rant Miro,Kranj,44.710000000000001,23.02.2019,Novo mesto,
+Dvorana,M35,400 m,Klarič Aljaž,"Kladivar, Celje",54.409999999999997,06.03.2015,Budimpešta,38
+Dvorana,M35,400 m,Požes Aljaž,AK Krka,54.41,04.03.2023,Zagreb,
+Dvorana,M40,400 m,Klarič Aljaž,Ptuj,55.93,15.02.2020,Novo mesto,43
+Dvorana,M45,400 m,Kocjančič Rok,Piran,55.979999999999997,08.03.2020,Beograd,45
+Dvorana,M50,400 m,Božiček Marko,"Kladivar, Celje",57.93,20.03.2013,San Sebastian,51
+Dvorana,M55,400 m,Eržen Boštjan,"MASS, Ljubljana",56.57,26.03.2023,Torun,57
+Dvorana,M60,400 m,Nikolič Drago,"VAD, Ljubljana",59,29.03.2014,Budimpešta,62
+Dvorana,M65,400 m,Nikolič Drago,"MASS, Ljubljana","01:04,25",09.03.2019,Zagreb,67
+Dvorana,M70,400 m,Kreft Vanja,"Kronos, Ljubljana","01:26,36",15.02.2020,Novo mesto,72
+Dvorana,M85,400 m,Rant Miro,"Triglav, Kranj","01:51,61",02.03.2019,Istanbul,
+Dvorana,M35,800 m,Škodnik Jože,"Kladivar, Celje","02:05,39",27.03.2014,Budimpešta,37
+Dvorana,M40,800 m,Škodnik Jože,"Kladivar, Celje","02:08,95",29.03.2016,Ancona,40
+Dvorana,M45,800 m,Eržen Igor,"Triglav, Kranj","02:24,34",22.02.2020,Novo mesto,46
+Dvorana,M50,800 m,Krempl Marjan,"Almont, Slov. Bistrica","02:21,19",12.02.2005,Linz,50
+Dvorana,M55,800 m,Mauko Zdravko,Radenci,"02:34,92",06.03.2015,Budimpešta,58
+Dvorana,M60,800 m,Mauko Zdravko,Radenci,"02:36,99",28.01.2017,Budimpešta,60
+Dvorana,M65,800 m,Jemenšek Silvo,Sl.Bistrica,"02:50,59",10.03.2013,Budimpešta,68
+Dvorana,M70,800 m,Rant Miro,Kranj,"02:50,46",13.03.2004,Sindelfingen,
+Dvorana,M75,800 m,Jemenšek Silvo,Sl.Bistrica,"03:14,91",12.03.2022,Novo mesto,77
+Dvorana,M35,1000 m,Škodnik Jože,"Kladivar, Celje","02:52,37",12.03.2016,Bukarešta,39
+Dvorana,M40,1000 m,Škodnik Jože,"Kladivar, Celje","02:54,52",29.03.2016,Ancona,40
+Dvorana,M45,1000 m,Mauko Zdravko,Radenci,"03:07,13",16.03.2006,Linz,49
+Dvorana,M50,1000 m,Mauko Zdravko,Radenci,"03:09,95",24.03.2007,Helsinki,50
+Dvorana,M55,1000 m,Mauko Zdravko,Radenci,"03:16,70",03.04.2012,Jyvaskyla,55
+Dvorana,M60,1000 m,Mauko Zdravko,Radenci,"03:23,24",22.03.2017,Daegu,60
+Dvorana,M65,1000 m,Mauko Zdravko,Radenci,"03:53,52",13.03.2022,Braga,65
+Dvorana,M70,1000 m,Moljk Valter,"VAD, Ljubljana","04:40,51",03.04.2012,Jyvaskyla,72
+Dvorana,M35,1500 m,Kobe Primož,"Krka, Novo mesto","04:01,98",15.02.2020,Novo mesto,38
+Dvorana,M40,1500 m,Komel Branimir,"Keor, Ptuj","04:40,35",18.03.2006,Linz,43
+Dvorana,M45,1500 m,Krempl Marjan,"Almont, Slov.Bistrica","04:13,36",10.03.2001,Bordeaux,46
+Dvorana,M50,1500 m,Mori Jože,Muta,"04:35,25",29.03.2014,Budimpešta,50
+Dvorana,M55,1500 m,Česnik Valentin,KAK Ravne,"04:54,05",26.03.2023,Torun,55
+Dvorana,M60,1500 m,Hribar Mitja,Ptuj,"06:17,41",08.03.2020,Beograd,61
+Dvorana,M65,1500 m,Drašček Rafael,Sevnica,"06:33,00",15.02.2020,Novo mesto,
+Dvorana,M70,1500 m,Jemenšek Silvo,Sl.Bistrica,"05:59,40",12.03.2016,Bukarešta,71
+Dvorana,M75,1500 m,Jemenšek Silvo,Sl.Bistrica,"06:09,31",08.03.2020,Beograd,75
+Dvorana,M80,1500 m,Wright Dennis,"Maraton, Novo mesto","07:22,09",15.02.2020,Novo mesto,
+Dvorana,M35,3000 m,Priendl Dejan,"Panvita, M.Sobota","09:18,21",21.01.2017,Dunaj,
+Dvorana,M40,3000 m,Kotnik Robert,"Kronos, Ljubljana","09:01,64",09.02.2019,Novo mesto,44
+Dvorana,M45,3000 m,Krempl Marjan,"Almont, Slov.Bistrica","09:08,78",08.03.2001,Bordeaux,46
+Dvorana,M50,3000 m,Krempl Marjan,"Almont, Slov.Bistrica","09:30,51",15.03.2006,Linz,51
+Dvorana,M55,3000 m,Kotnik Milan,Radovljica,"09:46,11",13.02.2005,Linz,54
+Dvorana,M60,3000 m,Petrovčič Robert,Pivka,"11:20,71",15.02.2020,Novo mesto,61
+Dvorana,M65,3000 m,Trontelj Miro,Koper,"13:26,02",15.03.2006,Linz,65
+Dvorana,M70,3000 m,Krempl Marjan,"Almont, Slov.Bistrica",11:29.13,01.03.2025,Zagreb,70
+Dvorana,M75,3000 m,Jemenšek Silvo,Sl.Bistrica,"13:11,09",08.03.2020,Beograd,75
+Dvorana,M35,3000 m hoja,Majcen Peter,Ptuj,"25:19,21",10.03.2018,Beograd,38
+Dvorana,M40,3000 m hoja,Veršec Vladimir,Velenje,"14:21,68",15.03.2006,Linz,43
+Dvorana,M45,3000 m hoja,Veršec Vladimir,Koper,"14:26,90",18.03.2011,Gent,48
+Dvorana,M50,3000 m hoja,Ruzier Fabio,Koper,"13:04,13",26.02.2005,Genova,
+Dvorana,M55,3000 m hoja,Ruzzier Fabio,Koper,"13:47,77",08.03.2008,Ancona,55
+Dvorana,M60,3000 m hoja,Ruzzier Fabio,Koper,"14:26,40",01.03.2014,Dunaj,61
+Dvorana,M65,3000 m hoja,Ruzzier Fabio,Koper,"16:36,12",10.03.2018,Istanbul,65
+Dvorana,M70,3000 m hoja,Ruzzier Fabio,Koper,"17:46,65",28.01.2024,Novo mesto,71
+Dvorana,M80,3000 m hoja,Jerčič Ludvig,"MAUT, Maribor","27:54,79",05.03.2022,Novo mesto,
+Dvorana,M50,5000 m hoja:,Veršec Vlado,Koper,"25:17,25",10.03.2013,Budimpešta,
+Dvorana,M55,5000 m hoja:,Ruzzier Fabio,Koper,"24:07,91",04.03.2012,Budimpešta,59
+Dvorana,M60,5000 m hoja:,Ruzzier Fabio,Koper,"25:08,05",10.03.2013,Budimpešta,60
+Dvorana,M35,60 m ovire:,Zlatnar Damjan,"MASS, Ljubljana",8.0399999999999991,15.02.2014,Celje,
+Dvorana,M40,60 m ovire:,Matijevič Mišo,"Krka, N.mesto",9.2699999999999996,03.03.2013,Zagreb,41
+Dvorana,M45,60 m ovire:,Kocjančič Rok,Piran,8.9499999999999993,02.03.2024,Zagreb,49
+Dvorana,M50,60 m ovire:,Božiček Marko,"Kladivar, Celje",8.9299999999999997,23.03.2013,San Sebastian,51
+Dvorana,M55,60 m ovire:,Božiček Marko,"Kladivar, Celje",9.1400000000000006,24.03.2017,Daegu,55
+Dvorana,M60,60 m ovire:,Šoba Albert,"MASS, Ljubljana",9.3000000000000007,29.02.2020,Zagreb,60
+Dvorana,M65,60 m ovire:,Mauko Zdravko,Radenci,10.65,04.03.2023,Zagreb,66
+Dvorana,M70,60 m ovire:,Sluga Marko,"VAD, Ljubljana",11.859999999999999,17.03.2006,Linz,70
+Dvorana,M75,60 m ovire:,Sluga Marko,"VAD, Ljubljana",11.94,20.02.2011,Zagreb,75
+Dvorana,M80,60 m ovire:,Sluga Marko,"VAD, Ljubljana",14.279999999999999,27.02.2016,Celje,80
+Dvorana,M35,Daljina,Šparovec Matjaž,Olimpija,605,05.03.2011,Zagreb,36
+Dvorana,M40,Daljina,Mrgole Gregor,AK Olimpija,6.4400000000000004,01.03.2025,Zagreb,
+Dvorana,M45,Daljina,Šrot Dean,Velenje,603,12.02.2017,Celje,47
+Dvorana,M50,Daljina,Himelrajh Božo,Štajerska,588,22.02.2015,Isnanbul,52
+Dvorana,M55,Daljina,Šimšić Milosav,Gorica,559,10.04.2016,Ancona,55
+Dvorana,M60,Daljina,Šimšić Milosav,Gorica,474,04.03.2023,Zagreb,62
+Dvorana,M65,Daljina,Mauko Zdravko,Radenci,431,13.01.1900,Novo mesto,-57
+Dvorana,M70,Daljina,Moljk Valentin,"VAD, Ljubljana",398,11.04.2012,Ljubljana,72
+Dvorana,M75,Daljina,Kragelj Bogdan,Gorica,354,04.03.2023,Zagreb,75
+Dvorana,M80,Daljina,Rant Miro,"Triglav, Kranj",307,25.02.2012,Ljubljana,
+Dvorana,M85,Daljina,Rant Miro,"Triglav, Kranj",268,04.03.2017,Reka,
+Dvorana,M35,Troskok,Šparovec Damjan,Olimpija,12.06,14.03.2010,Ljubljana,35
+Dvorana,M40,Troskok,Šrot Dean,Velenje,12.289999999999999,02.03.2014,Zagreb,44
+Dvorana,M45,Troskok,Šrot Dean,Velenje,12.710000000000001,04.03.2017,Reka,47
+Dvorana,M50,Troskok,Zupančič Roman,Kočevje,10.1,04.03.2017,Reka,52
+Dvorana,M55,Troskok,Eržen Boštjan,"MASS, Ljubljana",11.050000000000001,04.03.2023,Zagreb,57
+Dvorana,M60,Troskok,Mauko Zdravko,Radenci,10.01,10.03.2018,Beograd,61
+Dvorana,M65,Troskok,Mauko Zdravko,Radenci,9.0099999999999998,13.03.2022,Novo mesto,65
+Dvorana,M70,Troskok,Kragelj Bogdan,Gorica,8.1500000000000004,03.03.2018,Reka,70
+Dvorana,M75,Troskok,Kragelj Bogdan,Gorica,7.3200000000000003,04.03.2023,Zagreb,75
+Dvorana,M35,Višina,Šparovec Matjaž,Olimpija,201,26.02.2011,Sl. Bistrica,36
+Dvorana,M40,Višina,Šparovec Matjaž,Olimpija,195,27.02.2016,Celje,41
+Dvorana,M45,Višina,Šparovec Matjaž,"Olimpija, Ljubljana",188,07.03.2020,Beograd,45
+Dvorana,M50,Višina,Šparovec Matjaž,"Olimpija, Ljubljana",180,01.03.2025,Zagreb,50
+Dvorana,M55,Višina,Prezelj Dušan,Kranj,172,14.03.2004,Sindelfingen,55
+Dvorana,M60,Višina,Prezelj Dušan,Kranj,165,19.03.2011,Gent,62
+Dvorana,M65,Višina,Prezelj Dušan,Kranj,168,21.02.2015,Istanbul,66
+Dvorana,M70,Višina,Prezelj Dušan,Kranj,156,02.03.2019,Istanbul,70
+Dvorana,M75,Višina,Prezelj Dušan,Kranj,153,03.02.2016,Ljubljana,67
+Dvorana,M80,Višina,Moljk Valter,"Kladivar, Celje",126,15.02.2020,Novo mesto,80
+Dvorana,M85,Višina,Sluga Marko,"VAD, Ljubljana",114,12.03.2022,Novo mesto,86
+Dvorana,M40,Palica,Konc Lado,Kranj,370,27.02.1988,Celje,
+Dvorana,M45,Palica,Dimitrijevič Iztok DIMITRIJEVIČ,"Kladiva, Celje",350,28.03.2014,Budimpešta,
+Dvorana,M50,Palica,Dimitrijevič Iztok DIMITRIJEVIČ,"Kladivar, Celje",380,30.03.2016,Ancona,
+Dvorana,M55,Palica,Dimitrijevič Iztok DIMITRIJEVIČ,"Kladivar, Celje",370,08.03.2020,Beograd,
+Dvorana,M60,Palica,Bizjak Mirko,"VAD, Ljubljana",280,26.02.2011,Sl.Bistrica,60
+Dvorana,M65,Palica,Bizjak Mirko,"VAD, Ljubljana",260,09.01.2016,Ljubljana,65
+Dvorana,M70,Palica,Moljk Valentin,"VAD, Ljubljana",220,14.03.2010,Ljubljana,70
+Dvorana,M75,Palica,Sluga Marko,"VAD, Ljubljana",150,21.03.2012,Ljubljana,76
+Dvorana,M35,"Krogla 7,26kg",Dokl Dejan,Ptuj,15.289999999999999,01.03.2008,Šempeter,35
+Dvorana,M40,"Krogla 7,26kg",Pirnat Jože,Domžale,12.68,17.02.2013,Sl.Bistrica,42
+Dvorana,M45,"Krogla 7,26kg",Pirnat Jože,Domžale,12.699999999999999,09.02.2019,Novo mesto,48
+Dvorana,M50,Krogla 6kg,Prstec Miki,Ptuj,13.220000000000001,06.03.2011,Budimpešta,54
+Dvorana,M55,Krogla 6kg,Prstec Miki,Ptuj,13.34,08.02.2012,Ljubljana,55
+Dvorana,M60,Krogla 5kg,Prstec Miki,Ptuj,14.41,21.01.2018,Schilleiten,61
+Dvorana,M65,Krogla 5kg,Prstec Miki,Ptuj,13.789999999999999,25.02.2022,Braga,65
+Dvorana,M70,Krogla 4kg,Uršič Jože,"VAD, Ljubljana",13.5,19.03.2011,Gent,71
+Dvorana,M75,Krogla 4kg,Sluga Marko,"VAD, Ljubljana",11.48,06.02.2011,Ljubljana,75
+Dvorana,M80,Krogla 3kg,Sluga Marko,"VAD, Ljubljana",11.359999999999999,30.03.2016,Ancona,80
+Dvorana,M85,Krogla,Sluga Marko,"VAD, Ljubljana",9.6199999999999992,25.02.2022,Braga,86
+Dvorana,M40,Peteroboj,Matijevič Mišo,"Krka, Novo mesto",2777 točk,25.03.2014,Budimpešta,42
+Dvorana,M45,Peteroboj,Mauko Zdravko,Radenci,3013 točk,17.03.2006,Linz,49
+Dvorana,M50,Peteroboj,Mauko Zdravko,Radenci,3624 točk,24.03.2007,Helsinki,50
+Dvorana,M55,Peteroboj,Mauko Zdravko,Radenci,3654 točk,03.04.2012,Jyvaskyla,55
+Dvorana,M60,Peteroboj,Mauko Zdravko,Radenci,3728 točk,19.03.2018,Madrid,61
+Dvorana,M65,Peteroboj,Mauko Zdravko,Radenci,3440 točk,25.02.2022,Braga,65
+Dvorana,M70,Peteroboj,Moljk Valter,"VAD, Ljubljana",3468 točk,03.04.2012,Jyvaskyla,72
+Dvorana,M80,Peteroboj,Sluga Marko,"VAD, Ljubljana",2596 točk,19.03.2018,Madrid,82
+Dvorana,W50,50 m,Bukovnik Martina,Ptuj,7.8300000000000001,19.01.2025,Schilleiten,
+Dvorana,W75,50 m,Čad Marjeta,"VAD, Ljubljana",10.050000000000001,29.01.2023,Schilleiten,75
+Dvorana,W35,60 m,Mihalinec Z. Maja Mihalinec,ŽAK,7.2699999999999996,06.03.2025,Apeldoorn,
+Dvorana,W40,60 m,Kroflič Valentina,"Kladivar, Celje",8.5899999999999999,04.03.2023,Zagreb,
+Dvorana,W45,60 m,Bukovnik Martina,Ptuj,9.2899999999999991,02.03.2024,Zagreb,
+Dvorana,W50,60 m,Bukovnik Martina,Ptuj,8.9299999999999997,01.03.2025,Zagreb,
+Dvorana,W55,60 m,Blatnik Zvonka,"Kladivar, Celje",9.8200000000000003,10.03.2018,Beograd,56
+Dvorana,W60,60 m,Jerman Ana,Kranj,10.23,22.02.2014,Celje,61
+Dvorana,W65,60 m,Jerman Ana,Kranj,10.949999999999999,03.02.2018,Ljubljana,65
+Dvorana,W70,60 m,Čad Marjeta,"VAD, Ljubljana",11.48,15.02.2020,Novo mesto,72
+Dvorana,W75,60 m,Čad Marjeta,"VAD, Ljubljana",11.17,04.03.2023,Zagreb,75
+Dvorana,W80,60 m,Mohar Iva,Ljubljana,14.5,15.02.2020,Novo mesto,80
+Dvorana,W35,200 m,Markežič Patricija,AK Koper-82,29.399999999999999,02.03.2024,Zagreb,
+Dvorana,W35,200 m,Žalig Tjaša,M.Sobota,30.739999999999998,12.03.2022,Novo mesto,38
+Dvorana,W40,200 m,Kroflič Valentina,"Kladivar, Celje",29.43,02.03.2024,Zagreb,
+Dvorana,W45,200 m,Bukovnik Martina,,31.440000000000001,02.03.2024,Zagreb,
+Dvorana,W50,200 m,Blatnik Zvonka,"Kladivar, Celje",29.989999999999998,20.03.2013,San Sebastian,52
+Dvorana,W55,200 m,Blatnik Zvonka,"Kladivar, Celje",30.609999999999999,02.04.2016,Ancona,55
+Dvorana,W60,200 m,Vučko Erika,Koper,37.460000000000001,23.02.2019,Novo mesto,60
+Dvorana,W65,200 m,Jerman Ana,Kranj,37.409999999999997,23.02.2016,Novo mesto,63
+Dvorana,W70,200 m,Jerman Ana,Kranj,40.509999999999998,01.03.2025,Zagreb,72
+Dvorana,W75,200 m,Rogelj Jožica,Novo mesto,45.090000000000003,04.03.2023,Zagreb,
+Dvorana,W35,400 m,Žalig Tjaša,M.Sobota,"01:07,09",12.03.2022,Novo mesto,38
+Dvorana,W40,400 m,Kroflič Valentina,"Kladivar, Celje","01:06,30",02.03.2024,Zagreb,
+Dvorana,W45,400 m,Vetrih Renata,"Štajerska, Maribor","01:12,78",15.02.2020,Novo mesto,45
+Dvorana,W50,400 m,Blatnik Zvonka,"Kladivar, Celje","01:07,95",05.04.2012,Jyvaskyla,51
+Dvorana,W55,400 m,Blatnik Zvonka,"Kladivar, Celje","01:08,61",03.04.2016,Ancona,55
+Dvorana,W65,400 m,Jerman Ana,Kranj,"01:29,82",15.02.2020,Novo mesto,67
+Dvorana,W70,400 m,Rogelj Jožica,Novo mesto,"01:35,82",02.03.2019,Istanbul,
+Dvorana,W75,400 m,Rogelj Jožica,Novo mesto,"01:39,72",18.03.2023,Istanbul,
+Dvorana,W35,800 m,Radej Alenka,"Krka, Novo mesto","02:30,25",23.02.2019,Novo mesto,35
+Dvorana,W40,800 m,Žalig Tjaša,Murska sobota,02:32.88,01.03.2025,Zagreb,41
+Dvorana,W45,800 m,Breganski Mojca,Radovljica,"02:52,43",27.03.2015,Torun,45
+Dvorana,W50,800 m,Jerman Ana,"Triglav, Kranj","02:43,34",12.03.2004,Sindelfingen,51
+Dvorana,W55,800 m,Jerman Ana,"Triglav, Kranj","02:54,25",28.03.2009,Ancona,56
+Dvorana,W60,800 m,Hočevar T. Silva HOČEVAR,Koper,"03:54,55",12.02.2005,Linz,
+Dvorana,W65,800 m,Puhar Mira,Koper,"04:29,35",12.02.2005,Linz,66
+Dvorana,W70,800 m,Rogelj Jožefa,Novo mesto,"03:34,08",08.03.2020,Beograd,73
+Dvorana,W75,800 m,Rogelj Jožefa,Novo mesto,03:56.42,01.03.2025,Zagreb,78
+Dvorana,W80,800 m,Lužnik Kazimira,Sl. Gradec,"05:54,73",23.02.2019,Novo mesto,84
+Dvorana,W35,1500 m,Žalig Tjaša,Murska sobota,"05:22,07",08.03.2020,Beograd,36
+Dvorana,W40,1500 m,Žalig Tjaša,Murska sobota,05:11.55,01.03.2025,Zagreb,41
+Dvorana,W45,1500 m,Strahinič Jana,Domžale,"05:24,64",20.03.2011,Gent,46
+Dvorana,W70,1500 m,Rogelj Jožica,Novo mesto,"07:05,69",02.03.2019,Istanbul,
+Dvorana,W75,1500 m,Rogelj Jožica,Novo mesto,"07:26,67",18.03.2023,Istanbul,
+Dvorana,W35,3000 m,Race Petra,Radovljica,"10:17,62",28.01.2014,Dunaj,38
+Dvorana,W40,3000 m,Bele Kristina,Pivka,"12:35,33",10.03.2018,Beograd,43
+Dvorana,W45,3000 m,Bele Kristina,Pivka,"12:25,39",15.02.2020,Novo mesto,45
+Dvorana,W50,3000 m,Markovič KocBlanka MARKOVIČ,Logatec,"13:14,26",15.02.2020,Novo mesto,
+Dvorana,W55,3000 m,Karlovšek Brigita,Sevnica,"13:43,27",15.02.2020,Novo mesto,57
+Dvorana,W70,3000 m,Lužnik Kazimira,Slov.Gradec,"14:47,40",16.03.2006,Linz,71
+Dvorana,W75,3000 m,Rogelj Jožica,Novo mesto,"15:45,10",18.03.2023,Istanbul,
+Dvorana,W80,3000 m,Lužnik Kazimira,Slov. Gradec,"26:52,31",23.02.2019,Novo mesto,84
+Dvorana,W45,3000m hoja,Novina Nataša,"Krka, Novo mesto","17:41,26",13.02.2021,Novo mesto,47
+Dvorana,W50,3000m hoja,Poklar Andrerja,Koper,"17:07,68",10.03.2018,Beograd,
+Dvorana,W55,3000m hoja,Poklar Andrerja,Koper,"18:20,70",05.03.2022,Novo mesto,
+Dvorana,W60,3000m hoja,Hočevar T. Silva HOČEVAR,Koper,"24:32,58",12.02.2005,Linz,
+Dvorana,W65,3000m hoja,Puhar Mira,Koper,"22:25,17",12.02.2005,Linz,66
+Dvorana,W75,3000m hoja,Puhar Mira,Koper,"24:55,39",22.02.2015,Istanbul,76
+Dvorana,W40,60m ovire:,Čalasan Desa,"Kladivar, Celje",9.1699999999999999,27.03.2015,Torun,44
+Dvorana,W45,60m ovire:,Čalasan Desa,"Kladivar, Celje",9.5600000000000005,03.04.2016,Ancona,45
+Dvorana,W50,60m ovire:,Čalasan Desa,"Kladivar, Celje",10.99,02.03.2024,Zagreb,53
+Dvorana,W35,Višina,Lapajne Lidija,Gorica,168,01.03.1997,Birmingham,37
+Dvorana,W40,Višina,Čalasan Desa,"Kladivar, Celje",160,27.03.2015,Torun,44
+Dvorana,W45,Višina,Čalasan Desa,"Kladivar, Celje",157,01.04.2016,Ancona,45
+Dvorana,W50,Višina,Prezelj Stanka,Kranj,148,14.03.2004,Sindelfingen,51
+Dvorana,W55,Višina,Prezelj Stanka,Kranj,137,08.04.2012,Jyvaskyla,59
+Dvorana,W60,Višina,Prezelj Stanka,Kranj,130,27.02.2016,Celje,63
+Dvorana,W65,Višina,Prezelj Stanka,Kranj,132,19.03.2020,Beograd,67
+Dvorana,W70,Višina,Prezelj Stanka,Kranj,129,02.03.2024,Zagreb,71
+Dvorana,W75,Višina,Čad Marjeta,"VAD, Ljubljana",109,15.02.2023,Ljubljana,75
+Dvorana,W80,Višina,Puhar Mira,Koper,86,03.03.2019,Istanbul,80
+Dvorana,W35,Palica,Šutej Tina,"Kladivar, Celje",4.75,08.03.2025,Apeldoorn,
+Dvorana,W40,Palica,Peček Ana,"MASS, Ljubljana",240,25.02.2012,Ljubljana,43
+Dvorana,W45,Palica,Peček Ana,"Olimpija, Ljubljana",260,21.02.2015,Celje,46
+Dvorana,W50,Palica,Peček Ana,"Olimpija, Ljubljana",250,23.02.2019,Novo mesto,50
+Dvorana,W35,Daljina,Hvalič Luciana,Gorica,470,07.03.1998,Šempeter,
+Dvorana,W40,Daljina,Čalasan Desa,"Kladivar, Celje",522,14.02.2015,Ljubljana,44
+Dvorana,W45,Daljina,Čalasan Desa,"Kladivar, Celje",488,29.03.2016,Ancona,45
+Dvorana,W50,Daljina,Breganski Mojca,"Kronos, Ljubljana",461,26.02.2022,Braga,52
+Dvorana,W60,Daljina,Čad Marjeta,"VAD, Ljubljana",333,17.03.2008,Ljubljana,60
+Dvorana,W65,Daljina,Puhar Mira,Koper,290,15.03.2006,Linz,67
+Dvorana,W70,Daljina,Prezelj Stanka,Kranj,250,02.03.2024,Zagreb,71
+Dvorana,W75,Daljina,Puhar Mira,Koper,206,14.02.2015,Ljubljana,76
+Dvorana,W80,Daljina,Puhar Mira,Koper,182,23.02.2019,Novo mesto,80
+Dvorana,W35,Troskok,Lapajne Lidija,Gorica,11.27,02.03.1997,Birmingham,37
+Dvorana,W40,Troskok,Čalasan Desa,"Kladivar, Celje",10.109999999999999,22.02.2015,Istanbul,44
+Dvorana,W45,Troskok,Čalasan Desa,"Kladivar, Celje",10.08,10.03.2018,Beograd,47
+Dvorana,W50,Troskok,Peček Ana,"Olimpija, Ljubljana",8.5600000000000005,23.02.2019,Novo mesto,50
+Dvorana,W65,Troskok,Prezelj Stanka,Kranj,5.7999999999999998,05.03.2022,Novo mesto,69
+Dvorana,W75,Troskok,Puhar Mira,Koper,4.71,22.02.2015,Istanbul,76
+Dvorana,W80,Troskok,Puhar Mira,Koper,4.1200000000000001,23.02.2019,Novo mesto,80
+Dvorana,W35,Krogla 4kg,Sterlekar Marija,Ljubljana,13.720000000000001,10.03.2001,Bordeaux,37
+Dvorana,W40,Krogla 4kg,Sterlekar Marija,"VAD, Ljubljana",13.119999999999999,12.03.2004,Sindelfingen,40
+Dvorana,W45,Krogla 4kg,Prepelić Dragana,SL. Bistrica,10.31,03.03.2018,Reka,48
+Dvorana,W50,Krogla 3kg,Prepelič Dragana,Sl. Bistrica,11.33,07.03.2020,Beograd,50
+Dvorana,W55,Krogla 3kg,Čad Marjeta,"VAD, Ljubljana",9.7200000000000006,18.02.2007,Ljubljana,59
+Dvorana,W60,Krogla 3kg,Čad Marjeta,"VAD, Ljubljana",9.6699999999999999,01.03.2008,Šempeter,60
+Dvorana,W65,Krogla 3kg,Čad Marjeta,MASS-VAD,9.4399999999999995,06.02.2013,Ljubljana,65
+Dvorana,W70,Krogla 3kg,Čad Marjeta,"VAD, Ljubljana",8.7599999999999998,30.01.2019,Ljubljana,71
+Dvorana,W75,Krogla 2kg,Čad Marjeta,"VAD, Ljubljana",9.6500000000000004,15.02.2023,Ljubljana,75
+Dvorana,W40,Peteroboj:,Čalasan Desa,Kladivar,3824 točk,27.03.2015,Torun,44
+Dvorana,W45,Peteroboj:,Čalasan Desa,Kladivar,3876 točk,29.03.2016,Ancona,45
+Dvorana,W50,Peteroboj:,Breganski Mojca,Radovljica,3750 točk,26.02.2022,Braga,52
+Na prostem,M50,60 m (nad 50 let),Himelrajh Božo,"Poljane, Maribor",7.5899999999999999,09.07.2016,Čejkovice,53
+Na prostem,M55,60 m (nad 50 let),Eržen Boštjan,"MASS, Ljubljana",7.9100000000000001,03.09.2022,Lipnica,56
+Na prostem,M60,60 m (nad 50 let),Arčon Egon,AK Gorica,8.2300000000000004,03.09.2022,Lipnica,60
+Na prostem,M65,60 m (nad 50 let),Nikolič Drago,"VAD, Ljubljana",8.7100000000000009,09.07.2016,Čejkovice,65
+Na prostem,M70,60 m (nad 50 let),Nikolič Drago,"VAD, Ljubljana",9.0700000000000003,21.08.2021,Leibnitz,70
+Na prostem,M75,60 m (nad 50 let),Moljk Valter,"VAD, Ljubljana",10.57,22.07.2017,Lipnica,77
+Na prostem,M80,60 m (nad 50 let),Snedič Alojz,"Kladivar, Celje",9.8200000000000003,03.09.2022,Lipnica,
+Na prostem,M35,100 m,Žumer Jan,"MASS, Ljubljana",10.76,20.06.2018,Maribor,
+Na prostem,M40,100 m,Himelrajh Božo,Maribor,11.789999999999999,28.05.2005,Maribor,42
+Na prostem,M45,100 m,Himelrajh Božo,Maribor,11.91,25.07.2008,Ljubljana,45
+Na prostem,M50,100 m,Himelrajh Božo,"Poljane, Maribor",11.67,03.07.2013,Maribor,50
+Na prostem,M55,100 m,Eržen Boštjan,"MASS, Ljubljana",12.34,06.05.2023,Kolin,57
+Na prostem,M60,100 m,Himelrajh Božo,"Poljane, Maribor",12.93,29.08.2025,Varaždin,62
+Na prostem,M65,100 m,Nikolič Drago,"VAD, Ljubljana",13.42,21.09.2018,Celje,67
+Na prostem,M70,100 m,Kragelj Bogdan,Gorica,14.470000000000001,21.09.2018,Celje,70
+Na prostem,M75,100 m,Kragelj Bogdan,Gorica,15.119999999999999,21.09.2023,Pescara,75
+Na prostem,M80,100 m,Soklič Ludvik,"Triglav, Kranj",16.710000000000001,21.09.2018,Celje,80
+Na prostem,M80,100 m,Snedič Alojz,"Kladivar, Celje",15.720000000000001,10.07.2023,Varaždin,
+Na prostem,M90,100 m,Rant Miro,"Triglav, Kranj",24.219999999999999,25.06.2022,Ravne na Koroškem,
+Na prostem,M35,200 m,Žumer Jan,"MASS, Ljubljana",21.609999999999999,20.06.2018,Maribor,
+Na prostem,M40,200 m,Himelrajh Božo,Maribor,23.600000000000001,31.07.2005,Tata,42
+Na prostem,M45,200 m,Himelrajh Božo,Maribor,23.940000000000001,30.07.2008,Ljubljana,45
+Na prostem,M50,200 m,Himelrajh Božo,"Štajerska, Maribor",24.140000000000001,21.06.2015,Maribor,52
+Na prostem,M55,200 m,Eržen Boštjan,"MASS, Ljubljana",24.899999999999999,26.06.2022,Ravne na Koroškem,56
+Na prostem,M60,200 m,Eržen Boštjan,"MASS, Ljubljana",25.859999999999999,10.10.2025,Madeira,60
+Na prostem,M65,200 m,Šoba Albert,"MASS, Ljubljana",27.199999999999999,29.09.2024,Bar,65
+Na prostem,M70,200 m,Nikolič Drago,"VAD, Ljubljana",29.710000000000001,12.09.2021,Čakovec,70
+Na prostem,M75,200 m,Kragelj Bogdan,Gorica,32.399999999999999,03.09.2023,Izmir,75
+Na prostem,M80,200 m,Rant Miro,"Triglav, Kranj",35.609999999999999,06.07.2013,Zagreb,
+Na prostem,M85,200 m,Rant Miro,"Triglav, Kranj",41.560000000000002,25.09.2016,Novi Sad,
+Na prostem,M35,300 m,Manfreda Anton,"Posočje, Tolmin",37.509999999999998,23.08.2017,Šentjernej,
+Na prostem,M45,300 m,Kocjančič Rok,Piran,39.229999999999997,13.06.2020,Sl. Bistrica,45
+Na prostem,M50,300 m,Himelrajh Božo,"Štajerska, Maribor",39.280000000000001,05.05.2013,Graz,50
+Na prostem,M55,300 m,Eržen Boštjan,"MASS, Ljubljana",39.68,15.05.2022,Maribor,56
+Na prostem,M60,300 m,Nikolič Drago,"VAD, Ljubljana",41.560000000000002,05.10.2014,Zagreb,63
+Na prostem,M35,400 m,Manfreda Anton,"Posočje, Tolmin",49.710000000000001,05.11.2016,Perth,
+Na prostem,M40,400 m,Klarič Aljaž,"Kladivar, Celje",53.299999999999997,14.06.2017,Maribor,41
+Na prostem,M45,400 m,Kocjančič Rok,Piran,54.880000000000003,20.09.2019,Bukarešta,45
+Na prostem,M50,400 m,Šoba Albert,"MASS, Ljubljana",55.850000000000001,27.06.2009,Domžale,50
+Na prostem,M55,400 m,Eržen Boštjan,"MASS, Ljubljana",55.450000000000003,08.07.2022,Tampere,56
+Na prostem,M60,400 m,Eržen Boštjan,"MASS, Ljubljana",57.899999999999999,10.10.2025,Madeira,60
+Na prostem,M65,400 m,Nikolič Drago,"VAD, Ljubljana","01:02,38",22.09.2017,Stara Zagora,66
+Na prostem,M70,400 m,Nikolič Drago,"VAD, Ljubljana","01:07,01",12.09.2021,Čakovec,70
+Na prostem,M75,400 m,Rant Miro,"Triglav, Kranj","01:13,70",19.08.2006,Reka,
+Na prostem,M80,400 m,Rant MIro,"Triglav, Kranj","01:22,90",23.06.2012,Celje,
+Na prostem,M85,400 m,Rant Miro,"Triglav, Kranj","01:35,43",24.09.2016,Novi Sad,
+Na prostem,M35,800 m,Ošep Darko,"KAK, Ravne","01:57,91",23.05.1998,Celje,
+Na prostem,M40,800 m,Kraševec Beno,"Olimpija, Ljubljana","02:01,54",30.07.2008,Ljubljana,
+Na prostem,M45,800 m,Piškur Beno,Ljubljana,"02:02,81",28.06.2009,Domžale,46
+Na prostem,M50,800 m,Miškovič Dragan,"VAD, Ljubljana","02:14,48",30.07.2008,Ljubljana,52
+Na prostem,M55,800 m,Miškovič Dragan,Krim,"02:18,46",04.09.2011,Domžale,55
+Na prostem,M60,800 m,Mauko Zdravko,Radenci,"02:40,83",23.09.2017,Stara Zagora,60
+Na prostem,M65,800 m,Jemenšek Silvester,"Almond, Sl.Bistrica","02:33,39",20.07.2010,Nyiregyhaza,65
+Na prostem,M70,800 m,Rant Miro,"VAD, Ljubljana","02:44,03",06.07.2003,Carolina,
+Na prostem,M75,800 m,Rant Miro,"Triglav, Kranj","02:58,64",29.07.2006,Poznan,
+Na prostem,M80,800 m,Soklič Ludvik,"Triglav, Kranj","03:21,50",22.09.2012,Celje,74
+Na prostem,M85,800 m,Rant Miro,"Triglav, Kranj","04:10,07",24.09.2016,Novi Sad,
+Na prostem,M35,1500 m,Guzej Franc,"Kladivar, Celje","03:58,53",19.09.1998,Velenje,
+Na prostem,M40,1500 m,Krempl Marijan,Poljčane,"04:09,08",25.07.1997,Durban,
+Na prostem,M45,1500 m,Piškur Beno,Ljubljana,"04:08,00",27.06.2009,Domžale,46
+Na prostem,M50,1500 m,Krempl Marjan,Almont,"04:23,95",26.07.2006,Poznan,51
+Na prostem,M55,1500 m,Miškovič Dragan,Krim,"04:42,73",25.06.2011,Domžale,55
+Na prostem,M60,1500 m,Krempl Marjan,"Triglav, Kranj","04:49,14",20.06.2015,Maribor,60
+Na prostem,M65,1500 m,Krempl Marjan,Kranj,"05:19,58",19.09.2020,Maribor,65
+Na prostem,M70,1500 m,Krempl Marjan,"Triglav, Kranj",5:35.31,21.06.2025,Celje,70
+Na prostem,M75,1500 m,Jemenšek Silvester,Sl. Bistrica,"06:25,83",24.09.2022,Solun,77
+Na prostem,M80,1500 m,Wraight Dennis,Maraton NM,"07:23,34",29.06.2019,Domžale,
+Na prostem,M85,1500 m,Wraight Dennis,Maraton NM,07:57.68,24.09.2022,Thessaloniki,
+Na prostem,M35,3000 m,Kejžar Roman,"MASS, Ljubljana","08:43,15",17.06.2009,Velenje,
+Na prostem,M45,3000 m,Kotnik Robert,Kronos,"09:30,44",25.08.2021,Ljubljana,46
+Na prostem,M50,3000 m,Svet Peter,Kladivar,"09:51,80",10.10.1999,Udine,
+Na prostem,M55,3000 m,Kotnik Milan,Radovljica,"10:07,70",11.06.2005,Ljubljana,55
+Na prostem,M60,3000 m,Krempl Marjan,"Triglav, Kranj","10:34,45",22.08.2015,Radovljica,60
+Na prostem,M65,3000 m,Bartol Ivan,Ljubljana,"12:19,00",11.06.2005,Ljubljana,67
+Na prostem,M70,3000 m,Krempl Marjan,"Triglav, Kranj",12:05.49,29.08.2025,Varaždin,70
+Na prostem,M80,3000 m,Wraight Dennis,Novo mesto,"15:33,20",22.08.2018,Šentjernej,
+Na prostem,M85,3000 m,Wraight Dennis,Novo mesto,17:32.87,29.08.2025,Varaždin,
+Na prostem,M35,5000 m,Krempl Marijan,Poljčane,"14:21,95",27.06.1992,Maribor,
+Na prostem,M40,5000 m,Krempl Marijan,Poljčane,"14:42,57",22.06.1997,Nova Gorica,
+Na prostem,M45,5000 m,Krempl Marijan,Poljčane,"15:41,66",07.07.2001,Brisbane,
+Na prostem,M50,5000 m,Kotnik Milan,Radovljica,"16:18,06",12.07.2000,Jyväskylä,50
+Na prostem,M55,5000 m,Kotnik Milan,Radovljica,"17:48,20",25.06.2005,Celje,55
+Na prostem,M60,5000 m,Krempl Marjan,Kranj,"17:45,46",21.06.2015,Maribor,60
+Na prostem,M65,5000 m,Krempl Marjan,Kranj,"19:20,93",20.09.2020,Maribor,65
+Na prostem,M70,5000 m,Savić Vladimir,Pivka,"19:32,56",16.06.2013,Velenje,70
+Na prostem,M75,5000 m,Jemenšek Silvester,Sl. Bistrica,"23:00,35",20.09.2020,Maribor,75
+Na prostem,M80,5000 m,Wraight Dennis,Novo mesto,"25:47,61",24.09.2018,Celje,
+Na prostem,M85,5000 m,Wraight Dennis,Novo mesto,28:14.12,25.05.2024,Celje,
+Na prostem,M35,10 000 m,Kejžar Roman,Velenje,"29:46,23",06.04.2002,Camaiore,
+Na prostem,M40,10 000 m,Kobe Primož,81,"30:13,17",28.05.2022,Pace Francija,41
+Na prostem,M45,10 000 m,Krempl Marjan,Poljčane,"33:02,93",09.07.2000,Jyliaskyla,45
+Na prostem,M50,10 000 m,Svet Peter,"Kladivar, Celje","34:06,08",13.05.2000,Sl.Bistrica,
+Na prostem,M55,10 000 m,Tavčar Cveto,Ljubljana,"38:35,41",24.07.2008,Ljubljana,
+Na prostem,M60,10 000 m,Bartol Ivan,Ljubljana,"38:06,56",12.09.1998,Cesenatico,60
+Na prostem,M65,10 000 m,Savič Vladimir,Postojna,"42:04,30",24.07.2008,Ljubljana,65
+Na prostem,M70,10 000 m,Savić Vladimir,Pivka,"46:36,81",06.09.2013,Zagreb,70
+Na prostem,M75,10 000 m,Dolenc Polde,Radenci,"01:01,02",24.07.2008,Ljubljana,76
+Na prostem,M80,10 000 m,Wraight Dennis,FIT,"57:23,29",24.09.2017,Stara Zagora,
+Na prostem,M35,Polmaraton - 21 098 m,Kejžar Roman,Velenje,1:05:20,22.03.2003,Praga,
+Na prostem,M40,Polmaraton - 21 098 m,Kejžar Roman,Velenje,1:04:12,18.02.2007,Ferrara,
+Na prostem,M45,Polmaraton - 21 098 m,Kotnik Milan,Radovljica,1:10:40,22.08.1998,Črna,48
+Na prostem,M50,Polmaraton - 21 098 m,Švab Boštjan,Kranj,1:14:18,04.05.2014,Trst,53
+Na prostem,M55,Polmaraton - 21 098 m,Kalan Tomaž,TS,1:19:08,26.10.2014,Ljubljana,
+Na prostem,M60,Polmaraton - 21 098 m,Bartol Ivan,Ljubljana,1:22:16,25.10.1998,Ljubljana,60
+Na prostem,M65,Polmaraton - 21 098 m,Bartol Ivan,Ljubljana,1:28:41,25.10.2002,Ljubljana,64
+Na prostem,M70,Polmaraton - 21 098 m,Bartol Ivan,Ljubljana,1:37:27,26.10.2013,Ljubljana,75
+Na prostem,M75,Polmaraton - 21 098 m,Savić Vladimir,Pivka,1:46:36,23.09.2018,Celje,75
+Na prostem,M80,Polmaraton - 21 098 m,Križnar Adolf,Žiri,2:17:59,16.05.2015,Radenci,
+Na prostem,M35,Maraton,Kejžar Roman,Velenje,2:13:26,27.04.2003,Hamburg,
+Na prostem,M40,Maraton,Kobe Primož,81,2:15:36,10.04.2022,Rotterdam,40
+Na prostem,M45,Maraton,Kejžar Roman,Velenje,2:27:28,27.09.2014,Berlin,
+Na prostem,M50,Maraton,Švab Boštjan,Kranj,2:38:27,17.05.2014,Radenci,53
+Na prostem,M55,Maraton,Ferfila Stane,Cerknica,2:47:51,26.10.2006,Ljubljana,55
+Na prostem,M60,Maraton,Foršček Bojan,,3:10:30,12.04.2015,Izola,
+Na prostem,M65,Maraton,Goleš Željko,Metlika,3:23:29,26.10.2014,Ljubljana,
+Na prostem,M70,Maraton,Ferfila Stanislav,Cerkmica,3:35:11,25.10.2021,Ljubljana,
+Na prostem,M75,Maraton,Ambrož Janez,Tržič,3:54:12,25.10.2015,Ljubljana,
+Na prostem,M35,Hoja - 3000 m - steza,Švab Vilko,Ljubljana,"17:22,72",01.07.2000,Ljubljana,
+Na prostem,M40,Hoja - 3000 m - steza,Veršec Vladimir,ŠDB,"13:42,00",15.12.2007,Koper,44
+Na prostem,M45,Hoja - 3000 m - steza,Veršec Vladimir,Koper,"14:21,20",20.12.2008,Koper,45
+Na prostem,M50,Hoja - 3000 m - steza,Ruzzier Fabio,Koper,"13:20,24",14.04.2007,Zagreb,54
+Na prostem,M55,Hoja - 3000 m - steza,Ruzzier Fabio,Koper,"13:51,00",06.11.2010,Zagreb,57
+Na prostem,M60,Hoja - 3000 m - steza,Ruzzier Fabio,Koper,"14:56,48",31.05.2015,Trst,62
+Na prostem,M65,Hoja - 3000 m - steza,Ruzzier Fabio,Koper,"16:30,37",15.09.2018,Ravne,65
+Na prostem,M70,Hoja - 3000 m - steza,Ruzzier Fabio,Koper,"17:41,96",07.10.2023,Lignano,70
+Na prostem,M35,Hoja - 5000 m - steza,Podpečan Bogdan,Velenje,"34:47,10",27.05.2007,Koper,39
+Na prostem,M40,Hoja - 5000 m - steza,Veršec Vladimir,ŠDB,"24:45,55",04.09.2007,Riccione,44
+Na prostem,M45,Hoja - 5000 m - steza,Ruzzier Fabio,Koper,"23:28,65",27.07.2002,Trst,49
+Na prostem,M50,Hoja - 5000 m - steza,Ruzzier Fabio,Koper,"22:31,81",08.05.2005,Gorica,52
+Na prostem,M55,Hoja - 5000 m - steza,Ruzzier Fabio,Koper,"22:28,00",23.08.2009,Zadar,56
+Na prostem,M60,Hoja - 5000 m - steza,Ruzzier Fabio,Koper,"23:54,00",01.06.2013,Borski Mikulas,60
+Na prostem,M65,Hoja - 5000 m - steza,Ruzzier Fabio,Koper,"28:29,39",21.09.2018,Celje,65
+Na prostem,M70,Hoja - 5000 m - steza,Ruzzier Fabio,Koper,"30:22,70",28.10.2023,Montefalcone,70
+Na prostem,M75,Hoja - 5000 m - steza,Kreft Vanja,"Kronos, Ljubljana","35:00,91",26.06.2022,Ravne na Koroškem,74
+Na prostem,M80,Hoja - 5000 m - steza,Jerčič Ludvik,Muta,"41:19,79",21.09.2018,Celje,80
+Na prostem,M40,Hoja - 10 km - cesta,Veršec Vladimir,ŠDB,"48:06,00",04.08.2007,Novi grad,44
+Na prostem,M45,Hoja - 10 km - cesta,Veršec Vladimir,Koper,"50:57,10",21.09.2008,Koper,45
+Na prostem,M50,Hoja - 10 km - cesta,Ruzzier Fabio,Koper,"47:21,00",14.03.2004,Sindelfingen,51
+Na prostem,M55,Hoja - 10 km - cesta,Ruzzier Fabio,Koper,"47:28,00",05.02.2011,Hollenburg,58
+Na prostem,M60,Hoja - 10 km - cesta,Ruzzier Fabio,Koper,"51:19,00",03.11.2013,Milje,60
+Na prostem,M65,Hoja - 10 km - cesta,Ruzzier Fabio,Koper,1:00:30,30.03.2018,Olomuc,65
+Na prostem,M70,Hoja - 10 km - cesta,Ruzzier Fabio,Koper,01:03.39,10.06.2023,Zagreb,70
+Na prostem,M75,Hoja - 10 km - cesta,Jerčič Ludvik,Muta,1:24:32,01.04.2017,Tržič,78
+Na prostem,M40,Hoja - 20 km - cesta,Veršec Vladimir,ŠDB,1:48:29,23.09.2007,Varaždin,44
+Na prostem,M45,Hoja - 20 km - cesta,Ruzzier Fabio,Koper,1:42:35,21.08.2002,Potsdam,49
+Na prostem,M50,Hoja - 20 km - cesta,Ruzzier Fabio,Koper,1:37:05,29.05.2004,S.Giovanni,51
+Na prostem,M55,Hoja - 20 km - cesta,Ruzzier Fabio,Koper,1:38:53,13.04.2008,Pariz,55
+Na prostem,M60,Hoja - 20 km - cesta,Ruzzier Fabio,Koper,1:48:07,30.03.2013,Olomuc,60
+Na prostem,M65,Hoja - 20 km - cesta,Ruzzier Fabio,Koper,2:02:44,13.11.2019,Zagreb,66
+Na prostem,M70,Hoja - 20 km - cesta,Ruzzier Fabio,Koper,2:10:09,21.09.2023,Pescara,70
+Na prostem,M70,80m ov.,Moljk Valter,"VAD, Ljubljana",15.289999999999999,26.06.2010,Maribor,70
+Na prostem,M75,80m ov.,Sluga Marko,"VAD, Ljubljana",17.809999999999999,06.11.2010,Brisbane,75
+Na prostem,M80,80m ov.,Moljk Valter,"Kladivar, Celje",19.699999999999999,20.09.2020,Maribor,80
+Na prostem,M50,100m ov.,Kocjančič Rok,"Piran                   14,40",27-,29.09.2024,Bar,50
+Na prostem,M55,100m ov.,Božiček Marko,"Kladivar, Celje",14.960000000000001,25.06.2017,Celje,55
+Na prostem,M60,100m ov.,Šoba Albert,"MASS,Ljubljana",15.609999999999999,20.09.2020,Maribor,61
+Na prostem,M65,100m ov.,Šoba Albert,"MASS,Ljubljana",16.399999999999999,28.09.2024,Bar,65
+Na prostem,M35,110m ov.,Zlatnar Damjan,"MASS, Ljubljana",14.140000000000001,23.06.2013,Kaunas,
+Na prostem,M40,110m ov.,Zlatnar Damjan,"MASS, Ljubljana",15.380000000000001,23.09.2018,Ptuj,
+Na prostem,M45,110m ov.,Kocjančič Rok,Piran,16.050000000000001,23.06.2024,Maribor,49
+Na prostem,M60,300m ovire,Eržen Boštjan,"MASS, Ljubljana",44.789999999999999,15.10.2025,Madeira,60
+Na prostem,M65,300m ovire,Šoba Albert,"MASS, Ljubljana",46.390000000000001,21.06.2025,Celje,66
+Na prostem,M70,300m ovire,Nikolič Drago,,55.020000000000003,29.08.2025,Varaždin,74
+Na prostem,M35,400 m ovire,Muhič Niko,"Kronos, Ljubljana",56.280000000000001,16.05.1999,Ljubljana,36
+Na prostem,M40,400 m ovire,Kocjančič Rok,Piran,59.240000000000002,15.07.2018,Celje,43
+Na prostem,M45,400 m ovire,Kocjančič Rok,Piran,59.340000000000003,25.06.2022,Velenje,47
+Na prostem,M50,400 m ovire,Kocjančič Rok,"Piran                   60,86",27-,29.09.2024,Bar,50
+Na prostem,M55,400 m ovire,Božiček Marko,"Kladivar, Celje",62.240000000000002,02.08.2017,Arhus,55
+Na prostem,M35,3000m zapreke,Malavašič Borut,Žiri,"10:03,66",23.07.2006,Novo mesto,34
+Na prostem,M40,3000m zapreke,Kotnik Milan,Radovljica,"09:48,34",19.09.1998,Cesenatico,48
+Na prostem,M45,3000m zapreke,Komel Branimir,Ptuj,"10:29,88",05.10.2008,Bar,46
+Na prostem,M50,3000m zapreke,Svet Peter,"Kladivar, Celje","10:14,24",09.07.2000,Jyvaskyla,
+Na prostem,M55,3000m zapreke,Kotnik Milan,Radovljica,"11:29,90",03.09.2005,San Sebastian,55
+Na prostem,M40,Daljina,Makarovič Ivo,"Gorica, Nova Gorica",7.0300000000000002,25.05.1991,Kranj,
+Na prostem,M45,Daljina,Šrot Dean,Velenje,6.0199999999999996,09.07.2016,Čejkovice,46
+Na prostem,M50,Daljina,Himelrajh Božo,"Poljane, Maribor",6.0099999999999998,24.08.2013,Ptuj,50
+Na prostem,M55,Daljina,Šimšič Milosav,Nova Gorica,5.6799999999999997,11.07.2015,Salzburg,55
+Na prostem,M60,Daljina,Šimšić Milosav,"Gorica, Nova Gorica",5.0800000000000001,21.08.2021,Leibnitz,61
+Na prostem,M65,Daljina,Šimšić Milosav,"Gorica, Nova Gorica",4.7300000000000004,29.08.2025,Varaždin,65
+Na prostem,M70,Daljina,Rant Miro,"Triglav, Kranj",4.1799999999999997,22.06.2002,Ljubljana,
+Na prostem,M75,Daljina,Kragelj Bogdan,Gorica,3.7000000000000002,03.09.2023,Izmir,75
+Na prostem,M80,Daljina,Moljk Valter,"Kladivar, Celje",3.1400000000000001,19.09.2020,Maribor,80
+Na prostem,M40,Troskok,Šrot Dean,Velenje,12.77,08.09.2013,Zagreb,43
+Na prostem,M45,Troskok,Šrot Dean,Velenje,13.02,09.07.2016,Čejkovice,46
+Na prostem,M50,Troskok,Šimunič Milan,"Kladivar, Celje",11.890000000000001,05.08.2004,Maribor,
+Na prostem,M55,Troskok,Eržen Boštjan,"MASS, Ljubljana         10,43",24-,25.06.2023,Celje,57
+Na prostem,M60,Troskok,Mauko Zdravko,Radenci,10,26.08.2017,Ptuj,60
+Na prostem,M65,Troskok,Pipan Drago,"Triglav, Kranj",9.5899999999999999,26.06.2016,Novo mesto,65
+Na prostem,M70,Troskok,Pipan Drago,"Triglav, Kranj            8,37",3-,04.07.2021,Nova Gorice,70
+Na prostem,M75,Troskok,Kragelj Bogdan,Gorica,7.6699999999999999,03.09.2023,Izmir,75
+Na prostem,M35,Višina,Šparovec Matjaž,"Olimpija, Ljubljana",2.0499999999999998,16.05.2009,Celje,35
+Na prostem,M45,Višina,Prezelj Dušan,"Triglav, Kranj",1.8999999999999999,11.06.1994,Atene,45
+Na prostem,M50,Višina,Šparovec Matjaž,"Olimpija, Ljubljana",1.8500000000000001,25.05.2024,Celje,50
+Na prostem,M55,Višina,Vivod Branko,"Kladivar, Celje",1.75,09.07.2000,Jyväskylä,56
+Na prostem,M60,Višina,Prezelj Dušan,Kranj,1.76,15.09.2011,Lignano,62
+Na prostem,M65,Višina,Prezelj Dušan,Kranj,1.6699999999999999,22.08.2015,Izmir,66
+Na prostem,M70,Višina,Prezelj Dušan,Kranj,1.6000000000000001,22.07.2020,Ptuj,71
+Na prostem,M75,Višina,Prezelj Dušan,Kranj,1.45,13.08.2024,Gothenburg,75
+Na prostem,M80,Višina,Moljk Valter,"Kladivar, Celje",1.27,20.09.2020,Maribor,80
+Na prostem,M85,Višina,Sluga Marko,"VAD, Ljubljana",1.1399999999999999,25.06.2022,Ravne na Koroškem,86
+Na prostem,M90,Višina,Sluga Marko,"VAD, Ljubljana",1,09.10.2025,Madeira,90
+Na prostem,M35,Palica,Rovan Jure,BrežIce,550,28.07.2010,Berlin,
+Na prostem,M40,Palica,Dimitrijevič Iztok,"Kladivar, Celje",400,02.08.2008,Ljubljana,44
+Na prostem,M45,Palica,Kranjc Milan,"Kladivar, Celje",420,02.08.2008,Ljubljana,46
+Na prostem,M50,Palica,Kranjc Milan,"Kladivar, Celje",400,24.06.2012,Celje,50
+Na prostem,M55,Palica,Dimitrijevič Iztok,"Kladivar, Celje",380,15.09.2019,Velenje,55
+Na prostem,M60,Palica,Bizjak Mirko,"VAD, Ljubljana",280,19.09.2010,Larissa,60
+Na prostem,M65,Palica,Bizjak Mirko,"MASS, Ljubljana",260,06.07.2015,Ljubljana,65
+Na prostem,M35,Krogla,Medič Miro,"Kladivar, Celje",16.18,22.06.2002,Ljubljana,
+Na prostem,M45,Krogla,Pirnat Jože,Domžale,13.08,13.06.2015,Celje,45
+Na prostem,M50,Krogla 6 kg,Pirnat Jože,Domžale,14.51,19.06.2021,Ptuj,51
+Na prostem,M55,Krogla 6 kg,Pirnat Jože,Domžale,13.94,29.08.2025,Varaždin,55
+Na prostem,M60,Krogla 5 kg,Prstec Miki,Ptuj,14.41,23.06.2018,Celje,61
+Na prostem,M65,Krogla 5 kg,Prstec MIKI,Ptuj,13.73,01.06.2022,Ljubljana,65
+Na prostem,M70,Krogla 4 kg,Uršič Jože,"VAD, Ljubljana",13.15,01.08.2010,Ljubljana,70
+Na prostem,M75,Krogla 4 kg,Sluga Marko,"VAD, Ljubljana",11.85,26.08.2010,Lipnica,75
+Na prostem,M80,Krogla 3 kg,Sluga Marko,"VAD, Ljubljana",11.19,08.10.2015,Nica,80
+Na prostem,M85,Krogla 3 kg,Sluga Marko,"VAD, Ljubljana",9.5,30.09.2020,Ljubljana,85
+Na prostem,M90,Krogla 3 kg,Sluga Marko,"VAD, Ljubljana",6.9299999999999997,26.07.2025,,90
+Na prostem,M35,Disk,Primc Igor,"Krka, Novo mesto",64.590000000000003,09.07.2002,Lignano,35
+Na prostem,M40,Disk,Primc Igor,"Krka, Novo mesto",59.780000000000001,09.07.2006,Novo mesto,39
+Na prostem,M45,Disk,Janežič Tomaž,"Triglav, Kranj",41.359999999999999,03.07.2013,Maribor,45
+Na prostem,M50,"Disk 1,5 kg",Mijač Mičo,"Kladivar, Celje",45.57,25.08.2001,Rijeka,
+Na prostem,M55,"Disk 1,5 kg",Mijač Mičo,"Kladivar, Celje",41.520000000000003,06.08.2005,Varaždin,
+Na prostem,M60,Disk 1 kg,Prezelj Dušan,Kranj,46.670000000000002,05.10.2011,Ljubljana,62
+Na prostem,M65,Disk 1 kg,Prezelj Dušan,Kranj,44.539999999999999,29.09.2014,Bukarešta,65
+Na prostem,M70,Disk 1 kg,Prezelj Dušan,Kranj,42.329999999999998,19.09.2020,Maribor,71
+Na prostem,M75,Disk 1 kg,Stanič Janče,"VAD, Ljubljana",36.149999999999999,26.08.2017,Ptuj,77
+Na prostem,M80,Disk 1 kg,Stanič Janče,"VAD, Ljubljana",30.949999999999999,03.06.2020,Ljubljana,80
+Na prostem,M85,Disk 1 kg,Sluga Marko,"VAD, Ljubljana       20,53",3-,04.07.2021,Nova Gorice,85
+Na prostem,M90,Disk 1 kg,Sluga Marko,"VAD, Ljubljana",15.24,09.10.2025,Madeira,90
+Na prostem,M35,Kladivo,Malnar Slavko,Novo mesto,48.600000000000001,01.07.1995,Ljubljana,
+Na prostem,M40,Kladivo,Pirnat Jože,Domžale,48.039999999999999,12.04.2015,Domžale,44
+Na prostem,M45,Kladivo,Dajčman Milan,Slovenska Bistrica,54.520000000000003,14.05.1998,Maribor,
+Na prostem,M50,Kladivo 6 kg,Drozg Peter,Slovenska Bistrica,54.93,01.08.1999,Gateshead,50
+Na prostem,M55,Kladivo 6 kg,Drozg Peter,Slovenska Bistrica,51.579999999999998,26.06.2004,Ljubljana,55
+Na prostem,M60,Kladivo 5 kg,Vidmajer Adi,Žalec,47.859999999999999,14.06.2003,Ljubljana,61
+Na prostem,M65,Kladivo 5 kg,Vidmajer Adi,Žalec,45.259999999999998,04.10.2009,Udine,67
+Na prostem,M70,Kladivo 4 kg,Vidmajer Adi,Žalec,48.82,21.09.2014,Bukarešta,72
+Na prostem,M75,Kladivo 4 kg,Vidmajer Adi,Žalec,46.020000000000003,24.05.2017,Celje,75
+Na prostem,M80,Kladivo 3 kg,Stanič Janče,"VAD, Ljubljana",32.25,30.05.2020,Domžale,80
+Na prostem,M85,Kladivo 3 kg,Sluga Marko,"VAD, Ljubljana",26.289999999999999,19.06.2021,Ptuj,85
+Na prostem,M90,Kladivo 3 kg,Sluga Marko,"VAD, Ljubljana",20.190000000000001,22.07.2025,Ptuj,90
+Na prostem,M35,Kopje 800 g,Kranjc Matej,"MASS, Ljubljana",74.469999999999999,24.04.2021,Radovljica,
+Na prostem,M40,Kopje 800 g,Kranjc Matej,"MASS, Ljubljana",70.420000000000002,02.09.2022,Sacile talija,
+Na prostem,M45,Kopje 800 g,Teršek Robi,"Triglav, Kranj",60.799999999999997,25.07.2015,Nova Gorica,
+Na prostem,M50,Kopje,700g(800) Teršek Robi,"Triglav, Kranj",51.469999999999999,25.08.2021,Ljubljana,
+Na prostem,M55,Kopje 700g,Teršek Robi,"Triglav, Kranj",49.5,09.05.2025,Zalasezerged,
+Na prostem,M60,Kopje 600 g,Novak Jure,"VAD, Ljubljana",45.369999999999997,21.07.2010,Nyiregyhaza,61
+Na prostem,M65,Kopje 600 g,Tratnik Igor,"VAD, Ljubljana",43.520000000000003,28.07.2012,Budimpešta,65
+Na prostem,M70,Kopje 500 g,Kopitar Jože,"Kladivar, Celje",44.340000000000003,22.06.2002,Ljubljana,70
+Na prostem,M75,Kopje 500 g,Kopitar Jože,"Kladivar, Celje",37.490000000000002,30.06.2007,Ljubljana,75
+Na prostem,M80,Kopje 400 g,Kopitar Jože,"Kladivar, Celje",33.310000000000002,23.06.2012,Celje,80
+Na prostem,M85,Kopje 400 g,Sluga Marko,"VAD, Ljubljana",25.219999999999999,22.07.2020,Ptuj,85
+Na prostem,M35,"Gira - utež 15,88 kg",Emberšič Danilo,Domžale,14.27,28.06.2009,Domžale,39
+Na prostem,M40,"Gira - utež 15,88 kg",Emberšič Danilo,Domžale,15.119999999999999,18.09.2013,Ljubljana,43
+Na prostem,M45,"Gira - utež 15,88 kg",Pirnat Jože,Domžale,14.380000000000001,11.06.2018,Domžale,48
+Na prostem,M50,"Gira - utež 11,34 kg",Pirnat Jože,Domžale,18.57,13.06.2020,Domžale,50
+Na prostem,M55,"Gira - utež 11,34 kg",Pirnat Jože,Domžale,17.059999999999999,09.10.2025,Madeira,55
+Na prostem,M60,"Gira - utež 9,08 kg",Prstec Miki,Ptuj,16.260000000000002,02.07.2017,Čakovec,60
+Na prostem,M65,"Gira - utež 9,08 kg",Vidmajer Adi,Žalec,16.149999999999999,28.06.2009,Domžale,67
+Na prostem,M70,"Gira - utež 7,26 kg",Vidmajer Adi,Žalec,18.870000000000001,07.06.2014,Žalec,72
+Na prostem,M75,"Gira - utež 7,26 kg",Vidmajer Adi,Žalec,17.73,23.09.2018,Žalec,76
+Na prostem,M80,"Gira - utež 5,45 kg",Stanič Janče,"VAD, Ljubljana",13.9,30.05.2020,Domžale,80
+Na prostem,M85,"Gira - utež 5,45 kg",Sluga Marko,"VAD, Ljubljana",10.73,01.06.2022,Ljubljana,86
+Na prostem,M90,"Gira - utež 5,45 kg",Sluga Marko,"VAD, Ljubljana",7.8300000000000001,22.07.2025,Ptuj,90
+Na prostem,M40,Peteroboj,Kaštivnik Anton,"Triglav, Kranj",3164 točk,24.08.1984,Brighton,42
+Na prostem,M50,Peteroboj,Brodnik Jože,"Kladivar, Celje",2939 točk,29.11.1987,Melbourne,
+Na prostem,M60,Peteroboj,Mauko Zdravko,Radenci,2926 točk,21.10.2018,Zagreb,61
+Na prostem,M65,Peteroboj,Mauko Zdravko,Radenci,29902 točk,16.10.2022,Zagreb,65
+Na prostem,M70,Peteroboj,Rajk Ivan,VAD,3179 točk,30.07.2008,Ljubljana,
+Na prostem,M40,Deseteroboj,Konc Lado,"Triglav, Kranj     4641 točk",9./,10.05.1987,Kranj,
+Na prostem,M45,Deseteroboj,Mauko Zdravko,Radenci            3791 točk,"18.,",19.09.2004,Judenburg,47
+Na prostem,M50,Deseteroboj,Mauko Zdravko,Radenci,6101 točk,25.07.2008,Ljubljana,51
+Na prostem,M55,Deseteroboj,Brodnik Jože,"Kladivar, Celje",7633 točk,18.07.1991,Turku,
+Na prostem,M60,Deseteroboj,Mauko Zdravko,Radenci,5888 točk,28.07.2017,Arhus,60
+Na prostem,M65,Deseteroboj,Mauko Zdravko,Radenci,5905 točk,29.06.2022,Tampere,65
+Na prostem,M35,Deseteroboj,Emberšič Danilo,Domžale,3168 točk,03.08.2008,Ljubljana,38
+Na prostem,M40,Deseteroboj,Pirnat Jože,Domžale,3360 točk,06.06.2015,Domžale,44
+Na prostem,M45,Deseteroboj,Pirnat Jože,Domžale,3529 točk,11.06.2016,Domžale,46
+Na prostem,M50,Deseteroboj,Pirnat Jože,Domžale,3770 točk,27.06.2020,Neuhoffen,50
+Na prostem,M55,Deseteroboj,Pirnat Jože,Domžale,3824 točk,20.09.2025,Domžale,55
+Na prostem,M60,Deseteroboj,Prstec Miki,Ptuj,3579 točk,19.06.2021,Ptuj,64
+Na prostem,M65,Deseteroboj,Prstec Miki,Ptuj,3699 točk,29.09.2021,Tampere,65
+Na prostem,M70,Deseteroboj,Vidmajer Adi,Žalec,3580 točk,04.10.2014,Ljubljana,72
+Na prostem,M75,Deseteroboj,Vidmajer Adi,Žalec,3864 točk,04.06.2017,Žalec,75
+Na prostem,M80,Deseteroboj,Sluga Marko,"VAD, Ljubljana",3238 točk,11.06.2016,Domžale,80
+Na prostem,M85,Deseteroboj,Sluga Marko,"VAD, Ljubljana",3037 točk,19.06.2021,Ptuj,85
+Na prostem,M90,Deseteroboj,Sluga Marko,"VAD, Ljubljana",2547 točk,20.09.2025,Domžale,90
+Na prostem,W55,60 m,Blatnik Zvonka,"Kladivar, Celje",9.3100000000000005,09.07.2016,Čejkovice,55
+Na prostem,W65,60 m,Kržič Zvezdana,"VAD, Ljubljana",10.81,02.09.2012,Lipnica,65
+Na prostem,W70,60 m,Čad Marjeta,"VAD, Ljubljana",11.779999999999999,03.09.2022,Lipnica,74
+Na prostem,W75,60 m,Mohar Iva,Radovljica,12.73,09.07.2016,Čejkovice,76
+Na prostem,W35,100 m,Mihalinec Z. Maja,ŽAK,11.59,22.07.2025,Ptuj,
+Na prostem,W40,100 m,Ottey Merlene,"MASS, Ljubljana",11.09,03.08.2004,Naimette,
+Na prostem,W45,100 m,Ottey Marlene,"MASS, Ljubljana",11.41,08.08.2006,Goteborg,
+Na prostem,W50,100 m,Ottey Marlene,"MASS, Ljubljana",11.67,13.07.2010,Novo mesto,
+Na prostem,W55,100 m,Jerman Ana,"Triglav, Kranj",15.01,23.06.2007,Reka,55
+Na prostem,W60,100 m,Jerman Ana,"Triglav, Kranj",16.719999999999999,23.06.2012,Celje,60
+Na prostem,W65,100 m,Jerman Ana,"Triglav, Kranj",17.18,21.09.2018,Celje,66
+Na prostem,W70,100 m,Jerman Ana,"Triglav, Kranj",18.859999999999999,16.03.8093,Celje,6140
+Na prostem,W75,100 m,Mohar Iva,Radovljica,21.210000000000001,25.06.2016,Novo mesto,76
+Na prostem,W35,200 m,Mihalinec Z. Maja,ŽAK,23.420000000000002,05.06.2025,Maribor,
+Na prostem,W40,200 m,Ottey Marlene,MASS,22.719999999999999,23.08.2004,Atene,
+Na prostem,W45,200 m,Ottey Marlene,MASS,22.969999999999999,18.06.2006,Donnas,
+Na prostem,W50,200 m,Ottey Marlene,"MASS, Ljubljana",24.329999999999998,18.07.2010,Velenje,
+Na prostem,W55,200 m,Blatnik Zvonka,"Kladivar, Celje",30.760000000000002,26.06.2016,Novo mesto,55
+Na prostem,W60,200 m,Jerman Ana,"Triglav, Kranj",34.210000000000001,24.06.2012,Celje,60
+Na prostem,W65,200 m,Jerman Ana,Kranj,36.329999999999998,23.09.2018,Celje,66
+Na prostem,W70,200 m,Jerman Ana,Kranj,40.530000000000001,21.06.2025,Celje,73
+Na prostem,W75,200 m,Mohar Iva,Radovljica,46.340000000000003,26.06.2016,Novo mesto,76
+Na prostem,W80,200 m,Žigon Helena,Ljubljana,50.469999999999999,30.07.2008,Ljubljana,80
+Na prostem,W40,300 m,Pajk Lidija,Radovljica,48.210000000000001,09.07.2016,Čejkovice,41
+Na prostem,W45,300 m,Pajk Lidija,Radovljica,50.240000000000002,27.08.2022,Šentjernej,47
+Na prostem,W50,300 m,Blatnik Zvonka,"Kladivar, Celje",49.32,09.05.2015,Lipnica,54
+Na prostem,W55,300 m,Blatnik Zvonka,"Kladivar, Celje",48.880000000000003,09.07.2016,Čejkovice,55
+Na prostem,W35,400 m,Pristovnik Tanja,Kladivar,"01:00,63",31.07.2008,Ljubljana,37
+Na prostem,W40,400 m,Markežič Patricija,AK Koper-82,01:03.68,21.06.2025,Celje,
+Na prostem,W45,400 m,Jerman Ana,"Triglav, Kranj","01:04,30",06.07.1997,Koper,45
+Na prostem,W50,400 m,Blatnik Zvonka,"Kladivar, Celje","01:06,70",20.08.2012,Zittau,51
+Na prostem,W55,400 m,Jerman Ana,"Triglav, Kranj","01:09,68",30.06.2007,Ljubljana,55
+Na prostem,W60,400 m,Jerman Ana,"Triglav, Kranj","01:13,78",05.07.2014,Zagreb,62
+Na prostem,W65,400 m,Jerman Ana,Kranj,"01:23,06",22.09.2018,Celje,66
+Na prostem,W70,400 m,Lužnik Kazimira,Slovenj Gradec,"01:30,59",30.06.2007,Ljubljana,72
+Na prostem,W75,400 m,Rogelj Jožica,Novo mesto,"01:34,52",21.05.2022,Leibnitz,
+Na prostem,W80,400 m,Žigon Helena,Ljubljana,"01:49,47",31.07.2008,Ljubljana,80
+Na prostem,W35,800 m,Jerman Ana,"Triglav, Kranj","02:17,05",01.08.1989,Eugene,37
+Na prostem,W40,800 m,Jerman Ana,"Triglav, Kranj","02:20,28",26.08.1994,Novo mesto,42
+Na prostem,W45,800 m,Jerman Ana,"Triglav, Kranj","02:21,35",24.06.1997,Durban,45
+Na prostem,W50,800 m,Jerman Ana,"Triglav, Kranj","02:36,37",01.10.2002,Melbourne,50
+Na prostem,W55,800 m,Jerman Ana,"Triglav, Kranj","03:02,14",09.09.2007,Riccione,55
+Na prostem,W60,800 m,Jerman Ana,Kranj,"02:51,70",22.06.2014,Radovljica,62
+Na prostem,W65,800 m,Jerman Ana,Kranj,"03:20,02",22.09.2018,Celje,66
+Na prostem,W70,800 m,Rogelj Jožica,Novo mesto,"03:27,18",29.06.2019,Domžale,
+Na prostem,W75,800 m,Rogelj Jožica,Novo mesto,"03:35,85",03.09.2022,Leibnitz,
+Na prostem,W80,800 m,Žigon Helena,Ljubljana,"04:13,00",28.07.2008,Ljubljana,80
+Na prostem,W35,1500 m,Javornik Helena,Maribor 98,"04:10,06",29.06.2001,Rim,35
+Na prostem,W40,1500 m,Jerman Ana,"Triglav, Kranj","05:00,85",21.07.1992,Celje,40
+Na prostem,W45,1500 m,Kotar Ilijaš Jana,Gorica,"05:16,93",25.06.2011,Zalaegerszeg,
+Na prostem,W50,1500 m,Strahinič Jana,Domžale,"05:23,30",11.07.2015,Salzburg,50
+Na prostem,W55,1500 m,Rozman Greta,"Triglav, Kranj","05:56,50",06.07.1996,Ljubljana,
+Na prostem,W60,1500 m,Strahinič Jana,Domžale,"06:13,29",09.05.2025,Zalasegerszeg,60
+Na prostem,W65,1500 m,Lužnik Kazimira,Slovenj Gradec,"07:04,25",23.06.2001,Velenjje,66
+Na prostem,W70,1500 m,Rogelj Jožica,Novo mesto,"07:00,15",19.09.2020,Maribor,
+Na prostem,W75,1500 m,Rogelj Jožica,Novo mesto,"07:15,00",21.05.2022,Leibnitz,
+Na prostem,W80,1500 m,Lužnik Kazimira,Slovenj Gradec,"10:18,68",20.06.2015,Maribor,80
+Na prostem,W35,3000 m,Javornik Helena,Maribor 98,"08:53,71",17.06.2002,Praga,36
+Na prostem,W40,3000 m,Javornik Helena,Maribor 98,"09:29,46",17.06.2006,Solun,40
+Na prostem,W50,3000 m,Fortin Aleksandra,AK Gorica,12:04.94,02.08.2025,Celje,53
+Na prostem,W75,3000 m,Rogelj Jožica,Novo mesto,16:17.59,29.08.2025,Varaždin,
+Na prostem,W35,5000 m,Javornik Helena,Maribor 98,"15:23,45",22.07.2001,London,35
+Na prostem,W40,5000 m,Javornik Helena,Maribor 98,"16:36,79",10.06.2006,Ljubljana,40
+Na prostem,W45,5000 m,Šurbek Ida,"VAD, Ljubljana","18:07,60",28.06.2008,Ljubljana,47
+Na prostem,W50,5000 m,Kotar Ilijaš Jana,"Gorica, Nova Gorica","19:38,95",20.09.2020,Maribor,
+Na prostem,W55,5000 m,Rozman Greta,"Triglav, Kranj","21:30,97",06.07.1996,Ljubljana,
+Na prostem,W60,5000 m,Šiftar Jožica,Radenci,"22:31,73",23.09.2016,Novi Sad,63
+Na prostem,W65,5000 m,Kotar Hedvika,Rudar,"25:48,42",21.09.2018,Celje,69
+Na prostem,W70,5000 m,Rogelj Jožica,Novo mesto,"25:34,16",21.09.2018,Celje,
+Na prostem,W75,5000 m,Rogelj Jožica,Novo mesto,"26:47,63",24.09.2022,Solun,
+Na prostem,W80,5000 m,Lužnik Kazimira,Slovenj Gradec,"39:17,64",21.09.2018,Celje,84
+Na prostem,W35,10.000 m,Javornik Helena,Zreče,"31:06,63",27.08.2004,Attene,38
+Na prostem,W40,10.000 m,Javornik Helena,Maribor 98,"33:07,49",12.04.2008,Istambul,42
+Na prostem,W45,10.000 m,Šiftar Jožica,Gornja Radgona,"42:13,84",16.08.2002,Potsdam,49
+Na prostem,W50,10.000 m,Šiftar Jožica,Gornja Radgona,"43:41,71",08.07.2003,Carolina,50
+Na prostem,W55,10.000 m,Šiftar Jožica,Gornja Radgona,"45:38,98",24.07.2008,Ljubljana,55
+Na prostem,W60,10.000 m,Šiftar Jožica,Radenci,"46:47,55",07.09.2013,Zagreb,60
+Na prostem,W70,10.000 m,Lužnik Kazimira,Slovenj Gradec,"01:47,45",24.07.2008,Ljubljana,73
+Na prostem,W75,10.000 m,Rogelj Jožica,Novo mesto            57:19.90,3-,05.09.2023,Izmir,
+Na prostem,W35,Polmaraton (21.098 m),Javornik Helena,Maribor 98,1:09:22,26.09.2004,Remich,38
+Na prostem,W40,Polmaraton (21.098 m),Javornik Helena,Maribor 98,1:10:57,18.02.2007,Ferrara,40
+Na prostem,W45,Polmaraton (21.098 m),Šurbek Ida,Sladka gora,0:01:19,18.03.2008,Reka,47
+Na prostem,W50,Polmaraton (21.098 m),Javornik Helena,Maribor,0:01:23,23.10.2016,Valencia,50
+Na prostem,W55,Polmaraton (21.098 m),Lipušček Sergeja,"1:33,44",2-,03.10.2021,Novo mesto,
+Na prostem,W60,Polmaraton (21.098 m),Šiftar Jožica,Radenci,1:41:34,22.09.2013,Domžale,60
+Na prostem,W65,Polmaraton (21.098 m),Bošnak Darinka,Vzajemna,1:55:43,26.10.2014,Ljubljana,
+Na prostem,W70,Polmaraton (21.098 m),Bratuša Lojzka,Radenci,0:01:52,16.05.2009,Radenci,
+Na prostem,W75,Polmaraton (21.098 m),Bratuša Lojzka,Radenci,2:02:56,26.10.2014,Ljubljana,
+Na prostem,W80,Polmaraton (21.098 m),Žigon Helena,"Ekstrem, Ljubljana",2:39:08,24.10.2010,Ljubljana,82
+Na prostem,W35,Maraton,Javornik Helena,Zreče,2:27:33,17.10.2004,Amsterdam,38
+Na prostem,W40,Maraton,Javornik Helena,Maribor 98,2:28:53,18.03.2006,Rim,39
+Na prostem,W50,Maraton,Javornik Helenaa,Maribor,2:54:59,30.10.1991,Ljubljana,
+Na prostem,W55,Maraton,Brešan Vilma,Nova Gorica,3:39:34,17.05.2014,Radenci,
+Na prostem,W60,Maraton,Finžgar Nadja,Gorenski glas,3:41:17,23.10.2011,Ljubljana,
+Na prostem,W65,Maraton,Bratuša Lojzka,Radenci,4:04:39,10.09.2007,Riccione,
+Na prostem,W70,Maraton,Bratuša Lojzka,Radenci,3:54:20,15.05.2010,Radenci,
+Na prostem,W35,Hoja - 3000 m na stezi,Sedej Ingrid,-,"20:58,50",27.05.2007,Koper,
+Na prostem,W40,Hoja - 3000 m na stezi,Čufer Valentina,Burja,"18:36,75",24.05.2009,Zagreb,42
+Na prostem,W45,Hoja - 3000 m na stezi,Poklar Andreja,Koper,"17:28,79",20.06.2015,Maribor,48
+Na prostem,W50,Hoja - 3000 m na stezi,Poklar Andreja,Koper,"16:56,90",23.06.2018,Celje,51
+Na prostem,W60,Hoja - 3000 m na stezi,Puhar Mira,Koper,"20:40,38",01.07.2000,Ljubljana,62
+Na prostem,W65,Hoja - 3000 m na stezi,Puhar Mira,Koper,"22:38,40",27.05.2007,Koper,69
+Na prostem,W70,Hoja - 3000 m na stezi,Puhar Mira,Koper,"22:37,00",22.03.2009,Sežana,70
+Na prostem,W75,Hoja - 3000 m na stezi,Puhar Mira,Koper,"25:20,52",15.06.2013,Velenje,75
+Na prostem,W40,Hoja 5000m na stezi:,Čufer Valentina,Burja,"32:51,30",25.07.2008,Ljubljana,42
+Na prostem,W45,Hoja 5000m na stezi:,Poklar Andreja,Koper,"29:58,50",13.09.2014,Pordenone,48
+Na prostem,W50,Hoja 5000m na stezi:,Poklar Andreja,Koper,"29:15,39",25.04.2019,Udine,52
+Na prostem,W55,Hoja 5000m na stezi:,Poklar Andreja,Koper,"31:48,20",29.10.2022,Nova Gorica,56
+Na prostem,W70,Hoja 5000m na stezi:,Puhar Mira,Koper,"39:04,82",25.07.2008,Ljubljana,70
+Na prostem,W40,Hoja 10 km na cesti:,Čufer Valentina,Burja,1:05:34,28.09.2008,Galovac,42
+Na prostem,W45,Hoja 10 km na cesti:,Poklar Andreja,Koper,1:00:09,02.11.2014,Milje,48
+Na prostem,W50,Hoja 10 km na cesti:,Poklar Andreja,Koper,1:00:32,01.04.2017,Tržič,50
+Na prostem,W55,Hoja 10 km na cesti:,Poklar Andreja,Koper,1:05:53,15.10.2021,Dunaj,55
+Na prostem,W35,100 m ovire,Potnik Zdenka,"Olimpija, Ljubljana",19.129999999999999,17.07.1997,Durban,
+Na prostem,W40,100 m ovire,Potnik Zdenka,"Olimpija, Ljubljana",18.379999999999999,29.07.1999,Gateshead,
+Na prostem,W40,80 m ovire,Potnik Zdenka,"Olimpija, Ljubljana",13.800000000000001,13.09.1998,Cesenatico,
+Na prostem,W45,80 m ovire,Čalasan Grajžl Desa ČALASAN,"Kladivar, Celje",12.84,29.08.2017,Arhus,
+Na prostem,W50,80 m ovire,Čalasan Grajžl Desa ČALASAN,"Kladivar, Celje",14.92,17.05.2025,Celje,
+Na prostem,W35,400 m ovire,Muhič Bojana,"Kronos, Ljubljana","01:13,02",21.06.2015,Maribor,
+Na prostem,W40,400 m ovire,Gačnik Barbara,AK Ptuj,"01:41,57",24.09.2022,Solun,43
+Na prostem,W45,400 m ovire,Breganski Mojca,Radovljica,"01:16,15",29.08.2017,Arhus,47
+Na prostem,W50,300 m ovire,Jerman Ana,"Triglav, Kranj",57.530000000000001,17.08.2002,Potsdam,50
+Na prostem,W55,300 m ovire,Jerman Ana,"Triglav, Kranj",59.5,01.07.2008,Ljubljana,56
+Na prostem,W70,200 m ovire,Jerman Ana,"Triglav, Kranj",56,29.08.2025,Varaždin,73
+Na prostem,W45,2000 m zapreke,Jerman Ana,"Triglav, Kranj","08:25,89",19.09.1998,Cesenatico,46
+Na prostem,W50,2000 m zapreke,Jerman Ana,"Triglav, Kranj","08:44,88",25.08.2002,Potsdam,50
+Na prostem,W35,Daljina,Misajlovski Tina,"Triglav, Kranj",5.5899999999999999,10.06.2017,Kranj,39
+Na prostem,W40,Daljina,Breganski Mojca,Radovljica,4.9299999999999997,05.07.2014,Zagreb,44
+Na prostem,W45,Daljina,Čalasan Grajžl Desa,Kladivar,4.9199999999999999,22.07.2017,Celje,
+Na prostem,W50,Daljina,Breganski Mojca,"Kronos, Ljubljana",4.6200000000000001,19.09.2020,Maribor,50
+Na prostem,W55,Daljina,Lampič Darinka,Ljubljana,3.6400000000000001,28.06.2008,Ljubljana,56
+Na prostem,W60,Daljina,Čad Marjeta,VAD,3.46,04.05.2008,Zagreb,60
+Na prostem,W65,Daljina,Vučko Erika,"Koper                     3,35",22-,23.06.2024,Maribor,65
+Na prostem,W70,Daljina,Prezelj Stanka,"Triglav, Kranj            2,74",22-,23.06.2024,Maribor,72
+Na prostem,W75,Daljina,Puhar Mira,Koper,2.25,06.09.2013,Zagreb,75
+Na prostem,W80,Daljina,Puhar Mira,Koper,1.8400000000000001,23.06.2018,Celje,80
+Na prostem,W35,Troskok,Čalasan Desanka,Kladivar,10.75,17.05.2008,Celje,
+Na prostem,W40,Troskok,Breganski Mojca,Radovljica,9.9100000000000001,05.07.2014,Zagreb,44
+Na prostem,W45,Troskok,Breganski Mojca,Radovljica,10.529999999999999,11.08.2015,Lyon,45
+Na prostem,W50,Troskok,Breganski Mojca,"Kronos, Ljubljana",9.5800000000000001,19.09.2020,Maribor,50
+Na prostem,W60,Troskok,Jerman Ana,Kranj,6.6799999999999997,24.08.2013,Ptuj,61
+Na prostem,W70,Troskok,Prezelj Stanka,"Triglav, Kranj",5.6799999999999997,21.05.2022,Leibnitz,70
+Na prostem,W75,Troskok,Puhar Mira,Koper,4.9400000000000004,08.09.2013,Zagreb,75
+Na prostem,W80,Troskok,Puhar Mira,Koper,4.2000000000000002,24.06.2018,Celje,80
+Na prostem,W35,Višina,Lapajne Lidija,Gorica,1.76,19.07.1995,Buffalo,36
+Na prostem,W40,Višina,Lapajne Lidija,Gorica,1.6499999999999999,12.07.2000,Jyväskylä,41
+Na prostem,W45,Višina,Prezelj Stanka,"Triglav, Kranj",1.51,10.10.1999,Udine,47
+Na prostem,W50,Višina,Breganski Mojca,"Kronos, Ljubljana",1.4099999999999999,14.08.2020,Lovosice,50
+Na prostem,W55,Višina,Prezelj Stanka,Kranj,1.3899999999999999,26.07.2009,Ljubljana,57
+Na prostem,W60,Višina,Prezelj Stanka,Kranj,1.3799999999999999,19.08.2012,Zittau,60
+Na prostem,W65,Višina,Prezelj Stanka,Kranj,1.3100000000000001,23.09.2018,Celje,66
+Na prostem,W70,Višina,Prezelj Stanka,Kranj,1.25,10.08.2022,Ljubljana,70
+Na prostem,W75,Višina,Čad Marjeta,"VAD, Ljubljana            1,05",07-,09.07.2023,Tampere,75
+Na prostem,W80,Višina,Puhar Mira,Koper,0.89000000000000001,21.09.2018,Celje,80
+Na prostem,W35,Palica,Šutej Tina,"Kladivar, Celje",4.7999999999999998,17.09.2025,Tokio,
+Na prostem,W40,Palica,Peček Ana,"MASS, Ljubljana",2.5,03.06.2012,Nova Gorica,44
+Na prostem,W45,Palica,Peček Ana,"MASS, Ljubljana",2.6200000000000001,06.09.2013,Zagreb,45
+Na prostem,W50,Palica,Peček Ana,"Olimpija, Ljubljana",2.6000000000000001,25.07.2020,Celje,52
+Na prostem,W35,Krogla,Sterlekar Marija,"Mass, Ljubljana",14.1,10.06.2000,Ljubljana,37
+Na prostem,W40,Krogla,Sterlekar Marija,"Mass, Ljubljana",13.82,03.07.2003,Carolina (PUR),40
+Na prostem,W45,Krogla,Prepelič Dragana,Slovenska Bistrica,10.279999999999999,22.09.2018,Celje,48
+Na prostem,W50,Krogla 3 kg,Prepelič Dragana,"Slovenska Bistrica    11,16",3-,04.07.2021,Nova Gorice,51
+Na prostem,W55,Krogla 3 kg,Ritlop Vrbovšek Mojca RITLOP,Maribor,10.35,22.09.2018,Celje,
+Na prostem,W60,Krogla 3 kg,Čad Marjeta,"VAD, Ljubljana",9.5899999999999999,22.04.2012,Ljubljana,64
+Na prostem,W65,Krogla 3 kg,Čad Marjeta,"VAD, Ljubljana",9.1699999999999999,28.06.2014,Reka,66
+Na prostem,W70,Krogla 3 kg,Čad Marjeta,"VAD, Ljubljana",8.2200000000000006,10.09.2019,Malaga,71
+Na prostem,W75,Krogla 2 kg,Čad Marjeta,"VAD, Ljubljana",9.0700000000000003,15.05.2024,Ljubljana,76
+Na prostem,W80,Krogla 2 kg,Puhar Mira,Koper,4.5499999999999998,22.09.2018,Celje,80
+Na prostem,W35,Disk,Sterlekar Marija,"Triglav, Kranj",38.380000000000003,03.08.1998,Ljubljana,35
+Na prostem,W40,Disk,Sterlekar Marija,"Mass, Ljubljana",38.170000000000002,21.05.2022,Leibnitz,59
+Na prostem,W45,Disk,Pirnat Erika,Domžale,31.420000000000002,19.03.2022,Ptuj,45
+Na prostem,W50,Disk,Prepelič Dragana,Sl. Bistrica,23.809999999999999,08.03.2020,Beograd,50
+Na prostem,W55,Disk,Čad Marjeta,"VAD, Ljubljana",23.289999999999999,17.06.2007,Ljubljana,59
+Na prostem,W60,Disk,Čad Marjeta,"VAD, Ljubljana",23.600000000000001,10.02.2008,Udine,60
+Na prostem,W65,Disk,Čad Marjeta,"VAD, Ljubljana",22.420000000000002,03.09.2014,Ljubljana,66
+Na prostem,W70,Disk,Prezelj Stanka,"Kranj                 19,39",27-,29.09.2024,Bar,72
+Na prostem,W75,Disk,Čad Marjeta,"VAD, Ljubljana        19,20",27-,29.09.2024,Bar,76
+Na prostem,W80,Disk,Puhar Mira,Koper,8.0800000000000001,26.05.2018,Domžale,80
+Na prostem,W35,Kladivo,Sušec Ana,"Kronos, Ljubljana     46,85",1-,02.07.2021,Velenje,
+Na prostem,W40,Kladivo,Pirnat Erika,Domžale,38.789999999999999,25.06.2017,Celje,41
+Na prostem,W45,Kladivo,Pirnat Erika,Domžale,35.689999999999998,19.03.2022,Ptuj,45
+Na prostem,W50,Kladivo 3 kg,Prepelič Dragana,Slovenska Bistrica,26.289999999999999,19.06.2021,Ptuj,51
+Na prostem,W55,Kladivo 3 kg,Stojisavljevič Majda,"VAD, Ljubljana",17.030000000000001,18.04.2009,Ljubljana,
+Na prostem,W60,Kladivo 3 kg,Kržič Zvezdana,"VAD, Ljubljana",22.27,24.06.2012,Celje,64
+Na prostem,W65,Kladivo 3 kg,Kržič Zvezdana,"VAD, Ljubljana",27.16,19.09.2015,Solun,68
+Na prostem,W70,Kladivo 3 kg,Kržič Zvezdana,"MASS, Ljubljana",24.440000000000001,08.08.2018,Ljubljana,71
+Na prostem,W75,Kladivo 2 kg,Kržič Zvezdana,"MASS, Ljubljana       24,89",24-,25.06.2023,Celje,75
+Na prostem,W80,Kladivo 2 kg,Puhar Mira,Koper,16.890000000000001,26.05.2018,Domžale,80
+Na prostem,W35,Kopje 600 g,Ratej Martina,"Kladivar, Celje",6.0999999999999996,14.06.2018,Ljubljana,
+Na prostem,W40,Kopje 600 g,Ratej Martina,"Kladivar, Celje",59.359999999999999,15.08.2022,München,
+Na prostem,W55,Kopje 500 g,Urbančič Nataša,Celje,44.439999999999998,21.08.2002,Potsdam,
+Na prostem,W60,Kopje 400 g,Kržič Zvezdana,"VAD, Ljubljana",20.800000000000001,16.07.2012,Čakovec,64
+Na prostem,W65,Kopje 400 g,Kržič Zvezdana,"VAD, Ljubljana",19.75,24.09.2016,Novi Sad,69
+Na prostem,W70,Kopje 400 g,Kržič Zvezdana,"MASS, Ljubljana",19.989999999999998,02.08.2017,Ljubljana,70
+Na prostem,W75,Kopje 400 g,Kržič Zvezdana,"MASS, Ljubljana",17.199999999999999,15.05.2024,Ljubljana,76
+Na prostem,W80,Kopje 400 g,Puhar Mira,Koper,7.9699999999999998,26.05.2018,Domžale,80
+Na prostem,W35,"Gira 9,08 kg",Pirnat Erika,Domžale,12.050000000000001,05.07.2014,Zagreb,38
+Na prostem,W40,"Gira 9,08 kg",Pirnat Erika,Domžale,11.91,11.06.2016,Domžale,40
+Na prostem,W45,"Gira 9,08 kg",Pirnat Erika,Domžale,11.15,09.06.2021,Domžale,45
+Na prostem,W50,"Gira 7,26 kg",Prepelič Dragana,Slovenska Bistrica,8.25,19.06.2021,Ptuj,51
+Na prostem,W55,"Gira 7,26 kg",Devetak Tatjana,Gorica,8.2899999999999991,26.07.2009,Ljubljana,58
+Na prostem,W60,"Gira 5,45 kg",Čad Marjeta,VAD,9.5899999999999999,22.04.2012,Ljubljana,64
+Na prostem,W65,"Gira 5,45 kg",Čad Marjeta,VAD,10.26,16.03.2014,Maribor,66
+Na prostem,W70,"Gira 5,45 kg",Kržič Zvezdana,"MASS, Ljubljana",9.1999999999999993,07.10.2017,Ljubljana,70
+Na prostem,W75,Gira 4 kg,Hočevar T. Silva,10.369999999999999,3-,04.07.2021,Nova Gorice,
+Na prostem,W80,Gira 4 kg,Puhar Mira,Koper,5.9000000000000004,26.05.2018,Domžale,80
+Na prostem,W35,Peteroboj,Hotko Vanja,Ptuj,849 točk,25.05.2019,Ptuj,40
+Na prostem,W40,Peteroboj,Breganski Mojca,Radovljica,3789 točk,20.08.2014,Izmir,44
+Na prostem,W35,Sedmeroboj,Potnik Zdenka,"Olimpija, Ljubljana",2966 točk,17.07.1997,Durban,
+Na prostem,W40,Sedmeroboj,Breganski Mojca,Radovljica,3789 točk,28.08.2014,Izmir,44
+Na prostem,W45,Sedmeroboj,Čalasan Desa,Kladivar,4972 točk,29.07.2017,Arhus,47
+Na prostem,W50,Sedmeroboj,Čalasan Desa,Kladivar,3599 točk,17.05.2025,Celje,54
+Na prostem,W35,Metalski peteroboj (do leta 2022 - staro točkovanje),Pirnat Erika,Domžale,2740 točk,09.10.2011,Ljubljana,35
+Na prostem,W40,Metalski peteroboj (do leta 2022 - staro točkovanje),Pirnat Erika,Domžale,3029 točk,11.06.2016,Domžale,40
+Na prostem,W45,Metalski peteroboj (do leta 2022 - staro točkovanje),Pirnat Erika,Domžale,2993 točk,19.06.2021,Ptuj,45
+Na prostem,W50,Metalski peteroboj (do leta 2022 - staro točkovanje),Prepelič Dragana,Slovenska Bistrica,2660 točk,19.06.2021,Ptuj,51
+Na prostem,W55,Metalski peteroboj (do leta 2022 - staro točkovanje),Stojisavljevič Majda,Kranj,1971 točk (1856*),06.06.2009,Kranj,
+Na prostem,W60,Metalski peteroboj (do leta 2022 - staro točkovanje),Kržič Zvezdana,"VAD, Ljubljana",2361 točk,10.06.2012,Ljubljana,64
+Na prostem,W65,Metalski peteroboj (do leta 2022 - staro točkovanje),Čad Marjeta,"VAD, Ljubljana",3043 točk,20.05.2015,Domžale,67
+Na prostem,W70,Metalski peteroboj (do leta 2022 - staro točkovanje),Čad Marjeta,"VAD, Ljubljana",3157 točk,19.09.2019,Bukarešta,71
+Na prostem,W75,Metalski peteroboj (do leta 2022 - staro točkovanje),Kržič Zvezdana,"MASS, Ljubljana",2980 točk,05.10.2022,Ljubljana,75
+Na prostem,W45,Metalski peteroboj (od leta 2023 - točkovanje EMA/WMA),Pirnat Erika,Domžale,2489,10.06.2024,Domžale,48
+Na prostem,W70,Metalski peteroboj (od leta 2023 - točkovanje EMA/WMA),Čad Marjeta,"VAD, Ljubljana",2778,14.10.2023,Ljubljana,75
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <title>Državni veteranski rekordi – vsi podatki</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #0f172a;
+            color: #e5e7eb;
+            margin: 0;
+            padding: 0;
+        }
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 20px 40px;
+        }
+        h1 {
+            font-size: 22px;
+            margin: 0 0 4px;
+        }
+        .subtitle {
+            font-size: 13px;
+            color: #9ca3af;
+            margin-bottom: 16px;
+        }
+        .filters {
+            display: grid;
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .filter-label {
+            font-size: 11px;
+            color: #9ca3af;
+        }
+        .filter-input-wrap {
+            position: relative;
+        }
+        select,
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 4px 22px 4px 6px;
+            font-size: 12px;
+            border-radius: 4px;
+            border: 1px solid #374151;
+            background: #111827;
+            color: #e5e7eb;
+            box-sizing: border-box;
+        }
+        select:focus,
+        input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+        .clear-btn {
+            position: absolute;
+            right: 4px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+            color: #6b7280;
+            font-size: 12px;
+            cursor: pointer;
+            padding: 0;
+        }
+        .clear-btn:hover {
+            color: #9ca3af;
+        }
+        .actions {
+            display: flex;
+            gap: 8px;
+            margin: 8px 0 10px;
+            align-items: center;
+        }
+        .btn {
+            padding: 6px 10px;
+            font-size: 12px;
+            border-radius: 4px;
+            border: 1px solid #374151;
+            background: #1f2937;
+            color: #e5e7eb;
+            cursor: pointer;
+        }
+        .btn-primary {
+            border-color: #2563eb;
+            background: #1d4ed8;
+        }
+        .btn:hover {
+            filter: brightness(1.1);
+        }
+        .counter {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 6px;
+            table-layout: fixed;
+            font-size: 12px;
+        }
+        thead {
+            background: #111827;
+        }
+        th, td {
+            border-bottom: 1px solid #1f2937;
+            padding: 4px 6px;
+            text-align: left;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        th {
+            font-weight: 600;
+            color: #9ca3af;
+        }
+        tbody tr:nth-child(even) {
+            background: #020617;
+        }
+        tbody tr:nth-child(odd) {
+            background: #030712;
+        }
+        colgroup col:nth-child(1) { width: 80px; }   /* Lokacija */
+        colgroup col:nth-child(2) { width: 70px; }   /* Kategorija */
+        colgroup col:nth-child(3) { width: 90px; }   /* Disciplina */
+        colgroup col:nth-child(4) { width: 180px; }  /* Priimek in ime */
+        colgroup col:nth-child(5) { width: 160px; }  /* Klub */
+        colgroup col:nth-child(6) { width: 80px; }   /* Rekord */
+        colgroup col:nth-child(7) { width: 90px; }   /* Datum */
+        colgroup col:nth-child(8) { width: 120px; }  /* Kraj */
+        colgroup col:nth-child(9) { width: 60px; }   /* Starost */
+    </style>
+</head>
+<body>
+<div class="page">
+    <h1>Državni veteranski rekordi – vsi podatki</h1>
+    <div class="subtitle">
+        Pregled rekordov – dvorana in na prostem – vir: dr25-vsi-pop-leta-ok.csv
+    </div>
+
+    <div class="filters">
+        <div class="filter-group">
+            <span class="filter-label">Lokacija</span>
+            <div class="filter-input-wrap">
+                <select id="filterLokacija">
+                    <option value="">(vse)</option>
+                </select>
+                <button class="clear-btn" type="button" onclick="clearSelect('filterLokacija')">×</button>
+            </div>
+        </div>
+        <div class="filter-group">
+            <span class="filter-label">Kategorija</span>
+            <div class="filter-input-wrap">
+                <select id="filterKategorija">
+                    <option value="">(vse)</option>
+                </select>
+                <button class="clear-btn" type="button" onclick="clearSelect('filterKategorija')">×</button>
+            </div>
+        </div>
+        <div class="filter-group">
+            <span class="filter-label">Disciplina</span>
+            <div class="filter-input-wrap">
+                <select id="filterDisciplina">
+                    <option value="">(vse)</option>
+                </select>
+                <button class="clear-btn" type="button" onclick="clearSelect('filterDisciplina')">×</button>
+            </div>
+        </div>
+        <div class="filter-group">
+            <span class="filter-label">Priimek in ime</span>
+            <div class="filter-input-wrap">
+                <input type="text" id="filterIme" placeholder="npr. Himelrajh">
+                <button class="clear-btn" type="button" onclick="clearInput('filterIme')">×</button>
+            </div>
+        </div>
+        <div class="filter-group">
+            <span class="filter-label">Klub</span>
+            <div class="filter-input-wrap">
+                <input type="text" id="filterKlub" placeholder="npr. MASS">
+                <button class="clear-btn" type="button" onclick="clearInput('filterKlub')">×</button>
+            </div>
+        </div>
+        <div class="filter-group">
+            <span class="filter-label">Starost</span>
+            <div class="filter-input-wrap">
+                <input type="number" id="filterStarost" placeholder="npr. 55" min="0">
+                <button class="clear-btn" type="button" onclick="clearInput('filterStarost')">×</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="actions">
+        <button class="btn" type="button" onclick="clearAllFilters()">Počisti filtre</button>
+        <button class="btn" type="button" onclick="window.print()">Natisni</button>
+        <span class="counter" id="counter">Prikazanih zapisov: 0 od 0</span>
+    </div>
+
+    <table>
+        <colgroup>
+            <col><col><col><col><col><col><col><col><col>
+        </colgroup>
+        <thead>
+        <tr>
+            <th>Lokacija</th>
+            <th>Kategorija</th>
+            <th>Disciplina</th>
+            <th>Priimek in ime</th>
+            <th>Klub</th>
+            <th>Rekord</th>
+            <th>Datum</th>
+            <th>Kraj</th>
+            <th>Starost</th>
+        </tr>
+        </thead>
+        <tbody id="recordsBody"></tbody>
+    </table>
+</div>
+
+<script>
+    const CSV_PATH = 'dr25-vsi-pop-leta-ok.csv'; // v isti mapi kot HTML
+
+    let allRecords = [];
+
+    function parseCSV(text) {
+        const rows = [];
+        let current = '';
+        let inQuotes = false;
+        const lines = text.replace(/\r\n/g, '\n').split('\n');
+
+        const headers = lines[0].split(',');
+        for (let i = 1; i < lines.length; i++) {
+            const line = lines[i];
+            if (!line.trim()) continue;
+            const cols = [];
+            current = '';
+            inQuotes = false;
+            for (let j = 0; j < line.length; j++) {
+                const ch = line[j];
+                if (ch === '"') {
+                    if (inQuotes && line[j + 1] === '"') {
+                        current += '"';
+                        j++;
+                    } else {
+                        inQuotes = !inQuotes;
+                    }
+                } else if (ch === ',' && !inQuotes) {
+                    cols.push(current);
+                    current = '';
+                } else {
+                    current += ch;
+                }
+            }
+            cols.push(current);
+            const obj = {};
+            headers.forEach((h, idx) => {
+                obj[h.trim()] = (cols[idx] || '').trim();
+            });
+            rows.push(obj);
+        }
+        return rows;
+    }
+
+    function formatRekord(value) {
+        if (value === null || value === undefined) return '';
+        const v = String(value).trim();
+        if (!v) return '';
+        const num = Number(v.replace(',', '.'));
+        if (isNaN(num)) return v;
+        const roundedInt = Math.round(num);
+        if (Math.abs(num - roundedInt) < 1e-9) {
+            return String(roundedInt);
+        }
+        return num.toFixed(2);
+    }
+
+    function renderTable(records) {
+        const tbody = document.getElementById('recordsBody');
+        tbody.innerHTML = '';
+        const frag = document.createDocumentFragment();
+
+        records.forEach(rec => {
+            const tr = document.createElement('tr');
+
+            const cells = [
+                rec['Lokacija'],
+                rec['Kategorija'],
+                rec['Disciplina'],
+                rec['Priimek_ime'] || rec['Priimek in ime'] || '',
+                rec['Klub'],
+                formatRekord(rec['Rekord']),
+                rec['Datum'],
+                rec['Kraj'],
+                rec['Starost']
+            ];
+
+            cells.forEach(text => {
+                const td = document.createElement('td');
+                td.textContent = text || '';
+                frag.appendChild(td);
+                tr.appendChild(td);
+            });
+
+            tbody.appendChild(tr);
+        });
+
+        const counter = document.getElementById('counter');
+        counter.textContent = `Prikazanih zapisov: ${records.length} od ${allRecords.length}`;
+    }
+
+    function populateSelect(id, key) {
+        const select = document.getElementById(id);
+        const values = new Set();
+        allRecords.forEach(r => {
+            const v = (r[key] || '').trim();
+            if (v) values.add(v);
+        });
+        Array.from(values).sort().forEach(v => {
+            const opt = document.createElement('option');
+            opt.value = v;
+            opt.textContent = v;
+            select.appendChild(opt);
+        });
+    }
+
+    function applyFilters() {
+        const lok = document.getElementById('filterLokacija').value.trim();
+        const kat = document.getElementById('filterKategorija').value.trim();
+        const dis = document.getElementById('filterDisciplina').value.trim();
+        const ime = document.getElementById('filterIme').value.trim().toLowerCase();
+        const klub = document.getElementById('filterKlub').value.trim().toLowerCase();
+        const starostVal = document.getElementById('filterStarost').value.trim();
+
+        let filtered = allRecords.filter(r => {
+            if (lok && r['Lokacija'] !== lok) return false;
+            if (kat && r['Kategorija'] !== kat) return false;
+            if (dis && r['Disciplina'] !== dis) return false;
+
+            const nameField = (r['Priimek_ime'] || r['Priimek in ime'] || '').toLowerCase();
+            if (ime && !nameField.includes(ime)) return false;
+
+            const klubField = (r['Klub'] || '').toLowerCase();
+            if (klub && !klubField.includes(klub)) return false;
+
+            if (starostVal) {
+                const s = String(r['Starost'] || '').trim();
+                if (!s) return false;
+                if (parseInt(s, 10) !== parseInt(starostVal, 10)) return false;
+            }
+
+            return true;
+        });
+
+        renderTable(filtered);
+    }
+
+    function clearSelect(id) {
+        const el = document.getElementById(id);
+        el.value = '';
+        applyFilters();
+    }
+
+    function clearInput(id) {
+        const el = document.getElementById(id);
+        el.value = '';
+        applyFilters();
+    }
+
+    function clearAllFilters() {
+        ['filterLokacija', 'filterKategorija', 'filterDisciplina',
+         'filterIme', 'filterKlub', 'filterStarost'].forEach(id => {
+            const el = document.getElementById(id);
+            el.value = '';
+        });
+        renderTable(allRecords);
+    }
+
+    async function init() {
+        try {
+            const resp = await fetch(CSV_PATH);
+            const text = await resp.text();
+            allRecords = parseCSV(text);
+
+            populateSelect('filterLokacija', 'Lokacija');
+            populateSelect('filterKategorija', 'Kategorija');
+            populateSelect('filterDisciplina', 'Disciplina');
+
+            ['filterLokacija', 'filterKategorija', 'filterDisciplina',
+             'filterIme', 'filterKlub', 'filterStarost'].forEach(id => {
+                document.getElementById(id).addEventListener('input', applyFilters);
+                document.getElementById(id).addEventListener('change', applyFilters);
+            });
+
+            renderTable(allRecords);
+        } catch (e) {
+            console.error('Napaka pri branju CSV:', e);
+        }
+    }
+
+    init();
+</script>
+</body>
+</html>
