@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI orodja</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #050816;
+      --card-bg: #0b1020;
+      --accent: #00e0ff;
+      --accent-soft: #00e0ff33;
+      --text: #f5f5f5;
+      --shadow-strong: 0 18px 35px rgba(0, 0, 0, 0.8);
+      --shadow-soft: 0 10px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #111936 0, #050816 45%, #02030a 100%);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 16px;
+    }
+
+    .wrapper {
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 28px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 1.6rem;
+      color: #ffffff;
+      text-shadow: 0 0 12px rgba(0, 224, 255, 0.7);
+    }
+
+    .subtitle {
+      text-align: center;
+      margin-bottom: 32px;
+      font-size: 0.9rem;
+      color: #c0c4d8;
+      opacity: 0.9;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .tool-card {
+      position: relative;
+      background: linear-gradient(145deg, #050816, #11172b);
+      border-radius: 18px;
+      padding: 18px 16px 20px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .tool-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at top, var(--accent-soft), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      pointer-events: none;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-6px) translateZ(0);
+      box-shadow: var(--shadow-strong);
+      border-color: rgba(0, 224, 255, 0.4);
+    }
+
+    .tool-card:hover::before {
+      opacity: 1;
+    }
+
+    .tool-title {
+      font-size: 1.05rem;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .tool-url {
+      font-size: 0.78rem;
+      color: #9ea3c7;
+      margin-bottom: 14px;
+      word-break: break-all;
+    }
+
+    .btn-3d {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      color: #02030a;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: linear-gradient(135deg, #00e0ff, #4bffb5);
+      box-shadow: 0 8px 0 #0090a5, 0 14px 24px rgba(0, 0, 0, 0.7);
+      transform: translateY(0);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+    }
+
+    .btn-3d span.icon {
+      font-size: 1rem;
+    }
+
+    .btn-3d:hover {
+      filter: brightness(1.05);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 0 #008192, 0 18px 28px rgba(0, 0, 0, 0.8);
+    }
+
+    .btn-3d:active {
+      transform: translateY(3px);
+      box-shadow: 0 3px 0 #006b7a, 0 8px 16px rgba(0, 0, 0, 0.8);
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 24px 12px;
+      }
+      h1 {
+        font-size: 1.3rem;
+      }
+      .subtitle {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <h1>AI orodja</h1>
+    <p class="subtitle">Hitri 3D gumbi za odpiranje izbranih AI orodij v novem oknu.</p>
+
+    <div class="grid" id="toolsGrid">
+      <!-- Gumbi se napolnijo z JavaScriptom -->
+    </div>
+  </div>
+
+  <script>
+    const tools = [
+      { name: "Napkin AI", url: "https://www.napkin.ai/" },
+      { name: "Strix AI", url: "https://www.strix.ai/" },
+      { name: "Ada.im", url: "https://ada.im/" },
+      { name: "Snapdeck", url: "https://www.snapdeck.app/" },
+      { name: "Claras", url: "https://www.meetclaras.com/" },
+      { name: "Readdy", url: "https://readdy.ai/?via=nitin" },
+      { name: "Mobirise AI", url: "https://ai.mobirise.com/" },
+      { name: "Durable", url: "https://durable.com/ai-website-builder" },
+      { name: "AppyPie", url: "https://www.appypie.com/" },
+      { name: "10Web", url: "https://10web.io/" },
+      { name: "Denovo", url: "https://www.denovo.dev/?via=nitin" }
+    ];
+
+    const grid = document.getElementById("toolsGrid");
+
+    tools.forEach(tool => {
+      const card = document.createElement("div");
+      card.className = "tool-card";
+
+      const title = document.createElement("div");
+      title.className = "tool-title";
+      title.textContent = tool.name;
+
+      const url = document.createElement("div");
+      url.className = "tool-url";
+      url.textContent = tool.url;
+
+      const btn = document.createElement("button");
+      btn.className = "btn-3d";
+      btn.innerHTML = '<span>Odpri</span><span class="icon">↗</span>';
+      btn.addEventListener("click", () => {
+        window.open(tool.url, "_blank", "noopener,noreferrer");
+      });
+
+      card.appendChild(title);
+      card.appendChild(url);
+      card.appendChild(btn);
+      grid.appendChild(card);
+    });
+  </script>
+</body>
+</html>
