@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rekordni skoki elitnih atletov</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', Verdana, sans-serif;
+    background: linear-gradient(160deg, #030f28 0%, #0d3a7c 50%, #061c42 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    color: #fff;
+    padding: 40px 20px;
+  }
+
+  .container { max-width: 950px; margin: 0 auto; }
+
+  h1 {
+    text-align: center;
+    font-size: 2.3rem;
+    margin-bottom: 6px;
+    background: linear-gradient(90deg, #7dd3fc, #38bdf8, #a5b4fc);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .podnaslov {
+    text-align: center;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    margin-bottom: 45px;
+  }
+
+  /* ====== 3D GUMBI ATLETOV ====== */
+  .atleti {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+
+  .gumb3d {
+    --svetla: #60a5fa;
+    --glavna: #2563eb;
+    --temna:  #1e3a8a;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-family: inherit;
+    padding: 20px 32px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: linear-gradient(180deg, var(--svetla) 0%, var(--glavna) 100%);
+    box-shadow:
+      0 8px 0 var(--temna),
+      0 18px 35px rgba(0,0,0,0.5),
+      inset 0 2px 0 rgba(255,255,255,0.35);
+    transition: transform 0.1s ease, box-shadow 0.1s ease, filter 0.2s;
+  }
+
+  .gumb3d:hover { filter: brightness(1.1); }
+
+  /* pravi 3D "pritisni" učinek */
+  .gumb3d:active,
+  .gumb3d.pritisnjen {
+    transform: translateY(6px);
+    box-shadow:
+      0 2px 0 var(--temna),
+      0 6px 14px rgba(0,0,0,0.4),
+      inset 0 2px 6px rgba(0,0,0,0.25);
+  }
+
+  /* barve posameznih atletov */
+  .gumb3d.dusan  { --svetla: #fcd34d; --glavna: #f59e0b; --temna: #92400e; }
+  .gumb3d.stanka { --svetla: #f9a8d4; --glavna: #db2777; --temna: #831843; }
+  .gumb3d.rozle  { --svetla: #6ee7b7; --glavna: #059669; --temna: #064e3b; }
+
+  .gumb-ikona { font-size: 2.2rem; filter: drop-shadow(0 3px 3px rgba(0,0,0,0.3)); }
+
+  .gumb-ime {
+    display: block;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-shadow: 0 2px 3px rgba(0,0,0,0.3);
+  }
+
+  .gumb-rekord {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 400;
+    opacity: 0.85;
+    margin-top: 2px;
+  }
+
+  .pušcica { font-size: 1rem; transition: transform 0.25s; }
+  .gumb3d.pritisnjen .pušcica { transform: rotate(180deg); }
+
+  /* ====== PANEL SKOKOV ====== */
+  .panel {
+    display: none;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 20px;
+    padding: 26px 20px 30px;
+    margin: -15px auto 30px;
+    max-width: 880px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+  }
+  .panel.odprt { display: block; animation: razpri 0.3s ease; }
+
+  @keyframes razpri {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .panel-naslov {
+    text-align: center;
+    font-size: 1.05rem;
+    color: #93c5fd;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+  }
+
+  .skoki {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    justify-content: center;
+  }
+
+  .skok-gumb {
+    width: 165px;
+    cursor: pointer;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #081a3a;
+    border: 1px solid rgba(255,255,255,0.15);
+    box-shadow: 0 6px 0 rgba(0,0,0,0.4), 0 12px 24px rgba(0,0,0,0.4);
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.2s;
+    text-align: center;
+  }
+
+  .skok-gumb:hover { transform: translateY(-4px); border-color: #38bdf8; }
+
+  .skok-gumb:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 rgba(0,0,0,0.4), 0 5px 10px rgba(0,0,0,0.35);
+  }
+
+  .skok-slika { position: relative; height: 92px; overflow: hidden; }
+
+  .skok-slika img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+  }
+
+  .skok-play {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(0,0,0,0.25);
+    transition: background 0.2s;
+  }
+  .skok-gumb:hover .skok-play { background: rgba(0,0,0,0.05); }
+
+  .skok-play::after {
+    content: "";
+    width: 0; height: 0;
+    border-left: 18px solid rgba(255,255,255,0.95);
+    border-top: 11px solid transparent;
+    border-bottom: 11px solid transparent;
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.5));
+  }
+
+  .skok-drive {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    color: #94a3b8; font-size: 0.75rem;
+    background: linear-gradient(135deg, #0f2b57, #123a75);
+  }
+
+  .skok-podatki {
+    padding: 10px 6px 12px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .skok-visina {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #7dd3fc;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+  }
+  .skok-visina small { font-size: 0.7rem; color: rgba(255,255,255,0.5); font-weight: 400; }
+
+  /* ====== MODALNO OKNO ====== */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(2,8,25,0.9);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+  }
+  .modal-overlay.odprt { display: flex; animation: pojavi 0.25s ease; }
+
+  @keyframes pojavi { from { opacity: 0; } to { opacity: 1; } }
+
+  .modal-okvir {
+    background: #071531;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 14px;
+    width: min(92vw, 760px);
+    overflow: hidden;
+    box-shadow: 0 25px 70px rgba(0,0,0,0.8);
+  }
+
+  .modal-glava {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 18px;
+    background: linear-gradient(90deg, #0d3a7c, #2563eb);
+    font-weight: 700;
+  }
+
+  .modal-zapri {
+    background: #ef4444;
+    color: #fff;
+    border: none;
+    font-size: 22px;
+    line-height: 1;
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    cursor: pointer;
+    flex-shrink: 0;
+    box-shadow: 0 3px 0 #991b1b;
+    transition: 0.15s;
+  }
+  .modal-zapri:active { transform: translateY(2px); box-shadow: 0 1px 0 #991b1b; }
+
+  .modal-video { aspect-ratio: 4/3; background: #000; }
+  .modal-video iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+  .noga {
+    text-align: center;
+    margin-top: 30px;
+    color: rgba(255,255,255,0.3);
+    font-size: 0.8rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Rekordni skoki elitnih atletov</h1>
+  <p class="podnaslov">Družina Prezelj (Stanka, Dušan, Rožle)</p>
+
+  <!-- 3D gumbi atletov -->
+  <div class="atleti" id="atletiGumbi"></div>
+
+  <!-- paneli s skoki -->
+  <div id="paneli"></div>
+
+  <p class="noga">Klikni atleta → izberi višino skoka → video se odpre v modalnem oknu 🎬</p>
+</div>
+
+<!-- MODALNO OKNO -->
+<div class="modal-overlay" id="modal" onclick="klikOverlay(event)">
+  <div class="modal-okvir">
+    <div class="modal-glava">
+      <span id="modalNaslov"></span>
+      <button class="modal-zapri" onclick="zapriModal()" title="Zapri">&times;</button>
+    </div>
+    <div class="modal-video" id="modalVideo"></div>
+  </div>
+</div>
+
+<script>
+// ===== PODATKI =====
+const atleti = [
+  {
+    id: "dusan",
+    ime: "Dušan Prezelj",
+    ikona: "🏃‍♂️",
+    skoki: [
+      { visina: 215, url: "https://www.youtube.com/embed/llPnJUx8ufg" },
+      { visina: 176, url: "https://www.youtube.com/embed/eD3_FgSpXBQ" },
+      { visina: 168, url: "https://www.youtube.com/embed/oODftPxq38w" },
+      { visina: 167, url: "https://www.youtube.com/embed/qRLOEMIJ4vc" },
+      { visina: 160, url: "https://www.youtube.com/embed/iN4uF73Cpeg" },
+      { visina: 153, url: "https://drive.google.com/file/d/1ggp1BYiBZ09SmBWsdOT_cpFiAmKhobu3/preview" },
+      { visina: 145, url: "https://www.youtube.com/embed/I1Hza3OQ1Ig" }
+    ]
+  },
+  {
+    id: "stanka",
+    ime: "Stanka Prezelj",
+    ikona: "🏃‍♀️",
+    skoki: [
+      { visina: 186, url: "https://www.youtube.com/embed/Djjc5H9ZRDk" },
+      { visina: 129, url: "https://www.youtube.com/embed/BIVvr8vJNfA" }
+    ]
+  },
+  {
+    id: "rozle",
+    ime: "Rožle Prezelj",
+    ikona: "🤸‍♂️",
+    skoki: [
+      { visina: 232, url: "https://www.youtube.com/embed/I3nEu6kVmb4" },
+      { visina: 231, url: "https://www.youtube.com/embed/1wKtuLX-gQo" },
+      { visina: 228, url: "https://www.youtube.com/embed/f06a1I5l_kY" },
+      { visina: 224, url: "https://www.youtube.com/embed/pqF9p399T3g" }
+    ]
+  }
+];
+
+// ===== POMOŽNA FUNKCIJA: YouTube ID iz URL-ja =====
+function ytId(url) {
+  const m = url.match(/embed\/([\w-]+)/);
+  return m ? m[1] : null;
+}
+
+// ===== IZRIS GUMBOV IN PANELOV =====
+const gumbiEl = document.getElementById("atletiGumbi");
+const paneliEl = document.getElementById("paneli");
+
+atleti.forEach(a => {
+  // skoki urejeni od najvišjega proti najnižjemu
+  const skoki = [...a.skoki].sort((x, y) => y.visina - x.visina);
+  const rekord = skoki[0].visina;
+
+  // --- 3D gumb atleta ---
+  const gumb = document.createElement("button");
+  gumb.className = "gumb3d " + a.id;
+  gumb.innerHTML = `
+    <span class="gumb-ikona">${a.ikona}</span>
+    <span>
+      <span class="gumb-ime">${a.ime}</span>
+      <span class="gumb-rekord">osebni rekord ${rekord} cm</span>
+    </span>
+    <span class="pušcica">▼</span>`;
+  gumb.addEventListener("click", () => preklopiAtleta(a.id));
+  gumbiEl.appendChild(gumb);
+
+  // --- panel s skoki ---
+  const panel = document.createElement("div");
+  panel.className = "panel";
+  panel.id = "panel-" + a.id;
+
+  const naslov = document.createElement("p");
+  naslov.className = "panel-naslov";
+  naslov.textContent = `${a.ime} – rekordni skoki (${skoki.length})`;
+  panel.appendChild(naslov);
+
+  const skokiDiv = document.createElement("div");
+  skokiDiv.className = "skoki";
+
+  skoki.forEach(s => {
+    const g = document.createElement("div");
+    g.className = "skok-gumb";
+
+    const id = ytId(s.url);
+    const slika = id
+      ? `<img src="https://img.youtube.com/vi/${id}/hqdefault.jpg" alt="${s.visina}">`
+      : `<div class="skok-drive">🎬 Google Drive</div>`;
+
+    g.innerHTML = `
+      <div class="skok-slika">${slika}<div class="skok-play"></div></div>
+      <div class="skok-podatki">
+        <div class="skok-visina">${s.visina} <small>cm</small></div>
+      </div>`;
+
+    g.addEventListener("click", () => odpriModal(s.url, `${a.ime} – skok ${s.visina} cm`));
+    skokiDiv.appendChild(g);
+  });
+
+  panel.appendChild(skokiDiv);
+  paneliEl.appendChild(panel);
+});
+
+// ===== PREKLOP PANELA ATLETA (odpre/zapre) =====
+function preklopiAtleta(id) {
+  const panel = document.getElementById("panel-" + id);
+  const zeOdprt = panel.classList.contains("odprt");
+
+  // zapri vse panele in "sprosti" vse gumbe
+  document.querySelectorAll(".panel").forEach(p => p.classList.remove("odprt"));
+  document.querySelectorAll(".gumb3d").forEach(g => g.classList.remove("pritisnjen"));
+
+  if (!zeOdprt) {
+    panel.classList.add("odprt");
+    document.querySelector(".gumb3d." + id).classList.add("pritisnjen");
+    panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+}
+
+// ===== MODALNO OKNO =====
+function odpriModal(url, naslov) {
+  let src = url;
+  if (ytId(url)) src += (url.includes("?") ? "&" : "?") + "autoplay=1";
+
+  document.getElementById("modalNaslov").textContent = naslov;
+  document.getElementById("modalVideo").innerHTML =
+    `<iframe src="${src}" frameborder="0" scrolling="no" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+  document.getElementById("modal").classList.add("odprt");
+  document.body.style.overflow = "hidden";
+}
+
+function zapriModal() {
+  document.getElementById("modal").classList.remove("odprt");
+  document.getElementById("modalVideo").innerHTML = ""; // odstrani iframe -> ustavi video
+  document.body.style.overflow = "";
+}
+
+function klikOverlay(e) {
+  if (e.target.id === "modal") zapriModal();
+}
+
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") zapriModal();
+});
+</script>
+
+</body>
+</html>
