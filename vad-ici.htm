@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VAD povezave</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: linear-gradient(135deg, #1f0a05, #6b1d05, #3d1206);
+    min-height: 100vh;
+    color: #fff;
+    padding: 40px 20px;
+  }
+
+  .container { max-width: 1000px; margin: 0 auto; }
+
+  /* Baner slika na vrhu */
+  .header-slika {
+    max-width: 520px;
+    margin: 0 auto 35px;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 2px solid rgba(255,255,255,0.15);
+    box-shadow: 0 15px 45px rgba(0,0,0,0.55);
+  }
+
+  .header-slika img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    background: linear-gradient(90deg, #ffb347, #ff6b35, #ffd700);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .podnaslov {
+    text-align: center;
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* Iskalnik */
+  #search {
+    width: 100%;
+    max-width: 450px;
+    display: block;
+    margin: 0 auto 35px;
+    padding: 14px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 50px;
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    outline: none;
+    backdrop-filter: blur(10px);
+    transition: 0.3s;
+  }
+  #search::placeholder { color: rgba(255,255,255,0.5); }
+  #search:focus { background: rgba(255,255,255,0.18); box-shadow: 0 0 20px rgba(255,107,53,0.5); }
+
+  /* Mreža povezav */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 18px;
+  }
+
+  .link-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    color: #fff;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(8px);
+  }
+
+  .link-card:hover {
+    background: rgba(255,255,255,0.16);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    border-color: #ff6b35;
+  }
+
+  .link-icon { font-size: 1.8rem; }
+
+  .link-name { font-weight: 600; font-size: 1.05rem; }
+  .link-url  { font-size: 0.72rem; color: rgba(255,255,255,0.45); word-break: break-all; }
+
+  .hidden { display: none; }
+
+  .no-results {
+    text-align: center;
+    margin-top: 30px;
+    color: rgba(255,255,255,0.5);
+    font-size: 1.1rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- BANER SLIKA – shrani priloženo sliko kot "slika.jpg" v isto mapo -->
+  <div class="header-slika">
+    <img src="vad-ljubljana-plakat.jfif" width=400 height=auto alt="VAD Ljubljana – Veterani in veteranke, disciplina višina in peteroboj">
+  </div>
+<!--  🏃  -->
+  <h1>VAD povezave</h1>
+  <p class="podnaslov">
+      <img src='ici-avatar.jpg' width=50 height=auto alt='ici'>
+      Made by Iztok Valenčič</p>
+
+  <input type="text" id="search" placeholder="🔎 Poišči povezavo..." onkeyup="filtriraj()">
+
+  <div class="grid" id="meni"></div>
+  <p class="no-results hidden" id="niRezultatov">Ni zadetkov 😕</p>
+</div>
+
+<script>
+  // Seznam VAD povezav
+  const linki = [
+    { ime: "Zgodovina VAD",        url: "http://vad.epizy.com/vad/zgod/index.html",                 ikona: "📜" },
+    { ime: "Mitingi 2026",         url: "http://vad.epizy.com/vad/mitingi-2026/sez-mit-2026.htm",   ikona: "🏟️" },
+    { ime: "DR25 – lestvice",      url: "https://isaco.github.io/vad/dr25/dr25-a.htm",              ikona: "🏅" },
+    { ime: "Atletski slovar",      url: "https://isaco.github.io/vad/atletski-slovar.htm",          ikona: "📖" },
+    { ime: "All-time lestvice",    url: "https://vad.epizy.com/alltime/allt/alltime-filt.htm",      ikona: "📊" },
+    { ime: "Skoki – HJ69",         url: "https://vad.epizy.com/isvad/skoki/hj69/hj-69-meni-g.html", ikona: "🦘" },
+    { ime: "Prijava na miting",    url: "https://vad.epizy.com/vad-prijava/prijava.php?i=1",        ikona: "✍️" },
+    { ime: "WMA kalkulator",       url: "https://vad.epizy.com/isvad/wma/kalv.htm",                 ikona: "🧮" },
+    { ime: "Kalkulator peteroboj", url: "https://vad.epizy.com/kalvet/5b-izr.htm",                  ikona: "🔢" },
+    { ime: "AI linki",             url: "http://vad.epizy.com/ai/ai-li.html",                       ikona: "🤖" },
+      { ime: "YT",             url: "https://www.youtube.com/@high-jump-marvel/videos",                       ikona: "▶️" },
+      { ime: "Profil - Iztok",             url: "https://mastersrankings.com/athlete-profile/?x8=1798121614200221IZTOKVALENCIC",                       ikona: "👤" }
+      
+            
+  ];
+
+  const meni = document.getElementById("meni");
+
+  // Ustvari meni iz seznama
+  linki.forEach(l => {
+    const kartica = document.createElement("div");
+    kartica.className = "link-card";
+    kartica.dataset.ime = l.ime.toLowerCase();
+    kartica.innerHTML = `
+      <span class="link-icon">${l.ikona}</span>
+      <div>
+        <div class="link-name">${l.ime}</div>
+        <div class="link-url">${l.url}</div>
+      </div>`;
+
+    // Odpri povezavo v novem oknu ob kliku
+    kartica.addEventListener("click", () => {
+      window.open(l.url, "_blank", "noopener,noreferrer");
+    });
+
+    meni.appendChild(kartica);
+  });
+
+  // Filtriranje z iskalnikom
+  function filtriraj() {
+    const iskanje = document.getElementById("search").value.toLowerCase();
+    const kartice = meni.getElementsByClassName("link-card");
+    let vidni = 0;
+
+    for (let k of kartice) {
+      const ujema = k.dataset.ime.includes(iskanje);
+      k.classList.toggle("hidden", !ujema);
+      if (ujema) vidni++;
+    }
+
+    document.getElementById("niRezultatov").classList.toggle("hidden", vidni > 0);
+  }
+</script>
+
+</body>
+</html>
