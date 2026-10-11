@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skoki v višino — simulacija (veterani)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#0f130e; --panel:#151b13; --panel-2:#1a2217;
+    --line:#263021; --line-2:#33402c;
+    --ink:#e9e5d6; --dim:#8f9a83; --faint:#5c6752;
+    --ok:#8ec763; --no:#e2604c; --amber:#e3b341; --sand:#c9a36a;
+  }
+  html{scrollbar-color:var(--line-2) var(--bg)}
+  body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Mono',Consolas,monospace;font-size:14px;line-height:1.5;padding:22px 18px 40px}
+  .wrap{max-width:1280px;margin:0 auto}
+
+  header{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--line-2);padding-bottom:14px}
+  h1{font-family:Oswald,'Arial Narrow',sans-serif;font-weight:700;font-size:28px;text-transform:uppercase;letter-spacing:.03em}
+  h1 .amp{color:var(--amber)}
+  .sub{color:var(--dim);font-size:11px;letter-spacing:.14em;margin-top:4px}
+  .chip{font-size:11px;padding:6px 10px;border:1px solid var(--line-2);color:var(--dim);white-space:nowrap}
+  .chip.ok{border-color:#3f5c2e;color:var(--ok)}
+  .chip.warn{border-color:#6e5423;color:var(--amber)}
+
+  .controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:16px 0 18px}
+  .spacer{flex:1}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border:1px solid var(--line-2);background:var(--panel);color:var(--ink);font:inherit;font-size:13px;cursor:pointer;letter-spacing:.04em}
+  .btn:hover{border-color:var(--dim);background:var(--panel-2)}
+  .btn.primary{background:var(--amber);border-color:var(--amber);color:#171407;font-weight:600}
+  .btn.primary:hover{background:#f0c256}
+  .btn svg{flex:0 0 auto}
+  .seg{display:inline-flex;border:1px solid var(--line-2)}
+  .seg button{padding:9px 14px;background:transparent;border:0;color:var(--dim);font:inherit;cursor:pointer}
+  .seg button:hover{color:var(--ink)}
+  .seg button.on{background:var(--panel-2);color:var(--ink);box-shadow:inset 0 -2px 0 var(--amber)}
+
+  main{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start}
+  @media(max-width:1020px){main{grid-template-columns:1fr}.col-side{display:grid;grid-template-columns:1fr 1fr;gap:16px}}
+  @media(max-width:680px){.col-side{grid-template-columns:1fr}}
+
+  .end{display:flex;align-items:center;gap:14px;flex-wrap:wrap;border:1px solid var(--line-2);border-left:4px solid var(--amber);background:var(--panel-2);padding:12px 16px;margin-bottom:16px;cursor:pointer}
+  .end:hover{border-color:var(--dim);border-left-color:var(--amber)}
+  .end-tag{font-family:Oswald,sans-serif;font-weight:600;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber)}
+  .end-main{font-family:Oswald,sans-serif;font-weight:600;font-size:20px;letter-spacing:.02em}
+  .end-hint{margin-left:auto;font-size:10px;color:var(--faint);letter-spacing:.1em;text-transform:uppercase}
+
+  .live{display:flex;flex-wrap:wrap;background:var(--panel);border:1px solid var(--line);margin-bottom:16px}
+  .lv{padding:10px 18px;border-left:1px solid var(--line);min-width:110px}
+  .lv:first-child{border-left:0}
+  .lv-l{display:block;font-size:10px;letter-spacing:.14em;color:var(--faint);text-transform:uppercase}
+  .lv-v{font-family:Oswald,sans-serif;font-weight:600;font-size:24px;letter-spacing:.02em}
+  .lv-v .cat{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--dim);margin-left:6px;font-weight:400}
+  .lv-mark{margin-left:auto;padding:6px 20px;border-left:1px solid var(--line);text-align:center}
+  #lvMarkChar{font-family:Oswald,sans-serif;font-weight:700;font-size:40px;line-height:1;display:block}
+  #lvMarkChar.ok{color:var(--ok)}
+  #lvMarkChar.no{color:var(--no)}
+  #lvMarkChar.q{color:var(--faint)}
+
+  .venue{border:1px solid var(--line);background:var(--panel);margin-bottom:16px;overflow:hidden}
+  .venue svg{display:block;width:100%;height:auto}
+  .barlabel{fill:var(--dim);font-family:'IBM Plex Mono',monospace;font-size:11px}
+  #athlete{transform-origin:0 0}
+  #barG{transform-box:fill-box;transform-origin:left center}
+
+  .board-wrap{border:1px solid var(--line);background:var(--panel);padding:0 0 10px;overflow-x:auto}
+  table{border-collapse:collapse;width:100%;min-width:980px}
+  th,td{border:1px solid var(--line);padding:7px 5px;text-align:center;font-size:12.5px}
+  thead th{background:var(--panel-2);font-family:Oswald,sans-serif;font-weight:600;font-size:13px;letter-spacing:.06em;color:var(--dim);text-transform:uppercase}
+  td.c-name,th.c-name{text-align:left;padding-left:12px;width:150px}
+  td.c-name .rname{font-weight:600;letter-spacing:.02em}
+  td.c-cat,th.c-cat{color:var(--dim);width:52px}
+  td.c-rank,th.c-rank{width:36px;color:var(--dim)}
+  td.c-res,th.c-res{width:120px}
+  .resv{font-weight:600}
+  .badge-out{color:var(--no);border:1px solid var(--no);font-size:10px;padding:1px 5px;margin-left:6px;letter-spacing:.08em}
+  .t{display:inline-block;width:13px;text-align:center;font-size:12.5px}
+  .t.mx{color:var(--ok);font-weight:600}
+  .t.m0{color:var(--no)}
+  .t.md{color:var(--faint)}
+  .t.nq{color:transparent}
+  th.cur,td.cur{background:rgba(227,179,65,.09)}
+  th.cur{color:var(--amber);box-shadow:inset 0 -2px 0 var(--amber)}
+  tr.up td{background:rgba(233,229,214,.07)}
+  tr.up .rname{color:var(--amber)}
+  tr.up td.c-rank{color:var(--ink)}
+  tr.out .t{opacity:.55}
+  tr.out .rname{color:var(--dim)}
+  @keyframes cfok{from{background:rgba(142,199,99,.32)}to{background:transparent}}
+  @keyframes cfno{from{background:rgba(226,96,76,.32)}to{background:transparent}}
+  td.flash-ok{animation:cfok .8s ease-out}
+  td.flash-no{animation:cfno .8s ease-out}
+  .legend{font-size:11px;color:var(--dim);padding:10px 12px 0}
+
+  /* ---------- poročilo ---------- */
+  .report{border:1px solid var(--line);background:var(--panel);margin-top:16px;padding:16px}
+  .report[hidden]{display:none}
+  .rep-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:4px}
+  .rep-head h2{font-family:Oswald,sans-serif;font-weight:600;font-size:17px;letter-spacing:.1em;text-transform:uppercase}
+  .rep-date{font-size:11px;color:var(--faint)}
+  .rep-head .spacer{flex:1}
+  .report h3{font-family:Oswald,sans-serif;font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin:16px 0 8px}
+  table.rep{min-width:0}
+  table.rep th,table.rep td{padding:6px 8px;font-size:12px}
+  table.rep th{font-size:11.5px}
+  table.rep td.l{text-align:left;padding-left:12px}
+  .rep-scroll{overflow-x:auto}
+  table.rep.win td{background:rgba(227,179,65,.08)}
+  .st-out{color:var(--no)}
+  .st-ok{color:var(--dim)}
+  .rep-note{font-size:11px;color:var(--dim);margin-top:10px}
+
+  .panel{border:1px solid var(--line);background:var(--panel);padding:14px 16px}
+  .panel h2{font-family:Oswald,sans-serif;font-weight:600;font-size:15px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:6px}
+  #standings{list-style:none}
+  #standings li{display:grid;grid-template-columns:28px 1fr auto;align-items:baseline;gap:8px;padding:9px 4px;border-bottom:1px solid var(--line)}
+  #standings li:last-child{border-bottom:0}
+  #standings .pos{font-family:Oswald,sans-serif;font-weight:700;font-size:18px;color:var(--dim)}
+  #standings .sn{font-size:13px}
+  #standings .sn em{font-style:normal;color:var(--dim);font-size:11px}
+  #standings .sc{font-weight:600}
+  #standings li.live-out{opacity:.5}
+  #standings li.winner{background:rgba(227,179,65,.08)}
+  #standings li.winner .pos{color:var(--amber)}
+  .logwrap{max-height:300px;overflow-y:auto}
+  .logtab{min-width:0}
+  .logtab th{font-size:10px;padding:5px 4px}
+  .logtab td{padding:4px 6px;font-size:12px}
+  .logtab td:nth-child(1){color:var(--faint)}
+  .logtab td:nth-child(2){text-align:left}
+  .logtab td.mk{font-weight:600}
+  .logtab td.mk.ok{color:var(--ok)}
+  .logtab td.mk.no{color:var(--no)}
+  tr.sep td{color:var(--faint);font-size:11px;padding:3px}
+
+  footer{margin-top:20px;border-top:1px solid var(--line);padding-top:12px;color:var(--dim);font-size:11px}
+  footer code{color:var(--sand)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <h1>Skoki v višino <span class="amp">·</span> veterani</h1>
+      <p class="sub">SIMULACIJA TEKMOVANJA — 3 POSKUSI NA VIŠINO — x = PRESKOK, 0 = PODRTO — VSAK VETERAN VSTOPI PRI SVOJI ZAČETNI VIŠINI</p>
+    </div>
+    <div id="csvChip" class="chip">nalagam …</div>
+  </header>
+
+  <div class="controls">
+    <button id="btnStart" class="btn primary"></button>
+    <button id="btnReset" class="btn">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
+      <span>Ponastavi</span>
+    </button>
+    <div class="seg" id="speedSeg">
+      <button data-s="1" class="on">1×</button><button data-s="2">2×</button><button data-s="4">4×</button>
+    </div>
+    <span class="spacer"></span>
+    <button id="btnCsv" class="btn">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 3v11"/><path d="M7 10l5 5 5-5"/><path d="M4 20h16"/></svg>
+      <span>Prenesi veterani.csv</span>
+    </button>
+  </div>
+
+  <main>
+    <section class="col-main">
+
+      <div class="end" id="endBanner" hidden title="Klikni za prikaz poročila">
+        <span class="end-tag">konec tekmovanja</span>
+        <span class="end-main" id="endText"></span>
+        <span class="end-hint">poročilo ↓</span>
+      </div>
+
+      <div class="live">
+        <div class="lv"><span class="lv-l">Na vrsti</span><span class="lv-v"><span id="lvName">—</span><span class="cat" id="lvCat"></span></span></div>
+        <div class="lv"><span class="lv-l">Višina</span><span class="lv-v" id="lvHeight">—</span></div>
+        <div class="lv"><span class="lv-l">Poskus</span><span class="lv-v" id="lvAttempt">—</span></div>
+        <div class="lv-mark"><span class="lv-l">Rezultat</span><span id="lvMarkChar" class="q">·</span></div>
+      </div>
+
+      <div class="venue">
+        <svg id="pit" viewBox="0 0 660 300">
+          <path d="M0 262 L418 254 L418 266 L0 276 Z" fill="#241b15"/>
+          <path d="M0 258.5 L418 250.5" stroke="#3a2a20" stroke-width="2" stroke-dasharray="18 12" fill="none"/>
+          <rect x="0" y="272" width="660" height="28" fill="#131a10"/>
+          <line x1="0" y1="272" x2="660" y2="272" stroke="#263021" stroke-width="1.5"/>
+          <rect x="474" y="224" width="164" height="46" rx="7" fill="#202a18" stroke="#33402c"/>
+          <rect x="478" y="218" width="156" height="14" rx="7" fill="#c9a36a"/>
+          <rect x="478" y="218" width="156" height="5" rx="2.5" fill="#d9b784"/>
+          <rect x="426" y="66" width="7" height="206" rx="2" fill="#57624f"/>
+          <rect x="469" y="66" width="7" height="206" rx="2" fill="#57624f"/>
+          <rect x="426" y="66" width="7" height="10" fill="#8f9a83"/>
+          <rect x="469" y="66" width="7" height="10" fill="#8f9a83"/>
+          <g id="barG"><rect id="barRect" x="422" y="226" width="58" height="5" rx="2.5" fill="#eae6d9"/></g>
+          <text id="barLabel" x="412" y="230" text-anchor="end" class="barlabel">80 cm</text>
+          <g id="athlete" style="opacity:0;transform:translate(70px,252px)">
+            <circle cx="0" cy="-52" r="7" fill="#eae6d9"/>
+            <g stroke="#eae6d9" stroke-width="5" stroke-linecap="round" fill="none">
+              <path d="M0 -45 C3 -36 1 -26 0 -18"/>
+              <path d="M0 -42 C-9 -40 -15 -34 -13 -27"/>
+              <path d="M0 -40 C9 -36 14 -30 11 -23"/>
+              <path d="M0 -18 C-8 -12 -11 -5 -9 0"/>
+              <path d="M0 -18 C8 -14 12 -6 10 -1"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <div class="board-wrap">
+        <table>
+          <thead id="boardHead"></thead>
+          <tbody id="boardBody"></tbody>
+        </table>
+        <p class="legend">x = preskok letvice &nbsp;·&nbsp; 0 = podrta letvica &nbsp;·&nbsp; – = poskus še ni bil izveden &nbsp;·&nbsp; prazen stolpec = veteran pri tej višini še ni v tekmovanju &nbsp;·&nbsp; trije neuspehi (0 0 0) = izločitev &nbsp;·&nbsp; REZULTAT = zadnja preskočena višina</p>
+      </div>
+
+      <!-- POROČILO TEKMOVANJA -->
+      <section class="report" id="reportPanel" hidden>
+        <div class="rep-head">
+          <h2>Poročilo tekmovanja</h2>
+          <span class="rep-date" id="repDate"></span>
+          <span class="spacer"></span>
+          <button id="btnReportCsv" class="btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 3v11"/><path d="M7 10l5 5 5-5"/><path d="M4 20h16"/></svg>
+            <span>Prenesi rezultati.csv</span>
+          </button>
+        </div>
+
+        <h3>Vrstni red rezultatov</h3>
+        <table class="rep" id="repRank"></table>
+
+        <h3>Tabela skokov</h3>
+        <div class="rep-scroll">
+          <table class="rep" id="repJumps"></table>
+        </div>
+        <p class="rep-note">x = preskok &nbsp;·&nbsp; 0 = PODRTO &nbsp;·&nbsp; – = poskus ni izveden (po uspešnem preskoku) &nbsp;·&nbsp; prazno = veteran pri tej višini ni nastopil (pred vstopom ali po izločitvi)</p>
+      </section>
+
+    </section>
+
+    <aside class="col-side">
+      <div class="panel">
+        <h2>Vrstni red (sprotno)</h2>
+        <ol id="standings"></ol>
+      </div>
+      <div class="panel">
+        <h2>Dnevnik poskusov</h2>
+        <div class="logwrap">
+          <table class="logtab">
+            <thead><tr><th>#</th><th>Veteran</th><th>cm</th><th>Posk.</th><th>Rez.</th></tr></thead>
+            <tbody id="logBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <footer>
+    <p>Podatki: <code>veterani.csv</code> (koloni + začetna višina: <code>Veteran,Kategorija,Zacetna</code> — npr. <code>Marko,M90,85</code>).
+    Podprta je tudi enovrstična oblika <code>Marko M90 85, Iztok M75 115, Marjeta M75 80</code>.
+    Ob koncu tekmovanja se izpiše poročilo, ki se shrani kot <code>rezultati.csv</code>.
+    <!--     
+    Datoteko shrani kot <code>index.html</code> v <code>h:/wnmp/html/hj-monitor/</code> in odpri prek
+    <code>http://localhost/hj-monitor/</code>. Višine naraščajo po 5 cm do 140 cm.
+    -->
+    </p>
+  </footer>
+</div>
+
+<script>
+'use strict';
+/* ================= konstante ================= */
+const MAXH = 140;
+const STEP = 5;
+const DEFAULT_START = 90;
+const FALLBACK = [{name:'Marko',cat:'M90',start:85},{name:'Iztok',cat:'M75',start:115},{name:'Marjeta',cat:'M75',start:80}];
+const esc = s => String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+
+/* ================= stanje ================= */
+let competitors = [];
+let ALL = [];
+let heightIdx = 0;
+let turnIdx = 0;
+let phase = 'idle';
+let speed = 1;
+let runId = 0;
+let jumpCounter = 0;
+let upNext = null;
+let currentAnims = [];
+const D = ms => Math.max(60, ms / speed);
+
+/* ================= DOM ================= */
+const $ = id => document.getElementById(id);
+const boardHead=$('boardHead'), boardBody=$('boardBody'), standingsEl=$('standings'),
+      logBody=$('logBody'), endBanner=$('endBanner'), endText=$('endText'),
+      btnStart=$('btnStart'), btnReset=$('btnReset'), speedSeg=$('speedSeg'), btnCsv=$('btnCsv'),
+      csvChip=$('csvChip'),
+      reportPanel=$('reportPanel'), repDate=$('repDate'), repRank=$('repRank'), repJumps=$('repJumps'),
+      btnReportCsv=$('btnReportCsv'),
+      lvName=$('lvName'), lvCat=$('lvCat'), lvHeight=$('lvHeight'), lvAttempt=$('lvAttempt'), lvMarkChar=$('lvMarkChar'),
+      athleteEl=$('athlete'), barG=$('barG'), barRect=$('barRect'), barLabel=$('barLabel');
+
+const ICON = {
+  play:'<svg width="12" height="12" viewBox="0 0 16 16"><path d="M4 2l9 6-9 6z" fill="currentColor"/></svg>',
+  pause:'<svg width="12" height="12" viewBox="0 0 16 16"><path d="M3 2h4v12H3zM9 2h4v12H9z" fill="currentColor"/></svg>',
+  reset:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>'
+};
+
+/* ================= branje CSV (Veteran, Kategorija, Zacetna) ================= */
+const isCat = s => /^[\wČŠŽčšž]?\d{1,3}$/.test(s.trim());
+
+function parseCSV(text){
+  const out = [];
+  text.split(/\r?\n/).map(l=>l.trim()).filter(Boolean).forEach((line,i)=>{
+    if(i===0 && /veteran/i.test(line) && /kategorija/i.test(line)) return;
+    const segs = line.split(',').map(s=>s.trim().replace(/^["']|["']$/g,'')).filter(Boolean);
+    if(!segs.length) return;
+    if(segs.some(s=>/\s/.test(s))){
+      segs.forEach(s=>{
+        const toks = s.split(/\s+/);
+        let start = null;
+        if(/^\d{2,3}$/.test(toks[toks.length-1])) start = +toks.pop();
+        let cat = '—';
+        if(toks.length>1 && isCat(toks[toks.length-1])) cat = toks.pop();
+        if(toks.length) out.push({name:toks.join(' '), cat, start});
+      });
+    } else {
+      let cat='—', start=null, idx=1;
+      if(idx<segs.length && isCat(segs[idx])) cat = segs[idx++];
+      if(idx<segs.length && /^\d{2,3}$/.test(segs[idx])) start = +segs[idx++];
+      out.push({name:segs[0], cat, start});
+    }
+  });
+  return out;
+}
+
+/* ================= forma veteranov ================= */
+const capFor = start => start + 16 + (Math.random()*14 - 7);
+function probSuccess(c,h,attempt){
+  let p = 1/(1+Math.exp(-(c.cap-h)/6));
+  if(attempt===2) p*=.96; else if(attempt===3) p*=.92;
+  return p;
+}
+
+/* ================= vrstni red / plasman ================= */
+function attemptsAt(c){
+  if(c.cleared<=0) return 99;
+  const hi = ALL.indexOf(c.cleared);
+  return hi<0 ? 99 : c.grid[hi].indexOf('x') + 1;
+}
+function cmp(a,b){
+  if(b.cleared!==a.cleared) return b.cleared-a.cleared;
+  const aa=attemptsAt(a), bb=attemptsAt(b);
+  if(aa!==bb) return aa-bb;
+  if(a.totalFails!==b.totalFails) return a.totalFails-b.totalFails;
+  return a.order-b.order;
+}
+const computeRanking = () => [...competitors].sort(cmp);
+
+/* ================= naslednji skok ================= */
+function canJump(c,hi){
+  if(c.out || c.finished) return false;
+  if(!c.hs.has(ALL[hi])) return false;
+  const rec = c.grid[hi];
+  if(rec.includes('x')) return false;
+  return rec.filter(v=>v!==null).length < 3;
+}
+function nextEvent(){
+  while(heightIdx < ALL.length){
+    const n = competitors.length;
+    for(let k=0;k<n;k++){
+      const c = competitors[(turnIdx+k)%n];
+      if(canJump(c,heightIdx)){
+        return {c, hi:heightIdx, h:ALL[heightIdx], attempt:c.grid[heightIdx].filter(v=>v!==null).length+1};
+      }
+    }
+    heightIdx++; turnIdx = 0;
+  }
+  return null;
+}
+
+/* ================= gradnja DOM ================= */
+function buildBoard(){
+  boardHead.innerHTML = `<tr><th class="c-rank">#</th><th class="c-name">Skakalec</th><th class="c-cat">Kat</th>`
+    + ALL.map((h,i)=>`<th class="hnum" data-hi="${i}">${h}</th>`).join('')
+    + `<th class="c-res">Rezultat</th>`;
+  boardBody.innerHTML = competitors.map(c=>`
+    <tr id="row-${c.order}">
+      <td class="c-rank"></td>
+      <td class="c-name"><span class="rname">${esc(c.name)}</span></td>
+      <td class="c-cat">${esc(c.cat)}</td>
+      ${ALL.map((h,hi)=>`<td data-hi="${hi}"><span class="t nq"></span><span class="t nq"></span><span class="t nq"></span></td>`).join('')}
+      <td class="c-res"><span class="resv">–</span><span class="badge-out" hidden>OUT</span></td>
+    </tr>`).join('');
+}
+function buildStandings(){
+  standingsEl.innerHTML = competitors.map(c=>
+    `<li data-i="${c.order}"><span class="pos"></span><span class="sn">${esc(c.name)}<em> ${esc(c.cat)}</em></span><span class="sc">0</span></li>`
+  ).join('');
+}
+
+function updateBoard(){
+  const rank = new Map(); computeRanking().forEach((c,i)=>rank.set(c,i+1));
+  boardBody.querySelectorAll('tr').forEach(tr=>{
+    const c = competitors[+tr.id.slice(4)];
+    tr.querySelector('.c-rank').textContent = rank.get(c);
+    tr.classList.toggle('up', upNext===c && phase==='running');
+    tr.classList.toggle('out', c.out);
+    ALL.forEach((h,hi)=>{
+      const td = tr.children[3+hi], spans = td.querySelectorAll('.t');
+      if(!c.hs.has(h)){
+        spans.forEach(sp=>{sp.textContent=''; sp.className='t nq';});
+      } else {
+        c.grid[hi].forEach((v,k)=>{
+          spans[k].textContent = v===null ? '–' : v;
+          spans[k].className = 't ' + (v==='x'?'mx':v==='0'?'m0':'md');
+        });
+      }
+      td.classList.toggle('cur', hi===heightIdx && phase!=='done');
+    });
+    tr.querySelector('.resv').textContent = c.cleared>0 ? c.cleared+' cm' : '–';
+    tr.querySelector('.badge-out').hidden = !c.out;
+  });
+  boardHead.querySelectorAll('.hnum').forEach(th=>
+    th.classList.toggle('cur', +th.dataset.hi===heightIdx && phase!=='done'));
+}
+
+function updateStandings(final=false){
+  const list = computeRanking();
+  const first = new Map();
+  [...standingsEl.children].forEach(li=>first.set(li.dataset.i, li.getBoundingClientRect().top));
+  list.forEach(c=>standingsEl.appendChild(standingsEl.querySelector(`li[data-i="${c.order}"]`)));
+  [...standingsEl.children].forEach((li,idx)=>{
+    const c = list[idx];
+    li.querySelector('.pos').textContent = idx+1;
+    li.querySelector('.sc').textContent = c.cleared>0 ? c.cleared : '0';
+    li.classList.toggle('winner', final && idx===0 && c.cleared>0);
+    li.classList.toggle('live-out', c.out);
+  });
+  [...standingsEl.children].forEach(li=>{
+    const p = first.get(li.dataset.i), n = li.getBoundingClientRect().top;
+    if(p!=null && p!==n) li.animate(
+      [{transform:`translateY(${p-n}px)`},{transform:'none'}],
+      {duration:380, easing:'cubic-bezier(.25,.8,.3,1)'});
+  });
+}
+
+function addLog(c,h,attempt,mark){
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td>${++jumpCounter}</td><td>${esc(c.name)}</td><td>${h}</td><td>${attempt}.</td><td class="mk ${mark==='x'?'ok':'no'}">${mark}</td>`;
+  logBody.prepend(tr);
+  while(logBody.children.length>300) logBody.lastChild.remove();
+}
+function addHeightSep(h){
+  const tr = document.createElement('tr');
+  tr.className='sep';
+  tr.innerHTML = `<td colspan="5">— višina dvignjena na ${h} cm —</td>`;
+  logBody.prepend(tr);
+}
+
+/* ================= živi trak ================= */
+function updateLive(c,h,attempt,mark){
+  lvName.textContent = c.name.toUpperCase();
+  lvCat.textContent = c.cat;
+  lvHeight.textContent = h + ' cm';
+  lvAttempt.textContent = attempt + '/3';
+  lvMarkChar.textContent = mark ?? '?';
+  lvMarkChar.className = mark==null ? 'q' : (mark==='x'?'ok':'no');
+  if(mark!=null) lvMarkChar.animate(
+    [{transform:'scale(1.6)'},{transform:'scale(1)'}],{duration:280,easing:'ease-out'});
+}
+function updateLiveIdle(){
+  lvName.textContent='—'; lvCat.textContent=''; lvHeight.textContent='—';
+  lvAttempt.textContent='—'; lvMarkChar.textContent='·'; lvMarkChar.className='q';
+}
+function updateLiveEnd(){
+  lvName.textContent='KONEC'; lvCat.textContent=''; lvHeight.textContent='—';
+  lvAttempt.textContent='—'; lvMarkChar.textContent='·'; lvMarkChar.className='q';
+}
+
+/* ================= skakalnica (SVG) ================= */
+const barY = h => Math.max(140, 236 - (h-80)*1.6);
+function setBar(h){
+  barG.getAnimations().forEach(a=>a.cancel());
+  barG.style.transform='';
+  barRect.setAttribute('y', barY(h));
+  barLabel.setAttribute('y', barY(h)+4);
+  barLabel.textContent = h + ' cm';
+}
+function athleteReset(){
+  athleteEl.getAnimations().forEach(a=>a.cancel());
+  athleteEl.style.opacity='0';
+  athleteEl.style.transform='translate(70px,252px)';
+}
+function track(a){
+  currentAnims.push(a);
+  a.finished.catch(()=>{}).finally(()=>{const i=currentAnims.indexOf(a); if(i>-1)currentAnims.splice(i,1);});
+}
+function dropBar(by){
+  const fall = 252 - by;
+  const a = barG.animate([
+    {transform:'translateY(0px) rotate(0deg)'},
+    {transform:`translateY(${fall*.3}px) rotate(14deg)`, offset:.35},
+    {transform:`translateY(${fall}px) rotate(58deg)`}
+  ],{duration:D(520), fill:'forwards', easing:'cubic-bezier(.5,0,.85,.5)'});
+  track(a);
+}
+function wobbleBar(){
+  const a = barG.animate(
+    [{transform:'translateY(0px)'},{transform:'translateY(2.5px)'},{transform:'translateY(-1px)'},{transform:'translateY(0px)'}],
+    {duration:D(300)});
+  track(a);
+}
+async function animateJump(success, by){
+  const t=(x,y,r)=>`translate(${x}px,${y}px) rotate(${r}deg)`;
+  const G=252, peak = success ? by-26 : by+22;
+  athleteReset();
+  const f1 = athleteEl.animate([{opacity:0},{opacity:1}],{duration:D(200),fill:'forwards'});
+  track(f1); await f1.finished.catch(()=>{});
+  const kf1=[
+    {transform:t(70,G,0),      offset:0,   easing:'cubic-bezier(.4,.3,.6,1)'},
+    {transform:t(180,G-2,0),   offset:.16, easing:'linear'},
+    {transform:t(292,G,0),     offset:.32, easing:'cubic-bezier(.55,.05,.85,.4)'},
+    {transform:t(338,G-5,-10), offset:.40, easing:'cubic-bezier(.3,.55,.55,1)'},
+    {transform:t(396,peak+18,-28), offset:.56, easing:'ease-out'},
+    {transform:t(449,peak,success?18:10), offset:.68, easing:'ease-in'}
+  ];
+  const a1 = athleteEl.animate(kf1,{duration:D(760),fill:'forwards'});
+  track(a1); await a1.finished.catch(()=>{});
+  success ? wobbleBar() : dropBar(by);
+  const kf2 = success ? [
+    {transform:t(449,peak,18), offset:0, easing:'cubic-bezier(.35,0,.7,.5)'},
+    {transform:t(500,peak+22,55), offset:.42},
+    {transform:t(550,220,72),  offset:.78, easing:'ease-out'},
+    {transform:t(562,214,85),  offset:1}
+  ]:[
+    {transform:t(449,peak,10), offset:0, easing:'cubic-bezier(.3,0,.6,.5)'},
+    {transform:t(468,peak+30,40), offset:.45},
+    {transform:t(498,223,62),  offset:.8, easing:'ease-out'},
+    {transform:t(510,219,80),  offset:1}
+  ];
+  const a2 = athleteEl.animate(kf2,{duration:D(560),fill:'forwards'});
+  track(a2); await a2.finished.catch(()=>{});
+  await wait(D(420));
+  const f2 = athleteEl.animate([{opacity:1},{opacity:0}],{duration:D(220),fill:'forwards'});
+  track(f2); await f2.finished.catch(()=>{});
+}
+
+/* ================= čakanja / pavza ================= */
+function wait(ms){
+  return new Promise(res=>{
+    let left = ms;
+    const iv = setInterval(()=>{
+      if(phase==='paused') return;
+      left -= 50;
+      if(left<=0){ clearInterval(iv); res(); }
+    },50);
+  });
+}
+function pauseGate(){
+  return new Promise(res=>{
+    const iv = setInterval(()=>{ if(phase!=='paused'){clearInterval(iv);res();} },100);
+  });
+}
+
+/* ================= potek tekmovanja ================= */
+async function performJump(ev, myRun){
+  const {c,hi,h,attempt} = ev;
+  upNext = c; updateBoard(); updateLive(c,h,attempt,null);
+  await wait(D(600));
+  if(myRun!==runId) return;
+  const mark = Math.random() < probSuccess(c,h,attempt) ? 'x' : '0';
+  await animateJump(mark==='x', barY(h));
+  if(myRun!==runId) return;
+  c.grid[hi][attempt-1] = mark;
+  if(mark==='x'){
+    c.cleared = h;
+    if(h === c.maxH) c.finished = true;
+  } else {
+    c.totalFails++;
+    if(c.grid[hi].every(v=>v==='0')){ c.out = true; c.outAt = h; }   /* 0 0 0 → izločitev */
+  }
+  addLog(c,h,attempt,mark);
+  upNext = null;
+  updateBoard(); updateStandings(); updateLive(c,h,attempt,mark);
+  const td = boardBody.querySelector(`#row-${c.order} td[data-hi="${hi}"]`);
+  if(td){ td.classList.remove('flash-ok','flash-no');
+          td.classList.add(mark==='x'?'flash-ok':'flash-no');
+          setTimeout(()=>td.classList.remove('flash-ok','flash-no'),900); }
+  turnIdx = (c.order+1) % competitors.length;
+  await wait(D(250));
+}
+
+async function runCompetition(){
+  const myRun = ++runId;
+  phase='running'; setStartBtn(); updateBoard();
+  let lastH = null;
+  for(;;){
+    if(myRun!==runId || phase==='done') return;
+    if(phase==='paused'){ await pauseGate(); continue; }
+    const ev = nextEvent();
+    if(!ev){ finish(); return; }
+    if(ev.h !== lastH){
+      lastH = ev.h;
+      setBar(ev.h);
+      addHeightSep(ev.h);
+      upNext = null; updateBoard();
+      await wait(D(900));
+      continue;
+    }
+    await performJump(ev, myRun);
+  }
+}
+
+function finish(){
+  phase='done';
+  updateBoard(); updateStandings(true); updateLiveEnd();
+  renderReport();                                   /* izpis poročila */
+  reportPanel.hidden = false;
+  const list = computeRanking(), w = list[0];
+  let text;
+  if(w.cleared>0){
+    const tied = list.filter(c=>c.cleared===w.cleared && attemptsAt(c)===attemptsAt(w) && c.totalFails===w.totalFails);
+    text = tied.length>1
+      ? `Skupna zmaga: ${tied.map(c=>`${c.name} (${c.cat})`).join(' · ')} — ${w.cleared} cm`
+      : `Zmagovalec: ${w.name} (${w.cat}) — ${w.cleared} cm`;
+  } else text = 'Noben veteran ni preskočil letvice.';
+  endText.textContent = text;
+  endBanner.hidden = false;
+  setStartBtn();
+  setTimeout(()=>endBanner.scrollIntoView({behavior:'smooth',block:'nearest'}),400);
+}
+
+/* ================= POROČILO ================= */
+const csvCell = v => { const s=String(v); return /[",\r\n]/.test(s) ? '"'+s.replace(/"/g,'""')+'"' : s; };
+const statusOf = c => c.out ? 'IZLOCEN' : 'KONCAL';
+
+/* trije znaki poskusov (x/0/-) ali prazno, če pri tej višini ni nastopil */
+function attemptStr(c,hi){
+  const h = ALL[hi];
+  if(!c.hs.has(h)) return '';
+  if(c.out && h > c.outAt) return '';
+  return c.grid[hi].map(v=>v===null?'-':v).join('');
+}
+
+function renderReport(){
+  const list = computeRanking();
+  repDate.textContent = new Date().toLocaleString('sl-SI');
+
+  /* 1) vrstni red rezultatov */
+  repRank.innerHTML =
+    `<thead><tr><th>Mesto</th><th>Veteran</th><th>Kategorija</th><th>Začetna (cm)</th><th>Rezultat (cm)</th><th>Poskusi na zadnji višini</th><th>Odrgnjenih skupaj</th><th>Status</th></tr></thead>
+     <tbody>` + list.map((c,i)=>`
+      <tr${i===0?' class="win"':''}>
+        <td>${i+1}</td>
+        <td class="l">${esc(c.name)}</td>
+        <td>${esc(c.cat)}</td>
+        <td>${c.start}</td>
+        <td>${c.cleared>0 ? c.cleared : '–'}</td>
+        <td>${c.cleared>0 ? attemptsAt(c) : '–'}</td>
+        <td>${c.totalFails}</td>
+        <td class="${c.out?'st-out':'st-ok'}">${c.out ? 'IZLOČEN' : 'KONČAL'}</td>
+      </tr>`).join('') + `</tbody>`;
+
+  /* 2) tabela skokov z x in 0 (po vrstnem redu) */
+  repJumps.innerHTML =
+    `<thead><tr><th class="l">Veteran</th><th>Kat</th>` + ALL.map(h=>`<th>${h}</th>`).join('') + `</tr></thead>
+     <tbody>` + list.map((c,i)=>`
+      <tr${i===0?' class="win"':''}>
+        <td class="l">${esc(c.name)}</td>
+        <td>${esc(c.cat)}</td>
+        ${ALL.map((h,hi)=>{
+          const s = attemptStr(c,hi);
+          if(!s) return '<td class="nq"></td>';
+          return '<td>'+[...s].map(ch=>`<span class="t ${ch==='x'?'mx':ch==='0'?'m0':'md'}">${ch}</span>`).join('')+'</td>';
+        }).join('')}
+      </tr>`).join('') + `</tbody>`;
+}
+
+function buildReportCsv(){
+  const list = computeRanking();
+  const L = [];
+  L.push('POROCILO TEKMOVANJA - SKOKI V VISINO - VETERANI');
+  L.push('Datum,' + csvCell(new Date().toLocaleString('sl-SI')));
+  L.push('');
+  L.push('VRSTNI RED REZULTATOV');
+  L.push('Mesto,Veteran,Kategorija,Zacetna (cm),Rezultat (cm),Poskusi na zadnji visini,Odrgnjenih skupaj,Status');
+  list.forEach((c,i)=>{
+    L.push([i+1, csvCell(c.name), csvCell(c.cat), c.start,
+            c.cleared>0?c.cleared:0, c.cleared>0?attemptsAt(c):'',
+            c.totalFails, statusOf(c)].map(csvCell).join(','));
+  });
+  L.push('');
+  L.push('TABELA SKOKOV');
+  L.push('Legenda,x = preskok,0 = PODRTO,- = poskus ni izveden,(prazno) = ni nastopil pri tej visini');
+  L.push(['Veteran','Kategorija',...ALL].map(csvCell).join(','));
+  list.forEach(c=>{
+    L.push([csvCell(c.name), csvCell(c.cat), ...ALL.map((h,hi)=>attemptStr(c,hi))].map(csvCell).join(','));
+  });
+  return L.join('\r\n') + '\r\n';
+}
+
+btnReportCsv.addEventListener('click',()=>{
+  const blob = new Blob([buildReportCsv()],{type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'rezultati.csv';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href),3000);
+});
+endBanner.addEventListener('click',()=>{
+  if(!reportPanel.hidden) reportPanel.scrollIntoView({behavior:'smooth',block:'start'});
+});
+
+/* ================= ponastavitev ================= */
+function resetAll(){
+  runId++;
+  phase='idle'; heightIdx=0; turnIdx=0; jumpCounter=0; upNext=null;
+  currentAnims.slice().forEach(a=>{try{a.cancel()}catch(e){}}); currentAnims=[];
+  competitors.forEach(c=>{
+    c.cap = capFor(c.start);
+    c.out=false; c.finished=false; c.outAt=0; c.cleared=0; c.totalFails=0;
+    c.grid = ALL.map(()=>[null,null,null]);
+  });
+  buildBoard(); buildStandings();
+  logBody.innerHTML='';
+  endBanner.hidden=true;
+  reportPanel.hidden=true;
+  repRank.innerHTML=''; repJumps.innerHTML='';
+  setBar(ALL[0]);
+  athleteReset();
+  updateBoard(); updateStandings(); updateLiveIdle();
+}
+
+/* ================= gumbi ================= */
+function setStartBtn(){
+  const map = {
+    idle:['primary','Zaženi simulacijo',ICON.play],
+    running:['primary','Pavza',ICON.pause],
+    paused:['primary','Nadaljuj',ICON.play],
+    done:['primary','Nova simulacija',ICON.reset]
+  };
+  const [cls,label,icon]=map[phase];
+  btnStart.className='btn '+cls;
+  btnStart.innerHTML=icon+`<span>${label}</span>`;
+}
+btnStart.addEventListener('click',()=>{
+  if(phase==='running'){
+    phase='paused'; currentAnims.forEach(a=>{try{a.pause()}catch(e){}});
+  } else if(phase==='paused'){
+    phase='running'; currentAnims.forEach(a=>{try{a.play()}catch(e){}});
+  } else {
+    if(phase==='done') resetAll();
+    runCompetition();
+  }
+  setStartBtn();
+});
+btnReset.addEventListener('click',()=>{ resetAll(); setStartBtn(); });
+speedSeg.addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  speed=+b.dataset.s;
+  [...speedSeg.children].forEach(x=>x.classList.toggle('on',x===b));
+});
+btnCsv.addEventListener('click',()=>{
+  const txt = 'Veteran,Kategorija,Zacetna\r\n' + competitors.map(c=>`${c.name},${c.cat},${c.start}`).join('\r\n') + '\r\n';
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([txt],{type:'text/csv;charset=utf-8'}));
+  a.download='veterani.csv';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href),3000);
+});
+
+/* ================= zagon ================= */
+(async function init(){
+  let rows=null, csvFound=false;
+  try{
+    const res = await fetch('veterani.csv',{cache:'no-store'});
+    if(res.ok){
+      const parsed = parseCSV(await res.text());
+      if(parsed.length){ rows=parsed; csvFound=true; }
+    }
+  }catch(e){ /* datoteke ni ali file:// dostop */ }
+  if(!rows) rows = FALLBACK;
+  csvChip.textContent = csvFound
+    ? `veterani.csv — naložen (${rows.length})`
+    : `veterani.csv ni najden — kreiran privzeti seznam (${rows.length})`;
+  csvChip.className = 'chip ' + (csvFound?'ok':'warn');
+  if(!csvFound && location.protocol==='file:')
+    csvChip.title='Pri file:// brskalnik ne more brati CSV — odpri prek http://localhost/hj-monitor/';
+
+  competitors = rows.map((r,i)=>{
+    const start = Math.max(40, Math.min(r.start==null ? DEFAULT_START : r.start, MAXH));
+    return {name:r.name, cat:r.cat, start, order:i, maxH:start,
+            hs:new Set(), grid:[], cleared:0, totalFails:0, out:false, outAt:0, finished:false, cap:0};
+  });
+  competitors.forEach(c=>{
+    for(let h=c.start; h<=MAXH; h+=STEP){ c.hs.add(h); c.maxH=h; }
+  });
+  ALL = [...new Set(competitors.flatMap(c=>[...c.hs]))].sort((a,b)=>a-b);
+
+  resetAll();
+  setStartBtn();
+  setTimeout(()=>{ if(phase==='idle') btnStart.click(); }, 900);
+})();
+</script>
+</body>
+</html>
