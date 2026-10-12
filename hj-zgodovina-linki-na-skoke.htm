@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Razvoj svetovnega rekorda v skoku v višino</title>
+<style>
+  :root { --ink:#1d2433; --mut:#667085; --pri:#3b3a9e; --bg:#f4f6fb; --line:#e6e9f2; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:Segoe UI,Arial,sans-serif; background:var(--bg); color:var(--ink); }
+  header { background:linear-gradient(135deg,#3b3a9e,#7a5cd6); color:#fff; padding:34px 32px 28px; }
+  header h1 { margin:0 0 6px; font-size:30px; }
+  header p { margin:0; opacity:.9; max-width:900px; line-height:1.5; }
+  main { max-width:1280px; margin:0 auto; padding:24px 24px 60px; }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; margin-bottom:22px; }
+  .card, .box { background:#fff; border-radius:12px; box-shadow:0 1px 6px rgba(20,30,60,.08); }
+  .card { padding:16px 20px; }
+  .card .l { color:var(--mut); font-size:13px; }
+  .card .v { font-size:26px; font-weight:700; margin-top:2px; }
+  .card .s { color:var(--mut); font-size:13px; }
+  .box { padding:18px 20px; margin-bottom:22px; }
+  .box h2 { margin:0 0 6px; font-size:17px; color:var(--pri); }
+  .hint { color:var(--mut); font-size:13px; margin:0 0 6px; }
+  svg text { font-family:Segoe UI,Arial,sans-serif; }
+  .dot { cursor:pointer; }
+  .tools { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:14px; align-items:center; }
+  input, select, button.t { padding:9px 12px; border:1px solid #d5d9e4; border-radius:8px; font-size:14px; background:#fff; font-family:inherit; }
+  input { min-width:230px; }
+  button.t { cursor:pointer; }
+  button.t:hover { background:#f0f0ff; }
+  button.p { background:var(--pri); color:#fff; border-color:var(--pri); }
+  button.p:hover { background:#2f2e86; }
+  button.p:disabled { opacity:.5; cursor:not-allowed; }
+  .cnt { color:var(--mut); font-size:14px; margin-left:auto; }
+  .wrap { background:#fff; border-radius:12px; box-shadow:0 1px 6px rgba(20,30,60,.08); overflow:auto; max-height:75vh; }
+  table { border-collapse:collapse; width:100%; min-width:1000px; }
+  th { position:sticky; top:0; background:#fafbff; color:var(--mut); font-size:12.5px; text-transform:uppercase; letter-spacing:.7px; text-align:left; padding:11px 14px; border-bottom:1px solid var(--line); z-index:2; }
+  td { padding:9px 14px; border-bottom:1px solid #eef0f6; font-size:14.5px; vertical-align:top; }
+  tr.row:hover td { background:#f6f5ff; }
+  tr.era td { background:#ecebff; color:var(--pri); font-weight:700; font-size:13px; letter-spacing:.8px; text-transform:uppercase; }
+  tr.flash td { animation:fl 2.2s ease; }
+  @keyframes fl { 0%,60% { background:#fde68a; } 100% { background:transparent; } }
+  td.dt, td.m, td.ft { white-space:nowrap; }
+  td.nm { font-weight:600; }
+  td.m { font-weight:700; }
+  td.ft { color:var(--mut); }
+  td.nt { color:#4b5568; font-size:13px; max-width:340px; }
+  td.vr { white-space:nowrap; }
+  .cc { display:inline-block; background:#eef0fa; border-radius:6px; padding:1px 8px; font-size:12.5px; font-weight:600; color:#3b4470; cursor:help; }
+  .lk { display:inline-block; margin:0 6px 4px 0; padding:5px 12px; border-radius:999px; font-size:12.5px; font-weight:600; text-decoration:none; color:#fff; white-space:nowrap; }
+  .lk:hover { filter:brightness(1.15); }
+  .lk.b { background:#6b46c1; } .lk.c { background:#0f766e; } .lk.y { background:#d92d2d; }
+  .cp { border:1px solid #d5d9e4; background:#fff; border-radius:6px; cursor:pointer; padding:3px 8px; font-size:12px; margin-right:6px; font-family:inherit; }
+  .cp:hover { background:#f0f0ff; }
+  .warn { color:#b45309; font-size:13px; cursor:help; margin-right:6px; }
+  .none { color:#aab0c0; }
+  .bd { display:inline-block; margin-left:8px; padding:1px 8px; border-radius:6px; font-size:11.5px; font-weight:700; vertical-align:middle; }
+  .bd.c { background:#fff1c9; color:#8a5a00; } .bd.u { background:#ffe1e1; color:#a02a2a; }
+  #linkbar { display:none; position:fixed; left:50%; bottom:20px; transform:translateX(-50%); background:#1d2433; color:#fff; padding:12px 18px; border-radius:10px; max-width:90vw; word-break:break-all; font-size:13px; z-index:10; user-select:all; }
+  footer { color:var(--mut); font-size:13px; margin-top:18px; line-height:1.6; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Razvoj svetovnega rekorda v skoku v višino
+  &nbsp;<font size=2><font color='black'>Made by Iztok Valenčič</font>
+  </h1>
+  <p>Pregled zabeleženih rekordov od leta 1827 z viri: časopisni arhivi in videoposnetki. Rekordi, ki jih ni v člankih ali videih, so v uradnih seznamih IAAF (World Record Progression) in pri World Athletics.</p>
+</header>
+<main>
+  <div class="cards" id="cards"></div>
+
+  <div class="box">
+    <h2>Napredek rekorda</h2>
+    <p class="hint">Klikni točko, da skočiš na vrstico v tabeli. Modra = pred IAAF, oranžna = obdobje IAAF.</p>
+    <svg id="chart" viewBox="0 0 1000 330" width="100%"></svg>
+  </div>
+
+  <div class="tools">
+    <input id="q" placeholder="Išči atleta, državo, opombo…">
+    <select id="era">
+      <option value="">Vsa obdobja</option>
+      <option value="pred">Pred IAAF (1827–1912)</option>
+      <option value="iaaf">Obdobje IAAF (od 1912)</option>
+    </select>
+    <select id="src">
+      <option value="">Vsi viri</option>
+      <option value="link">Samo z virom</option>
+      <option value="nolink">Brez vira</option>
+      <option value="b">Časopis (BNA)</option>
+      <option value="c">Časopis (Chronicling America)</option>
+      <option value="y">Video (YouTube)</option>
+    </select>
+    <select id="cty"><option value="">Vse države</option></select>
+    <button class="t" id="dir">Najnovejši najprej</button>
+    <button class="t" id="reset">Počisti filtre</button>
+    <button class="t p" id="openall">Odpri vse povezave izbora</button>
+    <span class="cnt" id="cnt"></span>
+  </div>
+
+  <div class="wrap"><table id="tbl"></table></div>
+
+  <footer>
+    Klikni barvni gumb v stolpcu Vir, da se povezava odpre v novem zavihku ali oknu. Gumb Kopiraj pokaže povezavo na dnu strani in jo kopira.
+    Povezave na British Newspaper Archive lahko zahtevajo prijavo ali naročnino.
+    Oznaka ⚠ ob povezavi pomeni, da se datum članka v povezavi precej razlikuje od datuma rekorda, zato vir preveri.
+  </footer>
+</main>
+
+<div id="linkbar"></div>
+
+<script>
+// [datum, atlet, država, čevlji, metri, vir, opomba, oznaka (c = zatrjevano, u = neuradno)]
+const RAW = [
+['1827-09-26','Adam Wilson','GBR','5′ 2″',1.58,'b:0001664/18271016/008/0003'],
+['1829-07-24','Thomas Anderson','GBR','5′ 3″',1.60,'b:0001060/18290730/050/0004'],
+['1837-05-06','John Pattison','GBR','5′ 3″',1.60],
+['1839-08-05','Richard Armstrong','GBR','5′ 6″',1.68,'b:0000045/18390810/010/0004'],
+['1850-04-01','Thomas Roper','GBR','5′ 6″',1.68,'b:0000366/18500406/007/0003','Peter Lovesey navaja, da je bila ta višina zelo verjetno že prej presežena.'],
+['1852-04-19','Thomas Roper','GBR','5′ 6″',1.68,'b:0000355/18520425/100/0007'],
+['1852-04-19','Henry Musgrave','GBR','5′ 7″',1.70,'b:0000355/18520425/100/0007'],
+['1852-08-20','James Methven','GBR','5′ 8″',1.73,'b:0000355/18520425/100/0007'],
+['1852-08-20','John McNeil','GBR','5′ 8″',1.73,'b:0000355/18520425/100/0007'],
+['1854-07-25','James Methven','GBR','5′ 9″',1.75,'b:0002741/18540727/098/0007'],
+['1855-08-03','William Tivendale','GBR','5′ 9″',1.75],
+['1856-08-13','James Methven','GBR','5′ 9″',1.75,'b:0002741/18540727/098/0007'],
+['1856-08-26','James Methven','GBR','5′ 10″',1.78,'b:0000296/18560829/036/0003','Članek kot najvišjo višino navaja 5′ 8″, čeprav raziskovalci IAAF trdijo 5′ 10″.'],
+['1858-08-06','James Methven','GBR','5′ 10″',1.78,'b:0002751/18580813/127/0008'],
+['1859','Donald Dinnie','GBR','5′ 11″',1.80,null,'Zatrjevani rekord (ni uradno potrjen).','c'],
+['1860','Donald Dinnie','GBR','5′ 11″',1.80,null,'Zatrjevani rekord, isti skok kot leta 1859.','c'],
+['1861-08-08','Donald Dinnie','GBR','5′ 10″',1.78,'b:0000161/18610809/007/0003'],
+['1861-08-08','Andrew Milne','GBR','5′ 10″',1.78,'b:0000161/18610809/007/0003'],
+['1864-08-10','Thomas Russell','GBR','5′ 10″',1.78],
+['1865-08-09','Andrew Milne','GBR','5′ 10″',1.78],
+['1865-08-09','Samuel Muir','GBR','5′ 10″',1.78],
+['1866-07-28','John Bell','GBR','5′ 10″',1.78],
+['1866-07-28','Gavin Talt','GBR','5′ 10″',1.78],
+['1868','Donald Dinnie','GBR','6′ 1″',1.85,null,'Zatrjevani rekord (ni uradno potrjen).','c'],
+['1868-08-12','Andrew Milne','GBR','5′ 10″',1.78],
+['1873-07-07','Thomas Davin','GBR','5′ 10¼″',1.79,'b:0000056/18730708/026/0007'],
+['1874-03-30','Marshall Brooks','GBR','5′ 11″',1.80,'b:0001055/18740331/046/0004'],
+['1875-03-22','Michael Glazebrook','GBR','5′ 11″',1.80],
+['1876-03-17','Marshall Brooks','GBR','6′ 0″',1.83,'b:0000183/18760320/046/0006'],
+['1876-04-07','Marshall Brooks','GBR','6′ 2½″',1.89,'b:0000056/18760411/009/0003'],
+['1880-05-07','Patrick Davin','GBR','6′ 2¾″',1.90,'b:0000355/18800710/068/0004'],
+['1887-08-15','William Byrd Page','USA','6′ 3¼″',1.91],
+['1887-10-07','William Byrd Page','USA','6′ 4″',1.93,'c:sn85042588/1887-10-14/ed-1/seq-2/'],
+['1892-10-08','Michael Sweeney','USA','6′ 4¼″',1.935],
+['1895-08-19','James Ryan','GBR','6′ 4½″',1.945],
+['1895-08-28','Michael Sweeney','USA','6′ 5″',1.955],
+['1895-09-02','Michael Sweeney','USA','6′ 5⅜″',1.965],
+['1895-09-21','Michael Sweeney','USA','6′ 5⅝″',1.97],
+['1912-03-29','George Horine','USA','6′ 6⅛″',1.985,'c:sn83045487/1912-03-30/ed-1/seq-13','Prvi svetovni rekord s tehniko Western Roll (kdaj je bila tehnika prvič razvita, je treba še preveriti).'],
+['1912-05-18','George Horine','USA',null,2.00],
+['1914-05-02','Ed Beeson','USA',null,2.01],
+['1917-06-01','Clinton Larson','USA',null,2.03,'c:sn85058396/1917-06-02/ed-1/seq-3/#date1=1917&index=2&rows=20'],
+['1924-05-27','Harold Osborn','USA',null,2.02],
+['1924-05-27','Harold Osborn','USA',null,2.03],
+['1933-05-13','Walter Marty','USA',null,2.04,'c:sn82015313/1924-05-28/ed-1/seq-9/#date1=05%2F26%2F1924&index=8&date2=06%2F30%2F1924&searchType=advanced&language=&sequence=0'],
+['1934-04-07','Walter Marty','USA',null,2.05],
+['1934-04-07','Walter Marty','USA',null,2.07],
+['1934-04-28','Walter Marty','USA',null,2.06],
+['1936-07-12','Cornelius Johnson','USA',null,2.07],
+['1936-07-12','David Albritton','USA',null,2.07],
+['1937-08-06','Mel Walker','USA',null,2.08],
+['1937-08-12','Mel Walker','USA',null,2.09],
+['1941-04-26','Bill Stewart','USA',null,2.09],
+['1941-04-26','Lester Steers','USA',null,2.10],
+['1941-05-24','Lester Steers','USA',null,2.105],
+['1941-06-17','Lester Steers','USA',null,2.11],
+['1953-06-27','Walt Davis','USA',null,2.12],
+['1956-06-29','Charley Dumas','USA',null,2.15,'y:bZF4nakRNF4'],
+['1957-07-13','Yuriy Stepanov','URS',null,2.16],
+['1960-04-30','John Thomas','USA',null,2.17,'y:nOh400n_tJ4'],
+['1960-05-21','John Thomas','USA',null,2.17,'y:wP9ue1PjNOQ'],
+['1960-06-24','John Thomas','USA',null,2.18],
+['1960-07-01','John Thomas','USA',null,2.195],
+['1960-07-01','John Thomas','USA',null,2.22,'y:b16aBYP0muY'],
+['1961-06-18','Valeriy Brumel','URS',null,2.23,'y:jKc9LHeE0iU'],
+['1961-07-16','Valeriy Brumel','URS',null,2.24,'y:jKc9LHeE0iU'],
+['1961-08-31','Valeriy Brumel','URS',null,2.25],
+['1962-07-22','Valeriy Brumel','URS',null,2.26],
+['1962-09-29','Valeriy Brumel','URS',null,2.27,'y:JdF8UlZ6etc'],
+['1963-07-21','Valeriy Brumel','URS',null,2.28],
+['1970-11-08','Ni Chihchin','CHN',null,2.29,'y:FfgFGP__9UY','Neuradno: Kitajska takrat ni bila članica IAAF.','u'],
+['1971-07-30','Pat Matzdorf','USA',null,2.29,'y:cqtrjJ8zf7g','V izvirnem seznamu označeno z *.'],
+['1973-07-11','Dwight Stones','USA',null,2.30,'y:wpAqYjJYWGA'],
+['1976-06-05','Dwight Stones','USA',null,2.31],
+['1976-08-04','Dwight Stones','USA',null,2.32],
+['1977-07-03','Volodymyr Yashchenko','URS',null,2.33,'y:Hl1JclV1Hik'],
+['1978-06-16','Volodymyr Yashchenko','URS',null,2.34,'y:_zdDeu-RWtQ'],
+['1980-05-25','Jacek Wszola','POL',null,2.35],
+['1980-05-26','Dietmar Mögenburg','FRG',null,2.35,'y:S06F5CcL7EA'],
+['1980-08-01','Gerd Wessig','GDR',null,2.36,'y:tKjL17D1UtI'],
+['1983-06-11','Zhu Jianhua','CHN',null,2.37,'y:Ch3iiy2LyCc'],
+['1983-09-22','Zhu Jianhua','CHN',null,2.38,'y:CfNPSqYljK4'],
+['1984-06-10','Zhu Jianhua','CHN',null,2.39,'y:E_VTOIj5wj8'],
+['1985-08-11','Rudolf Povarnitsyn','URS',null,2.40],
+['1985-09-04','Igor Paklin','URS',null,2.41,'y:Bp-o_fuG34M'],
+['1987-06-30','Patrik Sjöberg','SWE',null,2.42,'y:ASymMBD6ReM'],
+['1988-02-26','Carlo Thränhardt','FRG',null,2.42],
+['1988-09-08','Javier Sotomayor','CUB',null,2.43,'y:d2hHxUrG6Vg'],
+['1989-07-29','Javier Sotomayor','CUB',null,2.44,'y:-F4m9MJnnlM'],
+['1993-07-27','Javier Sotomayor','CUB',null,2.45,'y:7n6NhV4CaiU']
+];
+
+const DATA = RAW.map((a, i) => ({
+  i: i, date: a[0], name: a[1], cc: a[2], ft: a[3], m: a[4],
+  link: a[5] || null, note: a[6] || '', flag: a[7] || '',
+  era: (a[0].length === 10 && a[0] >= '1912-05-18') ? 'iaaf' : 'pred'
+}));
+
+const BASE = { b:'https://www.britishnewspaperarchive.co.uk/viewer/bl/', c:'https://chroniclingamerica.loc.gov/lccn/', y:'https://www.youtube.com/watch?v=' };
+const LBL = { b:'Časopis (BNA)', c:'Časopis (LoC)', y:'Video' };
+const CTY = { GBR:'Velika Britanija', USA:'ZDA', URS:'ZSSR', CHN:'Kitajska', POL:'Poljska', FRG:'Zahodna Nemčija', GDR:'Vzhodna Nemčija', SWE:'Švedska', CUB:'Kuba' };
+const ERA = { pred:'Pred IAAF (1827–1912)', iaaf:'Obdobje IAAF (od 1912)' };
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmtM = m => { const d = (String(m).split('.')[1] || '').length; return m.toFixed(Math.max(2, d)).replace('.', ',') + ' m'; };
+const fmtD = d => { if (d.length === 4) return d; const p = d.split('-'); return (+p[2]) + '. ' + (+p[1]) + '. ' + p[0]; };
+const linkUrl = l => BASE[l[0]] + l.slice(2);
+
+function artDate(l) {
+  let m = null;
+  if (l[0] === 'b') m = l.match(/\/(\d{4})(\d{2})(\d{2})\//);
+  if (l[0] === 'c') m = l.match(/\/(\d{4})-(\d{2})-(\d{2})\//);
+  return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null;
+}
+function mismatch(r) {
+  if (!r.link || r.date.length !== 10) return null;
+  const a = artDate(r.link);
+  if (!a) return null;
+  const diff = Math.abs(a - new Date(r.date)) / 86400000;
+  return diff > 45 ? a : null;
+}
+
+let desc = false;
+let shown = [];
+let barTimer = null;
+
+function msg(t) {
+  const bar = $('linkbar');
+  bar.textContent = t;
+  bar.style.display = 'block';
+  clearTimeout(barTimer);
+  barTimer = setTimeout(() => { bar.style.display = 'none'; }, 6000);
+}
+
+function render() {
+  const q = $('q').value.toLowerCase().trim();
+  const era = $('era').value, src = $('src').value, cty = $('cty').value;
+
+  let rows = DATA.filter(r => {
+    if (era && r.era !== era) return false;
+    if (cty && r.cc !== cty) return false;
+    if (src === 'link' && !r.link) return false;
+    if (src === 'nolink' && r.link) return false;
+    if ((src === 'b' || src === 'c' || src === 'y') && !(r.link && r.link[0] === src)) return false;
+    if (q) {
+      const hay = (r.name + ' ' + r.cc + ' ' + (CTY[r.cc] || '') + ' ' + r.note + ' ' + fmtD(r.date) + ' ' + fmtM(r.m)).toLowerCase();
+      if (hay.indexOf(q) === -1) return false;
+    }
+    return true;
+  });
+
+  const key = r => (r.date.length === 4 ? r.date + '-00-00' : r.date) + '~' + String(r.i).padStart(3, '0');
+  rows.sort((a, b) => key(a) < key(b) ? -1 : 1);
+  if (desc) rows.reverse();
+  shown = rows;
+
+  let h = '<tr><th>Datum</th><th>Atlet</th><th>Država</th><th>Višina</th><th>Čevlji</th><th>Vir (klikni za odprtje)</th><th>Opomba</th></tr>';
+  let prevEra = null;
+  rows.forEach(r => {
+    if (r.era !== prevEra) {
+      h += '<tr class="era"><td colspan="7">' + ERA[r.era] + '</td></tr>';
+      prevEra = r.era;
+    }
+    let lk = '<span class="none">–</span>';
+    if (r.link) {
+      const u = linkUrl(r.link);
+      const mm = mismatch(r);
+      const warn = mm ? '<span class="warn" title="Datum članka (' + mm.getDate() + '. ' + (mm.getMonth() + 1) + '. ' + mm.getFullYear() + ') se razlikuje od datuma rekorda. Preveri vir.">⚠</span>' : '';
+      lk = '<a class="lk ' + r.link[0] + '" href="' + esc(u) + '" target="_blank" rel="noopener noreferrer">' + LBL[r.link[0]] + ' ↗</a>' + warn +
+           '<button class="cp" data-copy="' + esc(u) + '" title="Kopiraj povezavo">Kopiraj</button>';
+    }
+    const badge = r.flag === 'c' ? '<span class="bd c">zatrjevano</span>' : (r.flag === 'u' ? '<span class="bd u">neuradno</span>' : '');
+    h += '<tr class="row" id="r' + r.i + '">' +
+      '<td class="dt">' + fmtD(r.date) + '</td>' +
+      '<td class="nm">' + esc(r.name) + badge + '</td>' +
+      '<td><span class="cc" title="' + esc(CTY[r.cc] || r.cc) + '">' + r.cc + '</span></td>' +
+      '<td class="m">' + fmtM(r.m) + '</td>' +
+      '<td class="ft">' + (r.ft ? esc(r.ft) : '') + '</td>' +
+      '<td class="vr">' + lk + '</td>' +
+      '<td class="nt">' + esc(r.note) + '</td></tr>';
+  });
+  if (!rows.length) h += '<tr><td colspan="7" style="padding:30px;color:#667085">Ni zadetkov za izbrane filtre.</td></tr>';
+  $('tbl').innerHTML = h;
+
+  const nl = rows.filter(r => r.link).length;
+  $('cnt').textContent = rows.length + ' zapisov, ' + nl + ' povezav';
+  $('openall').textContent = 'Odpri vse povezave izbora (' + nl + ')';
+  $('openall').disabled = nl === 0;
+}
+
+function cards() {
+  const off = DATA.filter(r => !r.flag);
+  const best = off.reduce((a, r) => (r.m >= a.m ? r : a), off[0]);
+  const names = new Set(off.map(r => r.name));
+  $('cards').innerHTML =
+    '<div class="card"><div class="l">Zapisov v tabeli</div><div class="v">' + DATA.length + '</div><div class="s">od tega ' + DATA.filter(r => r.flag === 'c').length + ' zatrjevani</div></div>' +
+    '<div class="card"><div class="l">Zapisov z virom</div><div class="v">' + DATA.filter(r => r.link).length + '</div><div class="s">časopisi in videi</div></div>' +
+    '<div class="card"><div class="l">Različnih atletov</div><div class="v">' + names.size + '</div><div class="s">od leta 1827</div></div>' +
+    '<div class="card"><div class="l">Trenutni rekord</div><div class="v">' + fmtM(best.m) + '</div><div class="s">' + best.name + ', ' + fmtD(best.date) + '</div></div>';
+}
+
+function chart() {
+  const P = DATA.filter(r => !r.flag && r.date.length === 10);
+  const W = 1000, H = 330, L = 60, R = 20, T = 16, B = 36;
+  const t0 = Date.parse('1825-01-01'), t1 = Date.parse('1995-12-31'), y0 = 1.5, y1 = 2.5;
+  const X = d => L + (Date.parse(d) - t0) / (t1 - t0) * (W - L - R);
+  const Y = m => H - B - (m - y0) / (y1 - y0) * (H - T - B);
+  let s = '';
+  for (let k = 0; k <= 10; k++) {
+    const v = 1.5 + k / 10, yy = Y(v);
+    s += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + yy + '" y2="' + yy + '" stroke="#e6e9f2"/>' +
+         '<text x="' + (L - 8) + '" y="' + (yy + 4) + '" text-anchor="end" font-size="11" fill="#667085">' + v.toFixed(1).replace('.', ',') + '</text>';
+  }
+  for (let yr = 1825; yr <= 1975; yr += 25) {
+    const x = X(yr + '-01-01');
+    s += '<line x1="' + x + '" x2="' + x + '" y1="' + T + '" y2="' + (H - B) + '" stroke="#f0f2f8"/>' +
+         '<text x="' + x + '" y="' + (H - 12) + '" text-anchor="middle" font-size="11" fill="#667085">' + yr + '</text>';
+  }
+  s += '<polyline fill="none" stroke="#b9bde0" stroke-width="2" points="' + P.map(r => X(r.date).toFixed(1) + ',' + Y(r.m).toFixed(1)).join(' ') + '"/>';
+  P.forEach(r => {
+    const col = r.era === 'iaaf' ? '#f08a24' : '#3b6fd6';
+    s += '<circle class="dot" data-i="' + r.i + '" cx="' + X(r.date).toFixed(1) + '" cy="' + Y(r.m).toFixed(1) + '" r="4.5" fill="' + col + '" stroke="#fff" stroke-width="1.5"><title>' +
+         esc(r.name) + ', ' + fmtD(r.date) + ', ' + fmtM(r.m) + '</title></circle>';
+  });
+  $('chart').innerHTML = s;
+}
+
+function goTo(i) {
+  $('q').value = ''; $('era').value = ''; $('src').value = ''; $('cty').value = '';
+  render();
+  const row = $('r' + i);
+  if (row) {
+    row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    row.classList.add('flash');
+    setTimeout(() => row.classList.remove('flash'), 2400);
+  }
+}
+
+// seznam držav v filtru
+Array.from(new Set(DATA.map(r => r.cc))).sort().forEach(c => {
+  const o = document.createElement('option');
+  o.value = c; o.textContent = c + ' – ' + (CTY[c] || c);
+  $('cty').appendChild(o);
+});
+
+// dogodki
+$('q').addEventListener('input', render);
+['era', 'src', 'cty'].forEach(id => $(id).addEventListener('change', render));
+$('dir').addEventListener('click', () => {
+  desc = !desc;
+  $('dir').textContent = desc ? 'Najstarejši najprej' : 'Najnovejši najprej';
+  render();
+});
+$('reset').addEventListener('click', () => {
+  $('q').value = ''; $('era').value = ''; $('src').value = ''; $('cty').value = '';
+  render();
+});
+$('openall').addEventListener('click', () => {
+  const urls = shown.filter(r => r.link).map(r => linkUrl(r.link));
+  let ok = 0;
+  urls.forEach(u => { if (window.open(u, '_blank')) ok++; });
+  if (!ok) msg('Brskalnik je blokiral nova okna. Dovoli pojavna okna ali odpri stran kot datoteko.');
+});
+document.addEventListener('click', e => {
+  const t = e.target;
+  if (!t || !t.closest) return;
+  const cp = t.closest('[data-copy]');
+  if (cp) {
+    const u = cp.getAttribute('data-copy');
+    msg(u);
+    if (navigator.clipboard) navigator.clipboard.writeText(u).then(() => msg('Kopirano: ' + u)).catch(() => {});
+    return;
+  }
+  const dot = t.closest('.dot');
+  if (dot) goTo(+dot.getAttribute('data-i'));
+});
+
+cards();
+chart();
+render();
+</script>
+</body>
+</html>
