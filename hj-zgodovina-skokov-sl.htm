@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zgodovina skoka v višino</title>
+<style>
+  :root { --ink:#1d2433; --mut:#667085; --pri:#3b3a9e; --acc:#fde68a; --bg:#f6f7fb; --card:#fff; }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { margin:0; font-family:Georgia,"Times New Roman",serif; color:var(--ink); background:var(--bg); line-height:1.75; font-size:18px; }
+  header { background:linear-gradient(135deg,#3b3a9e,#7a5cd6); color:#fff; padding:56px 24px 48px; text-align:center; }
+  header h1 { margin:0 0 8px; font-size:42px; letter-spacing:.5px; }
+  header p { margin:0; font-family:Segoe UI,Arial,sans-serif; opacity:.9; font-size:18px; }
+  .layout { max-width:1180px; margin:0 auto; display:grid; grid-template-columns:260px 1fr; gap:36px; padding:32px 24px 72px; }
+  nav { position:sticky; top:20px; align-self:start; font-family:Segoe UI,Arial,sans-serif; font-size:14px; }
+  nav h3 { margin:0 0 10px; font-size:13px; text-transform:uppercase; letter-spacing:1px; color:var(--mut); }
+  nav a { display:block; padding:6px 10px; color:var(--ink); text-decoration:none; border-left:3px solid #d9dcea; }
+  nav a:hover { background:#ececff; }
+  nav a.on { border-left-color:var(--pri); background:#ececff; font-weight:600; color:var(--pri); }
+  main { min-width:0; }
+  .timeline { background:var(--card); border-radius:14px; padding:24px 28px; box-shadow:0 1px 8px rgba(20,30,60,.08); margin-bottom:36px; font-family:Segoe UI,Arial,sans-serif; }
+  .timeline h2 { margin:0 0 16px; font-size:20px; color:var(--pri); }
+  .tl { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:12px; }
+  .tl div { border-left:4px solid var(--pri); padding:6px 12px; background:#fafaff; border-radius:0 8px 8px 0; font-size:14.5px; line-height:1.45; }
+  .tl b { display:block; font-size:14px; color:var(--pri); }
+  section { background:var(--card); border-radius:14px; padding:28px 34px; box-shadow:0 1px 8px rgba(20,30,60,.08); margin-bottom:28px; scroll-margin-top:20px; }
+  section h2 { margin:0 0 4px; font-size:28px; color:var(--pri); }
+  section .no { font-family:Segoe UI,Arial,sans-serif; font-size:13px; text-transform:uppercase; letter-spacing:1.5px; color:var(--mut); }
+  section p { margin:14px 0 0; }
+  .d { background:var(--acc); font-weight:700; padding:1px 6px; border-radius:5px; white-space:nowrap; }
+  .h { font-weight:700; color:#1f2a68; }
+  .note { font-family:Segoe UI,Arial,sans-serif; font-size:14px; color:var(--mut); border-top:1px solid #e4e6ef; margin-top:26px; padding-top:14px; }
+  footer { text-align:center; color:var(--mut); font-family:Segoe UI,Arial,sans-serif; font-size:13px; padding-bottom:40px; }
+  @media (max-width:900px) { .layout { grid-template-columns:1fr; } nav { position:static; } header h1 { font-size:30px; } }
+  @media print { nav { display:none; } .layout { display:block; } section, .timeline { box-shadow:none; break-inside:avoid; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Zgodovina skoka v višino</h1>
+  <p>Razvoj svetovnega rekorda, tehnik in atletov, ki so jih ustvarili</p>
+</header>
+
+<div class="layout">
+<nav id="nav">
+  <h3>Poglavja</h3>
+  <a href="#c1">1. Razvoj skoka v višino</a>
+  <a href="#c2">2. Prvi rekordi in tehnike</a>
+  <a href="#c3">3. Preboj šestih čevljev</a>
+  <a href="#c4">4. Tehnika Western Roll</a>
+  <a href="#c5">5. Charlie Dumas preskoči 7 čevljev</a>
+  <a href="#c6">6. Tehnika straddle</a>
+  <a href="#c7">7. Izum Dicka Fosburyja</a>
+  <a href="#c8">8. Proti 2,4 metra</a>
+  <a href="#c9">9. Rekord Javierja Sotomayorja</a>
+  <a href="#c10">10. Zaključek in zapuščina</a>
+</nav>
+
+<main>
+<div class="timeline">
+  <h2>Ključni datumi</h2>
+  <div class="tl">
+    <div><b>26. sep. 1827</b>Adam Wilson preskoči 5 ft 2 in, prvi pomembnejši rekord (Škotska)</div>
+    <div><b>8. avg. 1861</b>Donald Dinnie z Andrewom Milnom izenači uradni rekord 5 ft 10 in</div>
+    <div><b>7. jul. 1873</b>Thomas Davin prekine "prekletstvo" višine 5 ft 10 in</div>
+    <div><b>15. avg. 1887</b>William Byrd Page: prvi ameriški rekord, 6 ft 3¼ in</div>
+    <div><b>29. mar. 1912</b>George Horine postavi potrjeni rekord s tehniko Western Roll</div>
+    <div><b>18. maj 1912</b>Horine kot prvi preskoči 2 metra</div>
+    <div><b>2. maj 1914</b>Ed Beeson preskoči 2,01 m</div>
+    <div><b>13. jul. 1957</b>Jurij Stepanov s tehniko straddle preskoči 2,16 m</div>
+    <div><b>1968</b>Dick Fosbury z "flopom" osvoji olimpijsko zlato</div>
+    <div><b>8. nov. 1970</b>Neuradni rekord Ni Chih-china (Kitajska še ni v IAAF)</div>
+    <div><b>11. avg. 1985</b>Rudolf Povarnicin vstopi v območje 2,4 m</div>
+    <div><b>29. jul. 1989</b>Sotomayor preskoči 2,44 m (8 čevljev)</div>
+    <div><b>27. jul. 1993</b>Sotomayor postavi sedanji svetovni rekord: 2,45 m</div>
+  </div>
+</div>
+
+<section id="c1">
+  <span class="no">Poglavje 1</span>
+  <h2>Razvoj skoka v višino</h2>
+  <p>Skok v višino je izjemno tehnična disciplina v atletiki, pri kateri je cilj na kakršen koli način preskočiti letvico. Kljub preprostemu cilju je disciplina doživela korenite spremembe tehnike, pravil in rekordov, ki jih v današnji atletiki pogosto spregledamo. Nekatere izmed njih so med najbolj domiselnimi odkritji v zgodovini športa.</p>
+  <p>Skok v višino ima skoraj <span class="h">100 dokumentiranih svetovnih rekordov</span>, saj njegova zgodovina sega veliko dlje od potrjenih rekordov, ki jih pozna večina ljudi. Ker rekordov ni v izobilju, preidimo kar na razvoj svetovnega rekorda v skoku v višino.</p>
+</section>
+
+<section id="c2">
+  <span class="no">Poglavje 2</span>
+  <h2>Prvi rekordi in tehnike</h2>
+  <p>Prva dokumentirana tekmovanja v skoku v višino so potekala izključno na <b>Škotskem</b>, zlasti na prireditvah, kot so Highland Games, ki so postale takojšnja klasika za atlete 19. stoletja. Prvi pomembnejši rekord je <span class="d">26. septembra 1827</span> postavil Adam Wilson z višino <span class="h">5 ft 2 in</span>.</p>
+  <p>Slikovnih prikazov teh atletov med skokom ni, domneva pa se, da sta bila takrat v rabi dva načina: stranski skok, kjer si bil obrnjen proti letvici diagonalno ali bočno, ali preprosto tek naravnost proti letvici in preskok. Oba sta uporabljala neko obliko škarjastega zamaha, v pozno 19. stoletje pa so se prikradle še druge škarjaste različice. Udobnega doskočišča ni bilo, atleti so običajno pristajali na veliko trših podlagah, večinoma nazaj na noge ali roke.</p>
+  <p>Thomas Anderson in John Patterson sta se leta <span class="d">1829</span> povzpela še za palec, na <span class="h">5 ft 3 in</span>. Leta <span class="d">1837</span> je Richard Armstrong postavil prvo bistveno mejo s <span class="h">5 ft 6 in</span>, naslednje leto jo je izenačil Thomas Roper. Henry Musgrave je rekord leta <span class="d">1852</span> dvignil še za palec, istega leta pa sta <span class="h">5 ft 8 in</span> preskočila dva moža: James Methvin in John McNeal. William Tiffendale se je s skokom <span class="h">5 ft 9 in</span> za palec približal šestim čevljem, vendar je Methvin rekord še dvakrat prevzel: ga izenačil, prekosil in nato spet izenačil svoj rekord.</p>
+  <p>V <span class="d">šestdesetih letih 19. stoletja</span> se je pojavil poseben atlet, katerega ime v škotskih arhivih še vedno odmeva: <b>Donald Dinnie</b>. Dokumentacija njegovih rekordov je razdrobljena in sporna. En vir navaja skoke 5 ft 11 in in domnevno prvega moža, ki je preskočil šest čevljev, s 6 ft 1 in. A arhivi kažejo vrsto slabših nastopov in te rekorde nikjer ne dokumentirajo, izkušeni raziskovalci, kot sta Peter Lovesey in Eric Crow, pa jih imajo za vprašljive. Vseeno mu je uspelo z Andrewom Milnom <span class="d">8. avgusta 1861</span> izenačiti uradni rekord <span class="h">5 ft 10 in</span>, zato legendarni Škot še vedno nastopa v sodobnih besedilih o uradnem razvoju svetovnega rekorda.</p>
+  <p>Rekord je nato precej časa obstal pri 5 ft 10 in. V <span class="d">sredini 1860-ih</span> so ga hkrati držali Thomas Russell, Andrew Milne, Samuel Muir, John Bell in Gavin Tait.</p>
+</section>
+
+<section id="c3">
+  <span class="no">Poglavje 3</span>
+  <h2>Preboj šestih čevljev</h2>
+  <p>Thomas Davin je "prekletstvo" končno prekinil za četrt čevlja <span class="d">7. julija 1873</span>. S tem se je zadeva spet premaknila: Marshall Brooks je rekord naslednje leto dvignil še za palec, Michael Glazebrook ga je izenačil, vendar se je Brooks takoj vrnil in postal <b>prvi človek, ki je uradno preskočil šest čevljev</b>. Ko je bila ta ovira odpravljena, je bil cilj dvometrska meja.</p>
+  <p>Po še nekaj rekordih Brooksa in Patricka Davina so Američani prvič okusili slavo v skoku v višino. <span class="d">15. avgusta 1887</span> je William Byrd Page postal prvi Američan, ki je podrl rekord, in sicer s <span class="h">6 ft 3¼ in</span>. Nato ga je še enkrat izboljšal na <span class="h">6 ft 4 in</span>, Michael Sweeney pa ga je presegel za četrt palca. James Ryan je poskusil prekiniti ameriški niz in rekord izboljšal še za četrt palca, vendar so bili Američani preprosto premočni: Sweeney je v enem samem mesecu postavil <b>tri rekorde zapored</b> in se povzpel s 6 ft 5 in na <span class="h">6 ft 5⅝ in</span>.</p>
+  <p>Po Sweeneyjevi premoči in vplivu njegovega pristopa k letvici, imenovanega "eastern cut-off", je rekord doživel <b>prvi premor</b> od začetka discipline. Za preboj je bila potrebna povsem nova tehnika.</p>
+</section>
+
+<section id="c4">
+  <span class="no">Poglavje 4</span>
+  <h2>Tehnika Western Roll</h2>
+  <p>Za odkritjem je stal izumitelj tehnike Western Roll, <b>George Horine</b>, ameriški skakalec v višino, ki je razvil povsem novo tehniko in za več desetletij spremenil skok v višino. Western Roll se zelo razlikuje od tradicionalnega škarjastega zamaha: odrivna noga je bližje letvici, nato močno zamahneš z drugo nogo čez in telo zasukaš proti doskočišču, zadnja noga pa se običajno spusti tako, da pristaneš na rokah.</p>
+  <p>Horine se je tehnike naučil na univerzi Stanford po nekaj mesecih eksperimentiranja in časovno je bilo to popolno: takoj ko je zmogel rekordne višine, je bila ustanovljena IAAF, da je take rekorde potrjevala. Po rekordu <span class="d">29. marca 1912</span> je <span class="d">18. maja 1912</span> postal prvi človek, ki je preskočil <span class="h">dva metra</span>. To je bil njegov edini potrjeni rekord, vendar je bila pred disciplino povsem nova doba, tako glede tehnike kot potrjevanja, in Američani so očitno hoteli več. (Nekateri rekordi iz tega obdobja niso bili doseženi na uradnih tekmovanjih, a jih je vseeno vredno omeniti.)</p>
+  <p><span class="d">2. maja 1914</span> je Ed Beeson kot drugi preskočil več kot dva metra, in sicer <span class="h">2,01 m</span>. Clinton Larsen je neuradno skočil 2,03 m, Harold Osborn pa ga je sedem let pozneje izenačil na uradnem tekmovanju. Osborn naj bi rekord leta <span class="d">1926</span> izboljšal na <span class="h">2,06 m</span>, vendar naj bi pri preskoku subtilno držal letvico, kar je sčasoma spodbudilo spremembo pravil. Walter Marty je rekord držal štirikrat, a sta bila njegova skoka 2,05 m in 2,07 m dosežena na neuradnem dvoboju.</p>
+  <p>Rekordi so bili v naslednjih nekaj desetletjih enakomerni, vendar so napredovali precej počasneje. Dostopnost in učinkovitost tehnike Western Roll sta se izkazali za velik uspeh, a zdelo se je, da ogenj počasi ugaša, saj se je rekord desetletja premikal po centimeter, včasih celo po pol centimetra.</p>
+</section>
+
+<section id="c5">
+  <span class="no">Poglavje 5</span>
+  <h2>Charlie Dumas preskoči 7 čevljev</h2>
+  <p>Charlie Dumas je bil na poti do olimpijske kvalifikacije na izbirnem tekmovanju, ko je nepričakovano izvedel enega najboljših skokov v zgodovini skoka v višino: <span class="h">2,15 m</span>, to je tri centimetre več od prejšnjega rekorda in <b>prvi skok čez sedem čevljev v zgodovini človeštva</b>. Po desetletjih počasnega napredka je Dumas popolnoma razbil meje discipline.</p>
+  <p>Tehnika Western Roll je bila takrat že skoraj popolnoma izpopolnjena. Tako velik skok rekorda običajno povzroči sušo novih rekordov, vendar se to ni zgodilo: druga država je preizkušala povsem novo tehniko, ki je postala tekmica tehniki Western Roll in je kmalu postala popolnoma nepremagljiva.</p>
+</section>
+
+<section id="c6">
+  <span class="no">Poglavje 6</span>
+  <h2>Tehnika straddle</h2>
+  <p>Na prvi pogled je straddle skoraj enak tehniki Western Roll, vendar si ga predstavljaj bolj kot skok z glavo naprej: atlet se letvici približa in jo preskoči z obrazom navzdol, medtem ko pri Western Rollu letvico preskočiš bolj ali manj bočno in se nato obrneš z obrazom navzdol. Pri obeh tehnikah je še veliko nians, a glavna ugotovitev je, da je straddle mehansko boljši na vseh področjih.</p>
+  <p>To je postalo očitno, ko je kmalu po Dumasovem skoku rekord prvič prevzel Rus: <b>Jurij Stepanov</b> je <span class="d">13. julija 1957</span> preskočil <span class="h">2,16 m</span>. Za tem je rekord večkrat zapored prevzel neki Američan, kmalu zatem pa je isto storil Rus. To je bilo morda najbolj eksplozivno obdobje v zgodovini rekorda v skoku v višino, ta moža pa sta bila <b>John Thomas</b> in <b>Valerij Brumel</b>.</p>
+  <p>V samo treh letih se je rekord povišal za desetino metra, medtem ko je za pot z 2,00 m na 2,10 m trajalo tri desetletja. Oba moža sta bila nesramno pred svojim časom in sta tehniko straddle vključila tako tekoče. Ko sta oba končala kariero, je rekord doživel svoj <b>drugi uradni premor</b>. Ali je to pomenilo, da se bo razvila še ena tehnika, in ali bi bila to samo še ena različica tehnike Western Roll? Odgovor je bil odločen ne.</p>
+</section>
+
+<section id="c7">
+  <span class="no">Poglavje 7</span>
+  <h2>Izum Dicka Fosburyja</h2>
+  <p>Nova tehnika, ki se je pojavila, je bila najvplivnejše odkritje v morda celotni atletiki. Naj vam predstavim samo legendo: <b>Dicka Fosburyja</b>.</p>
+  <p>Fosbury v srednješolskih letih ni bil videti najbolj nadarjen skakalec. Težko je našel tehniko, ki bi delovala, in naj bi nekoč celo ne zmogel preskočiti petih čevljev. V naslednjih nekaj letih je intenzivno eksperimentiral in zaradi tega prejel veliko kritik: en članek ga je šel tako daleč, da ga je označil za "najbolj leni skakalec v višino na svetu", drugi pa je njegov trik nehote poimenoval "Fosburyjev flop".</p>
+  <p>Deluje takole: letvici se približaš po loku v obliki črke J, kar ti omogoča učinkovito postavitev bokov in dovolj hitrosti za večjo višino. Obrnjen stran od letvice nato zaobliš hrbet čez njo, težišče držiš pod letvico, potegneš noge čez in običajno pristaneš na hrbtu ali najprej z glavo.</p>
+  <p>Fosburyjevega trenerja na univerzi Oregon State, Bernieja Wagnerja, je osupnilo, ko je Fosbury v drugem letniku podrl šolski rekord, čeprav ga je v prvem letniku zunaj manj pomembnih tekem silil v skakanje s tehniko Western Roll. Sčasoma sta sodelovala in izpopolnila to neverjetno nekonvencionalno, a očitno učinkovito tehniko, Fosbury pa je osvojil <b>dva zaporedna državna naslova</b>. Samo nekaj tednov pred olimpijskimi izbirnimi tekmovanji je skočil na izbirna tekmovanja in se brez težav uvrstil. Na <span class="d">olimpijskih igrah 1968</span> je pokazal svojo enkratno tehniko, postavil nov olimpijski rekord in osvojil svoje prvo in edino zlato.</p>
+  <p>Fosbury žal ni nikoli postavil svetovnega rekorda, a so čez čas vse več atletov prevzeli njegov slog, saj je intuitivno tako dobro deloval. Pred dobo flopa je treba omeniti nekaj rekordov: <b>Ni Chih-chin</b> iz Kitajske je <span class="d">8. novembra 1970</span> na ogromnem stadionu neuradno podrl rekord. Bil je neuraden preprosto zato, ker Kitajska takrat ni bila članica IAAF. Pat Matzdorf iz ZDA je kmalu zatem uradno izenačil rekord, <b>Dwight Stones</b> pa ga je dve leti pozneje presegel: prvi svetovni rekord s tehniko flop, v območju <span class="h">2,30 m</span>. Stones se je izkazal kot prvi pomembnejši Fosburyjev naslednik, saj je rekord leta <span class="d">1976</span> še dvakrat podrl, obakrat v Filadelfiji in v dveh mesecih. Bil je zadnji Američan, ki je kdaj podrl svetovni rekord.</p>
+</section>
+
+<section id="c8">
+  <span class="no">Poglavje 8</span>
+  <h2>Proti 2,4 metra</h2>
+  <p>Flop je bil tako prelomno odkritje, da so drugi disciplino želeli popeljati proti območju 2,4 metra. Pred tem je bil še en skakalec s tehniko straddle, ki je floperje spravljal v zadrego: ukrajinski atlet <b>Vladimir Jaščenko</b> je postavil dva rekorda. Bil je eden zadnjih elitnih skakalcev s tehniko straddle in njegovih <span class="h">2,34 m</span> je <b>zadnji svetovni rekord s tehniko straddle</b>.</p>
+  <p>S tem je bilo odprto polje, da so bila osemdeseta leta pravi preizkus meja flopa, prinesla pa so tudi najbolj raznoliko skupino atletov, kar jih je kdaj krasilo skok v višino. Samo leta <span class="d">1980</span> so trije možje rekord dvignili za dva centimetra: Jacek Wszola v Eberstadtu z <span class="h">2,35 m</span>, Dietmar Mogenburg ga je dan pozneje izenačil, Gerd Wessig pa ga je v Moskvi presegel z <span class="h">2,36 m</span>.</p>
+  <p>Ker je bila Kitajska zdaj priznana članica IAAF, je atlet od tam takoj izkoristil priložnost: <b>Zhu Jianhua</b>, znan kot eden manj mišičastih elitnih skakalcev, a ga je zaradi zaleta in surove višine odriva postal izjemen talent. Preskočil je <span class="h">2,37 m</span> v Pekingu, <span class="h">2,38 m</span> v Šanghaju in <span class="h">2,39 m</span> v Eberstadtu, vse v enem samem letu.</p>
+  <p>Meja 2,40 m mu ni pripadla. V območje 2,4 m je po 13 skokih <span class="d">11. avgusta 1985</span> vstopil Rus <b>Rudolf Povarnicin</b>.</p>
+</section>
+
+<section id="c9">
+  <span class="no">Poglavje 9</span>
+  <h2>Rekord Javierja Sotomayorja</h2>
+  <p>Ko je bila meja 2,40 m dosežena, so ljudje začeli ugibati, ali je 2,5 m mogoče v naslednjih nekaj desetletjih. Dick Fosbury sam je ugibal, da je to približno teoretična meja za ljudi. Atleta, kot sta Igor Paklin in Patrik Sjoberg, sta rekord kmalu dvignila še za dva centimetra. Zdelo se je, da se približuje nova doba, v kateri atleti rekord podrejo enkrat ali dvakrat in ga nikoli več. Po izenačenju Carla Thranhardta pri <span class="h">2,42 m</span> je bil atlet s Kube odločen disciplino popeljati dlje, kot je kdorkoli kdaj prišel.</p>
+  <p><b>Javier Sotomayor</b> je bil v mladosti izjemno nadarjen skakalec v višino, čeprav disciplina sprva ni bila njegova ljubezen, s skokom <span class="h">2,33 m</span> pri 17 letih. V naslednjih letih je svojo oznako dvigal po centimeter, leta <span class="d">1988</span> pa je imel velik presežek. V sezoni je običajno skakal okoli 2,30 m, z enim samim skokom 2,38 m, kar je bil že spoštljiv osebni rekord. Na zadnjem tekmovanju leta je <span class="h">2,40 m</span> preskočil v prvem poskusu. Namesto da bi se ustavil, ni šel na 2,41 ali 2,42, temveč naravnost na <span class="h">2,43 m</span> in v drugem poskusu postavil nov svetovni rekord. Pet centimetrov boljši osebni rekord je bil na tej ravni skoraj nezaslišan, a se ni ustavil.</p>
+  <p><span class="d">29. julija 1989</span> je Sotomayor tekmoval na karibskem prvenstvu. Po poskusih se je odločil za <span class="h">2,44 m</span>, osem čevljev, in sledil je svetovni rekord. Zanimivo je, da je bil rekord blizu razveljavitve, ko je množica vdrla na doskočišče in je letvica padla kmalu po njegovem skoku, čeprav mu padec letvice po skoku ne bi bil v škodo.</p>
+  <p>V naslednjih letih se je Sotomayor bolj osredotočal na zmage na tekmovanjih kot na rekorde in na poti osvojil svoje prve olimpijske igre. Enkrat je preskočil 2,40 m, sicer pa je ostal pri višinah okoli 2,30 m. Šele <span class="d">leta 1993</span> je pokazal svoj najboljši niz skokov, <span class="d">27. julija 1993</span> pa je popolnoma nepričakovano izvedel skok, ki je postavil sedanji rekord.</p>
+  <p>Svetovni rekord je danes <span class="h">2,45 m</span>. Prav tako je to najmanjše število skokov, ki jih je kdorkoli porabil za rekord od leta 1914: do rekorda je potreboval samo <b>pet skokov</b>.</p>
+</section>
+
+<section id="c10">
+  <span class="no">Poglavje 10</span>
+  <h2>Zaključek in zapuščina</h2>
+  <p>Sotomayor je imel odlično nadaljevanje kariere in je ob nekem času zasedal celo <b>17 od 20 najboljših skokov vseh časov</b>. Njegova premoč je bila enkraten prikaz, kako daleč lahko nekdo popelje disciplino. Rekord se bliža <b>30. obletnici</b> neporaženosti, le dva atleta sta se mu približala, in sicer leta <span class="d">2014</span>.</p>
+  <p>Kljub redkim posnetkom in odsotnosti pravih rivalstev je hiter razvoj rekorda v skoku v višino še vedno osupljiv, zlasti ob tehnikah, ki so jih atleti razvili v zadnjih 200 letih, zaradi katerih je njegova zgodovina ena najbogatejših v vsej atletiki. Morda bo minilo še nekaj časa, preden bo kdo lahko ogrozil Sotomayorjev izjemni talent, a trditi, da rekord ne bo nikoli podrt, je preprosto napačno. Če smo videli, kaj se lahko zgodi z dolgoživimi rekordi v preteklosti, je meja 2,5 m zaenkrat še vedno daleč, a ko se bo pojavila prava skupina atletov, bo skok v višino spet postal eden najbolj napetih rekordov, ki mu je vredno slediti, zapuščina Fosburyja, Sotomayorja in številnih drugih atletov pa bo živela še stotine let.</p>
+  <p class="note">To je bil razvoj svetovnega rekorda v skoku v višino.</p>
+</section>
+</main>
+</div>
+<footer>Zgodovina skoka v višino · razvoj svetovnega rekorda</footer>
+
+<script>
+const links = [...document.querySelectorAll('#nav a')];
+const secs = links.map(a => document.querySelector(a.getAttribute('href')));
+const obs = new IntersectionObserver(es => {
+  es.forEach(e => {
+    if (e.isIntersecting) {
+      links.forEach(l => l.classList.remove('on'));
+      links[secs.indexOf(e.target)].classList.add('on');
+    }
+  });
+}, {rootMargin:'-20% 0px -70% 0px'});
+secs.forEach(s => obs.observe(s));
+</script>
+</body>
+</html>
