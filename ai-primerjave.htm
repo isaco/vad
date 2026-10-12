@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Primerjava vodilnih AI modelov 2026</title>
+
+<style>
+:root{
+    --bg:#071224;
+    --card:#0f1e38;
+    --card2:#16284b;
+    --accent:#3b82f6;
+    --accent2:#60a5fa;
+    --text:#edf4ff;
+    --muted:#a9bad7;
+    --success:#22c55e;
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Segoe UI,Arial,sans-serif;
+    background:linear-gradient(135deg,#06101f,#0f2142);
+    color:var(--text);
+    line-height:1.6;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:30px 20px;
+}
+
+.hero{
+    text-align:center;
+    padding:50px 20px;
+    margin-bottom:30px;
+    background:rgba(255,255,255,0.03);
+    border-radius:24px;
+    backdrop-filter:blur(8px);
+}
+
+.hero h1{
+    font-size:2.6rem;
+    margin-bottom:15px;
+}
+
+.hero p{
+    color:var(--muted);
+    max-width:900px;
+    margin:auto;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:20px;
+    margin:30px 0;
+}
+
+.card{
+    background:var(--card);
+    border-radius:18px;
+    padding:22px;
+    border:1px solid rgba(255,255,255,.08);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 15px 35px rgba(0,0,0,.3);
+}
+
+.card h3{
+    margin-bottom:12px;
+    color:#7db5ff;
+}
+
+.badge{
+    display:inline-block;
+    padding:6px 12px;
+    border-radius:30px;
+    background:var(--accent);
+    font-size:.85rem;
+    margin-bottom:14px;
+}
+
+.card ul{
+    padding-left:18px;
+}
+
+.card li{
+    margin-bottom:8px;
+}
+
+.section{
+    margin-top:40px;
+}
+
+.section h2{
+    margin-bottom:18px;
+    color:#8ec2ff;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    overflow:hidden;
+    border-radius:18px;
+}
+
+th{
+    background:#20407b;
+    color:white;
+}
+
+th,td{
+    padding:14px;
+    border:1px solid rgba(255,255,255,.08);
+}
+
+tr:nth-child(even){
+    background:rgba(255,255,255,.03);
+}
+
+.rank{
+    background:var(--card);
+    border-radius:18px;
+    padding:24px;
+}
+
+.rank ol{
+    padding-left:25px;
+}
+
+.rank li{
+    padding:8px 0;
+}
+
+.strategy{
+    margin-top:35px;
+    background:linear-gradient(135deg,#14376e,#0b1f40);
+    padding:30px;
+    border-radius:20px;
+}
+
+.strategy h2{
+    margin-bottom:15px;
+}
+
+.strategy ul{
+    padding-left:20px;
+}
+
+.strategy li{
+    margin:10px 0;
+}
+
+.footer{
+    text-align:center;
+    margin-top:40px;
+    color:var(--muted);
+    font-size:.9rem;
+}
+
+@media(max-width:768px){
+    .hero h1{
+        font-size:2rem;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="hero">
+        <h1>Primerjava vodilnih AI modelov (2026)</h1>
+        <h4>Made by Iztok Valenčič</h4>
+        <p>
+            Pregled najnaprednejših modelov podjetij OpenAI, Anthropic, Google in Meta
+            ter njihova primerjava po zmogljivosti, programiranju, agentih,
+            dolgih kontekstih in uporabi v podjetjih.
+        </p>
+    </div>
+
+    <div class="grid">
+
+        <div class="card">
+            <span class="badge">OpenAI</span>
+            <h3>GPT-6 Astra</h3>
+            <ul>
+                <li>Zelo močno sklepanje</li>
+                <li>Vrhunsko programiranje</li>
+                <li>Odlična multimodalnost</li>
+                <li>Močan ekosistem orodij</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <span class="badge">Anthropic</span>
+            <h3>Claude Opus 5.5</h3>
+            <ul>
+                <li>Najboljše kompleksne analize</li>
+                <li>Dolgi dokumenti</li>
+                <li>Agentna avtomatizacija</li>
+                <li>Odličen za raziskave</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <span class="badge">Google</span>
+            <h3>Gemini 4 Argon</h3>
+            <ul>
+                <li>Integracija z Workspace</li>
+                <li>Enterprise rešitve</li>
+                <li>Kibernetska varnost</li>
+                <li>Zelo dolg kontekst</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <span class="badge">Meta</span>
+            <h3>Llama 4 / Muse Spark 1.3</h3>
+            <ul>
+                <li>Odprti modeli</li>
+                <li>Lokalno gostovanje</li>
+                <li>Nižji stroški</li>
+                <li>Prilagodljivost za organizacije</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="section">
+        <h2>Primerjava po področjih</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Področje</th>
+                    <th>Najmočnejši model</th>
+                    <th>Komentar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Splošna inteligenca</td>
+                    <td>Claude Opus 5.5 / GPT-6 Astra</td>
+                    <td>Najbolj izenačen dvoboj vodilnih modelov.</td>
+                </tr>
+                <tr>
+                    <td>Programiranje</td>
+                    <td>GPT-6 Astra</td>
+                    <td>Odličen pri razvoju programske opreme.</td>
+                </tr>
+                <tr>
+                    <td>Agenti</td>
+                    <td>Claude Opus 5.5</td>
+                    <td>Zelo močan pri samostojnem izvajanju nalog.</td>
+                </tr>
+                <tr>
+                    <td>Dolgi kontekst</td>
+                    <td>Gemini 4 Argon / Claude Opus 5.5</td>
+                    <td>Obdelava zelo velikih dokumentov.</td>
+                </tr>
+                <tr>
+                    <td>Podjetja</td>
+                    <td>Gemini 4 Argon</td>
+                    <td>Odlična integracija v Google okolje.</td>
+                </tr>
+                <tr>
+                    <td>Odprtokodna uporaba</td>
+                    <td>Llama 4</td>
+                    <td>Najbolj priljubljena odprta rešitev.</td>
+                </tr>
+                <tr>
+                    <td>Cena/Zmogljivost</td>
+                    <td>Gemini Flash, Claude Sonnet</td>
+                    <td>Zelo dobro razmerje med ceno in kakovostjo.</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="section">
+        <h2>Trenutna hierarhija modelov</h2>
+
+        <div class="rank">
+            <ol>
+                <li><strong>Claude Opus 5.5</strong> (Anthropic)</li>
+                <li><strong>GPT-6 Astra</strong> (OpenAI)</li>
+                <li><strong>GPT-6.1 Sol</strong> (OpenAI)</li>
+                <li><strong>Claude Sonnet 5.5</strong> (Anthropic)</li>
+                <li><strong>Gemini 4 Argon</strong> (Google)</li>
+                <li><strong>Muse Spark 1.3</strong> (Meta)</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="strategy">
+        <h2>Priporočilo za športno organizacijo in AI analitiko</h2>
+
+        <ul>
+            <li><strong>GPT-6 Astra</strong> za razvoj dashboardov, analitiko in avtomatizacijo.</li>
+            <li><strong>Claude Opus 5.5</strong> za pripravo poročil, raziskav ter strateških dokumentov.</li>
+            <li><strong>Llama 4</strong> za lokalne AI rešitve na lastni infrastrukturi.</li>
+            <li><strong>Gemini</strong> za organizacije, ki intenzivno uporabljajo Google Workspace.</li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        AI Industry Overview • 2026 • OpenAI vs Anthropic vs Google vs Meta
+    </div>
+
+</div>
+
+</body>
+</html>
