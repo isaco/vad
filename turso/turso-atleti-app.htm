@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <title>Turso Upravljanje Atletov</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; background-color: #f4f6f9; color: #333; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        h1, h2 { color: #0056b3; }
+        
+        /* Obrazec za vnos novega */
+        .card { background: #fdfdfd; border: 1px solid #e1e4e8; padding: 15px; border-radius: 6px; margin-bottom: 25px; }
+        .form-row { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 10px; }
+        .form-group { flex: 1; min-width: 200px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px; }
+        input[type="text"], input[type="number"], textarea { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+        
+        /* Gumbi */
+        button { padding: 8px 15px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .btn-primary { background-color: #007bff; color: white; }
+        .btn-primary:hover { background-color: #0056b3; }
+        .btn-warning { background-color: #ffc107; color: #212529; }
+        .btn-warning:hover { background-color: #e0a800; }
+        .btn-danger { background-color: #dc3545; color: white; }
+        .btn-danger:hover { background-color: #c82333; }
+        .btn-secondary { background-color: #6c757d; color: white; }
+
+        /* Tabela */
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; background: white; }
+        th, td { border: 1px solid #dee2e6; padding: 10px 12px; text-align: left; }
+        th { background-color: #007bff; color: white; }
+        tr:nth-child(even) { background-color: #f8f9fa; }
+
+        /* Paginacija */
+        .pagination { display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 20px; }
+        .pagination button { padding: 6px 12px; }
+        #pageInfo { font-weight: bold; }
+
+        /* Modalno okno za urejanje */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background: white; padding: 25px; border-radius: 8px; width: 400px; max-width: 90%; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+
+        #statusMsg { margin-top: 15px; font-weight: bold; text-align: center; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Upravljanje Atletov (Turso DB)</h1>
+
+    <!-- Vnos novega atleta -->
+    <div class="card">
+        <h2>Dodaj novega atleta</h2>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="novVeteran">Veteran (Ime in priimek):</label>
+                <input type="text" id="novVeteran" placeholder="Npr. Janez Novak">
+            </div>
+            <div class="form-group">
+                <label for="novStevilka">Številka:</label>
+                <input type="number" id="novStevilka" placeholder="Npr. 3">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="novOpombe">Opombe:</label>
+                <input type="text" id="novOpombe" placeholder="Npr. Aktiven član">
+            </div>
+        </div>
+        <button class="btn-primary" onclick="dodajAtleta()">Dodaj v bazo</button>
+    </div>
+
+    <!-- Tabela podatkov -->
+    <h2>Seznam atletov</h2>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 60px;">ID</th>
+                <th>Veteran</th>
+                <th style="width: 120px;">Številka</th>
+                <th>Opombe</th>
+                <th style="width: 150px; text-align: center;">Akcije</th>
+            </tr>
+        </thead>
+        <tbody id="tabelaAtletov">
+            <!-- Dinamično vstavljeni podatki -->
+        </tbody>
+    </table>
+
+    <!-- Paginacija -->
+    <div class="pagination">
+        <button class="btn-secondary" id="prevBtn" onclick="spremeniStran(-1)">Prejšnja</button>
+        <span id="pageInfo">Stran 1 od 1</span>
+        <button class="btn-secondary" id="nextBtn" onclick="spremeniStran(1)">Naslednja</button>
+    </div>
+
+    <div id="statusMsg"></div>
+</div>
+
+<!-- Modalno okno za urejanje -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <h2>Uredi atleta</h2>
+        <input type="hidden" id="editId">
+        
+        <div class="form-group" style="margin-bottom: 10px;">
+            <label for="editVeteran">Veteran:</label>
+            <input type="text" id="editVeteran">
+        </div>
+        <div class="form-group" style="margin-bottom: 10px;">
+            <label for="editStevilka">Številka:</label>
+            <input type="number" id="editStevilka">
+        </div>
+        <div class="form-group" style="margin-bottom: 15px;">
+            <label for="editOpombe">Opombe:</label>
+            <textarea id="editOpombe" rows="3"></textarea>
+        </div>
+        
+        <div style="display: flex; gap: 10px;">
+            <button class="btn-primary" style="flex: 1;" onclick="shraniSpremembe()">Shrani</button>
+            <button class="btn-secondary" style="flex: 1;" onclick="zapriModal()">Prekliči</button>
+        </div>
+    </div>
+</div>
+
+<script>
+      // Konfiguracija Turso baze
+   const TURSO_URL = "https://vad-idaco.aws-eu-north-1.turso.io";
+   
+// db
+ const TURSO_TOKEN= "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJpYXQiOjE3OTE4NzI2ODYsImlkIjoiMDFhMTMzYjUtNDYwMS03ZWYxLTg1NzgtNDhmN2RjODYxNmRlIiwia2lkIjoiSUIwQmZWVlg0bS1MZDN1OFQ3S0JEeHNkMjlBWk1zSmlqakl1Q1RXcnNSUSIsInJpZCI6ImNmZWU3MDhlLThiNmQtNGZlMS1hZDk5LWYxOTNiY2ZiNDAwMCJ9.AX4cg2blwmie2-JDaz-7VTL-b_GfeRYhK9UEG7xydyzJqxrywoAA0YY81xUMwKbkb0oy82-nGoQzwJNqBYjNCA";
+
+
+    let vsiAtleti = [];
+    let trenutnaStran = 1;
+    const vrsticNaStran = 15;
+
+    window.onload = function() {
+        naloziPodatke();
+    };
+
+    // Pomožna funkcija za formatiranje številke z vodečimi ničlami (npr. 3 -> 0003)
+    function formatirajStevilko(st) {
+        if (st === null || st === undefined || st === "") return "";
+        // Pretvori v niz in zapolni z ničlami do dolžine 4
+        return String(st).padStart(4, '0');
+    }
+
+    // 1. Nalaganje vseh podatkov iz baze
+    async function naloziPodatke() {
+        const sqlQuery = 'SELECT id, veteran, "številka", opombae FROM atleti ORDER BY id ASC;';
+        const payload = { requests: [{ type: "execute", stmt: { sql: sqlQuery } }, { type: "close" }] };
+
+        try {
+            const response = await fetch(`${TURSO_URL}/v2/pipeline`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${TURSO_TOKEN.trim()}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) throw new Error("Napaka pri povezavi s strežnikom.");
+
+            const data = await response.json();
+            const resultSet = data.results[0];
+
+            if (resultSet.type === "ok") {
+                vsiAtleti = resultSet.response.result.rows.map(row => ({
+                    id: row[0].value,
+                    veteran: row[1].value,
+                    stevilka: row[2].value,
+                    opombe: row[3].value
+                }));
+                prikaziStran(trenutnaStran);
+            } else {
+                throw new Error(resultSet.error?.message || "Napaka baze.");
+            }
+        } catch (error) {
+            document.getElementById('statusMsg').style.color = "red";
+            document.getElementById('statusMsg').innerText = "Napaka: " + error.message;
+        }
+    }
+
+    // Prikaz tabele z upoštevanjem paginacije (15 vrstic na stran)
+    function prikaziStran(stran) {
+        trenutnaStran = stran;
+        const tbody = document.getElementById('tabelaAtletov');
+        tbody.innerHTML = "";
+
+        const skupajStrani = Math.ceil(vsiAtleti.length / vrsticNaStran) || 1;
+        
+        if (trenutnaStran > skupajStrani) trenutnaStran = skupajStrani;
+        if (trenutnaStran < 1) trenutnaStran = 1;
+
+        const začetek = (trenutnaStran - 1) * vrsticNaStran;
+        const konec = začetek + vrsticNaStran;
+        const trenutniDel = vsiAtleti.slice(začetek, konec);
+
+        if (trenutniDel.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="5" style="text-align: center;">Ni najdenih zapisov.</td></tr>`;
+        } else {
+            trenutniDel.forEach(atlet => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${atlet.id}</td>
+                    <td>${atlet.veteran !== null ? atlet.veteran : ''}</td>
+                    <td>${formatirajStevilko(atlet.stevilka)}</td>
+                    <td>${atlet.opombe !== null ? atlet.opombe : ''}</td>
+                    <td style="text-align: center;">
+                        <button class="btn-warning" style="padding: 4px 8px; font-size: 12px;" onclick="odpriUrejanje(${atlet.id})">Uredi</button>
+                        <button class="btn-danger" style="padding: 4px 8px; font-size: 12px;" onclick="izbrisiAtleta(${atlet.id})">Briši</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        document.getElementById('pageInfo').innerText = `Stran ${trenutnaStran} od ${skupajStrani}`;
+        document.getElementById('prevBtn').disabled = trenutnaStran === 1;
+        document.getElementById('nextBtn').disabled = trenutnaStran === skupajStrani;
+    }
+
+    function spremeniStran(smer) {
+        prikaziStran(trenutnaStran + smer);
+    }
+
+    // 2. Dodajanje novega zapisa
+    async function dodajAtleta() {
+        const veteran = document.getElementById('novVeteran').value;
+        const stevilka = document.getElementById('novStevilka').value;
+        const opombe = document.getElementById('novOpombe').value;
+        const statusMsg = document.getElementById('statusMsg');
+
+        if (!veteran) {
+            statusMsg.style.color = "red";
+            statusMsg.innerText = "Prosimo, vnesite ime veterana!";
+            return;
+        }
+
+        const sqlQuery = 'INSERT INTO atleti (veteran, "številka", opombae) VALUES (?, ?, ?);';
+        const payload = {
+            requests: [{
+                type: "execute",
+                stmt: {
+                    sql: sqlQuery,
+                    args: [
+                        { type: "text", value: veteran },
+                        { type: "integer", value: stevilka ? String(stevilka) : "0" },
+                        { type: "text", value: opombe }
+                    ]
+                }
+            }, { type: "close" }]
+        };
+
+        try {
+            const response = await fetch(`${TURSO_URL}/v2/pipeline`, {
+                method: "POST",
+                headers: { "Authorization": `Bearer ${TURSO_TOKEN.trim()}`, "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) throw new Error("Napaka pri dodajanju.");
+
+            statusMsg.style.color = "green";
+            statusMsg.innerText = "Atlet uspešno dodan!";
+            
+            document.getElementById('novVeteran').value = "";
+            document.getElementById('novStevilka').value = "";
+            document.getElementById('novOpombe').value = "";
+
+            naloziPodatke();
+        } catch (error) {
+            statusMsg.style.color = "red";
+            statusMsg.innerText = "Napaka: " + error.message;
+        }
+    }
+
+    // 3. Urejanje (Modalno okno)
+    function odpriUrejanje(id) {
+        const atlet = vsiAtleti.find(a => Number(a.id) === Number(id));
+        if (!atlet) return;
+
+        document.getElementById('editId').value = atlet.id;
+        document.getElementById('editVeteran').value = atlet.veteran || "";
+        document.getElementById('editStevilka').value = atlet.stevilka !== null ? atlet.stevilka : "";
+        document.getElementById('editOpombe').value = atlet.opombe || "";
+
+        document.getElementById('editModal').style.display = "flex";
+    }
+
+    function zapriModal() {
+        document.getElementById('editModal').style.display = "none";
+    }
+
+    async function shraniSpremembe() {
+        const id = document.getElementById('editId').value;
+        const veteran = document.getElementById('editVeteran').value;
+        const stevilka = document.getElementById('editStevilka').value;
+        const opombe = document.getElementById('editOpombe').value;
+        const statusMsg = document.getElementById('statusMsg');
+
+        if (!id) {
+            alert("ID manjkajoč!");
+            return;
+        }
+
+        const sqlQuery = 'UPDATE atleti SET veteran = ?, "številka" = ?, opombae = ? WHERE id = ?;';
+        const payload = {
+            requests: [{
+                type: "execute",
+                stmt: {
+                    sql: sqlQuery,
+                    args: [
+                        { type: "text", value: veteran },
+                        { type: "integer", value: stevilka ? String(stevilka) : "0" },
+                        { type: "text", value: opombe },
+                        { type: "integer", value: String(id) }
+                    ]
+                }
+            }, { type: "close" }]
+        };
+
+        try {
+            const response = await fetch(`${TURSO_URL}/v2/pipeline`, {
+                method: "POST",
+                headers: { "Authorization": `Bearer ${TURSO_TOKEN.trim()}`, "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                const errText = await response.text();
+                throw new Error(`Napaka pri posodabljanju: ${errText}`);
+            }
+
+            const data = await response.json();
+            const resultObj = data.results[0];
+
+            if (resultObj.type === "ok") {
+                zapriModal();
+                statusMsg.style.color = "green";
+                statusMsg.innerText = `Atlet z ID ${id} uspešno posodobljen!`;
+                naloziPodatke();
+            } else {
+                throw new Error(resultObj.error?.message || "Neznana napaka baze.");
+            }
+        } catch (error) {
+            statusMsg.style.color = "red";
+            statusMsg.innerText = "Napaka: " + error.message;
+        }
+    }
+
+    // 4. Brisanje zapisa
+    async function izbrisiAtleta(id) {
+        if (!confirm(`Ali res želite izbrisati atleta z ID-jem ${id}?`)) return;
+
+        const statusMsg = document.getElementById('statusMsg');
+        const sqlQuery = 'DELETE FROM atleti WHERE id = ?;';
+        const payload = {
+            requests: [{
+                type: "execute",
+                stmt: {
+                    sql: sqlQuery,
+                    args: [{ type: "integer", value: String(id) }]
+                }
+            }, { type: "close" }]
+        };
+
+        try {
+            const response = await fetch(`${TURSO_URL}/v2/pipeline`, {
+                method: "POST",
+                headers: { "Authorization": `Bearer ${TURSO_TOKEN.trim()}`, "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) throw new Error("Napaka pri brisanju.");
+
+            statusMsg.style.color = "green";
+            statusMsg.innerText = `Atlet z ID ${id} je bil izbrisan.`;
+            naloziPodatke();
+        } catch (error) {
+            statusMsg.style.color = "red";
+            statusMsg.innerText = "Napaka: " + error.message;
+        }
+    }
+</script>
+
+</body>
+</html>
