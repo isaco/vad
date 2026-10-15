@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="sl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bilteni - VAD</title>
+<style>
+:root{--ink:#14233a;--paper:#eef2f6;--card:#fff;--line:#d3dce6;--accent:#0f8f78;--accent-d:#0a5f50;--muted:#5a6b80}
+@media(prefers-color-scheme:dark){:root{--ink:#e8eef6;--paper:#0e1724;--card:#16233a;--line:#2a3b55;--accent:#19b69b;--accent-d:#0b6a5a;--muted:#93a4ba}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 "Segoe UI",Bahnschrift,system-ui,sans-serif}
+header{background:#14233a;color:#fff;padding:2.2rem 1.5rem 1.8rem;border-bottom:6px solid var(--accent)}
+header h1{margin:0;font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:.01em}
+header p{margin:.3rem 0 0;color:#b8c7da}
+main{max-width:980px;margin:0 auto;padding:2rem 1.25rem 3rem}
+h2{font-size:1.1rem;margin:0 0 1rem;color:var(--muted);font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1.3rem 1rem}
+.btn{appearance:none;border:0;cursor:pointer;color:#fff;font:600 1.05rem inherit;font-family:inherit;padding:.95rem .5rem;border-radius:12px;
+ background:linear-gradient(180deg,#27b59b,var(--accent) 55%,#0c7c68);
+ box-shadow:0 6px 0 var(--accent-d),0 10px 16px rgba(10,40,35,.35),inset 0 1px 0 rgba(255,255,255,.35);
+ text-shadow:0 1px 1px rgba(0,0,0,.3);transition:transform .08s,box-shadow .08s}
+.btn:hover{filter:brightness(1.07)}
+.btn:active{transform:translateY(5px);box-shadow:0 1px 0 var(--accent-d),0 3px 6px rgba(10,40,35,.35),inset 0 1px 0 rgba(255,255,255,.3)}
+.btn:focus-visible{outline:3px solid #ffb703;outline-offset:3px}
+footer{color:var(--muted);font-size:.9rem;margin-top:2.5rem}
+@media(prefers-reduced-motion:reduce){.btn{transition:none}}
+</style></head>
+<body>
+<header><h1>Bilteni - VAD</h1><p>Izberi bilten. Odpre se v novem oknu z iskanjem in filtri.</p></header>
+<main><h2>Seznam biltenov</h2><div class="grid" id="grid"></div>
+<footer>Made by Iztok Valenčič
+<!--    Datoteke so <code>bilten6.xlsx</code> … <code>bilten25.xlsx</code> naj bodo v isti mapi kot ta stran. -->
+</footer>
+</main>
+<script src="bilteni.js"></script>
+<script>
+const g=document.getElementById('grid');
+for(let n=CONFIG.od;n<=CONFIG.do;n++){
+  const b=document.createElement('button');b.className='btn';b.textContent='Bilten '+n;
+  b.onclick=()=>window.open(`${CONFIG.viewer}?b=${n}`,'bilten_'+n);
+  g.appendChild(b);
+}
+</script></body></html>

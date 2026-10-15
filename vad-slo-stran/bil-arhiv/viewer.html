@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="sl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bilten - VAD</title>
+<style>
+:root{--ink:#14233a;--paper:#eef2f6;--card:#fff;--line:#d3dce6;--accent:#0f8f78;--accent-d:#0a5f50;--muted:#5a6b80;--row:#f6f9fc;--hl:#e3f4f0}
+@media(prefers-color-scheme:dark){:root{--ink:#e8eef6;--paper:#0e1724;--card:#16233a;--line:#2a3b55;--accent:#19b69b;--accent-d:#0b6a5a;--muted:#93a4ba;--row:#1a2943;--hl:#143b3a}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.45 "Segoe UI",Bahnschrift,system-ui,sans-serif}
+header{background:#14233a;color:#fff;padding:1rem 1.25rem;border-bottom:5px solid var(--accent);display:flex;gap:1rem;align-items:baseline;flex-wrap:wrap}
+header h1{margin:0;font-size:1.5rem}header span{color:#b8c7da}
+main{padding:1rem 1.25rem 2rem}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1rem;margin-bottom:1rem}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem;align-items:end}
+label{display:block;font-weight:600;font-size:.85rem;color:var(--muted);margin-bottom:.25rem}
+select,input[type=search],input[type=file]{width:100%;padding:.55rem .6rem;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font:inherit}
+select:focus,input:focus{outline:2px solid var(--accent);border-color:var(--accent)}
+.bar{display:flex;gap:.7rem;align-items:center;flex-wrap:wrap;margin-top:.9rem}
+.count{font-weight:600;margin-right:auto}.count b{color:var(--accent);font-size:1.15rem}
+.b3{appearance:none;border:0;cursor:pointer;color:#fff;font:600 .9rem inherit;font-family:inherit;padding:.5rem 1rem;border-radius:9px;background:linear-gradient(180deg,#27b59b,var(--accent));box-shadow:0 4px 0 var(--accent-d),0 6px 10px rgba(10,40,35,.3);transition:transform .08s,box-shadow .08s}
+.b3.sec{background:linear-gradient(180deg,#6f84a0,#566b88);box-shadow:0 4px 0 #3b4d66,0 6px 10px rgba(20,30,50,.3)}
+.b3:active{transform:translateY(3px);box-shadow:0 1px 0 var(--accent-d)}
+.b3:focus-visible{outline:3px solid #ffb703;outline-offset:2px}
+.wrap{overflow:auto;max-height:calc(100vh - 290px);min-height:240px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th{position:sticky;top:0;background:#14233a;color:#fff;text-align:left;padding:.55rem .6rem;cursor:pointer;white-space:nowrap;user-select:none;z-index:1}
+th:hover{background:#1f3556}th .ar{opacity:.8;margin-left:.3rem}
+td{padding:.4rem .6rem;border-top:1px solid var(--line);white-space:nowrap}
+tbody tr:nth-child(even){background:var(--row)}tbody tr:hover{background:var(--hl)}
+.drop{border:2px dashed var(--accent);text-align:center;padding:1.5rem}
+.drop p{margin:.2rem 0 .8rem}.err{color:#c0392b;font-weight:600}
+.empty{padding:2rem;text-align:center;color:var(--muted)}
+@media(prefers-reduced-motion:reduce){.b3{transition:none}}
+</style></head>
+<body>
+<header><h1 id="t">Bilten</h1><span id="sub"></span></header>
+<main>
+ <div class="panel drop" id="drop" hidden>
+  <p class="err" id="msg"></p><p>Izberi datoteko xlsx ali jo spusti sem.</p>
+  <input type="file" id="file" accept=".xlsx,.xls,.csv" style="max-width:360px">
+ </div>
+ <div id="app" hidden>
+  <div class="panel">
+   <div class="filters">
+    <div id="sheetBox" hidden><label for="fs">List</label><select id="fs"></select></div>
+    <div><label for="fa">Starostna skupina</label><select id="fa"></select></div>
+    <div><label for="fn">Tekmovalec</label><input type="search" id="fn" list="dn" placeholder="Vpiši ime ali priimek" autocomplete="off"><datalist id="dn"></datalist></div>
+    <div><label for="fd">Disciplina</label><select id="fd"></select></div>
+   </div>
+   <div class="bar">
+    <div class="count" aria-live="polite">Najdenih zapisov: <b id="c1">0</b> od <span id="c2">0</span></div>
+    <button class="b3 sec" id="clr">Počisti filtre</button>
+    <button class="b3" id="exp">Izvozi izbor (XLSX)</button>
+   </div>
+  </div>
+  <div class="wrap"><table><thead id="th"></thead><tbody id="tb"></tbody></table></div>
+ </div>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="bilteni.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const norm=s=>String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
+const num=(a,b)=>String(a).localeCompare(String(b),'sl',{numeric:true});
+let wb,head=[],rows=[],ix={},F={a:'',n:'',d:''},S={c:-1,dir:1},fname='bilten';
+const n=new URLSearchParams(location.search).get('b');
+if(n){document.title=`Bilten ${n} - VAD`;$('t').textContent=`Bilten ${n}`;$('sub').textContent='Bilteni - VAD';fname='bilten'+n}
+else $('t').textContent='Bilten';
+
+async function start(){
+  if(!n){showDrop('Bilten ni izbran. Naloži datoteko ročno.');return}
+  try{const r=await fetch(CONFIG.datoteka(n));if(!r.ok)throw 0;load(await r.arrayBuffer())}
+  catch(e){showDrop(`Datoteke ${CONFIG.datoteka(n)} ni bilo mogoče samodejno naložiti (manjka ali stran ni odprta prek strežnika).`)}
+}
+function showDrop(m){$('msg').textContent=m;$('drop').hidden=false}
+$('file').onchange=async e=>{const f=e.target.files[0];if(f){fname=f.name.replace(/\.\w+$/,'');load(await f.arrayBuffer())}};
+document.addEventListener('dragover',e=>e.preventDefault());
+document.addEventListener('drop',async e=>{e.preventDefault();const f=e.dataTransfer.files[0];if(f){fname=f.name.replace(/\.\w+$/,'');load(await f.arrayBuffer())}});
+
+function load(buf){
+  try{wb=XLSX.read(buf,{type:'array'})}catch(e){showDrop('Datoteke ni mogoče prebrati.');return}
+  const sel=$('fs');sel.innerHTML=wb.SheetNames.map((s,i)=>`<option value="${i}">${esc(s)}</option>`).join('');
+  $('sheetBox').hidden=wb.SheetNames.length<2;
+  sel.onchange=()=>setSheet(+sel.value);setSheet(0);
+  $('drop').hidden=true;$('app').hidden=false;
+}
+function setSheet(i){
+  const aoa=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[i]],{header:1,raw:false,defval:''});
+  let h=0,best=0;aoa.slice(0,15).forEach((r,k)=>{const c=r.filter(x=>x!=='').length;if(c>best){best=c;h=k}});
+  head=aoa[h].map((x,k)=>String(x||'').trim()||'Stolpec '+(k+1));
+  rows=aoa.slice(h+1).filter(r=>r.some(x=>x!==''));
+  const f=(...k)=>head.findIndex(x=>k.some(q=>norm(x).includes(q)));
+  ix={a:f('starostna','skupina'),n:f('priimek','tekmoval','ime'),d:f('disciplin')};
+  F={a:'',n:'',d:''};S={c:-1,dir:1};$('fn').value='';
+  $('fa').parentElement.hidden=ix.a<0;$('fn').parentElement.hidden=ix.n<0;$('fd').parentElement.hidden=ix.d<0;
+  $('th').innerHTML='<tr>'+head.map((x,k)=>`<th data-k="${k}">${esc(x)}<span class="ar"></span></th>`).join('')+'</tr>';
+  $('th').querySelectorAll('th').forEach(t=>t.onclick=()=>{const k=+t.dataset.k;S.dir=S.c===k?-S.dir:1;S.c=k;update()});
+  $('c2').textContent=rows.length;update();
+}
+const ok=(r,skip)=>(skip==='a'||ix.a<0||!F.a||r[ix.a]===F.a)&&(skip==='d'||ix.d<0||!F.d||r[ix.d]===F.d)&&(skip==='n'||ix.n<0||!F.n||norm(r[ix.n]).includes(norm(F.n)));
+function facet(key,skip){const m=new Map();rows.forEach(r=>{if(ok(r,skip)){const v=r[ix[key]];if(v!=='')m.set(v,(m.get(v)||0)+1)}});return m}
+function fillSel(el,key){
+  if(ix[key]<0)return;const m=facet(key,key);if(F[key]&&!m.has(F[key]))m.set(F[key],0);
+  const tot=[...m.values()].reduce((a,b)=>a+b,0);
+  el.innerHTML=`<option value="">Vse (${tot})</option>`+[...m.keys()].sort(num).map(v=>`<option value="${esc(v)}"${v===F[key]?' selected':''}>${esc(v)} (${m.get(v)})</option>`).join('');
+}
+function update(){
+  fillSel($('fa'),'a');fillSel($('fd'),'d');
+  if(ix.n>=0){const m=facet('n','n');$('dn').innerHTML=[...m.keys()].sort(num).map(v=>`<option value="${esc(v)}">${m.get(v)} zapisov</option>`).join('')}
+  let out=rows.filter(r=>ok(r,null));
+  if(S.c>=0)out=out.slice().sort((x,y)=>S.dir*num(x[S.c],y[S.c]));
+  $('c1').textContent=out.length;
+  $('th').querySelectorAll('th').forEach((t,k)=>t.querySelector('.ar').textContent=k===S.c?(S.dir>0?'▲':'▼'):'');
+  $('tb').innerHTML=out.length?out.map(r=>'<tr>'+head.map((_,k)=>`<td>${esc(r[k]??'')}</td>`).join('')+'</tr>').join(''):`<tr><td class="empty" colspan="${head.length}">Ni zapisov za izbrane filtre.</td></tr>`;
+  window._out=out;
+}
+$('fa').onchange=e=>{F.a=e.target.value;update()};
+$('fd').onchange=e=>{F.d=e.target.value;update()};
+$('fn').oninput=e=>{F.n=e.target.value;update()};
+$('clr').onclick=()=>{F={a:'',n:'',d:''};$('fn').value='';update()};
+$('exp').onclick=()=>{const w=XLSX.utils.book_new();XLSX.utils.book_append_sheet(w,XLSX.utils.aoa_to_sheet([head,...window._out]),'Izbor');XLSX.writeFile(w,fname+'_izbor.xlsx')};
+start();
+</script></body></html>
