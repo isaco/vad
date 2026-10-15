@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+  <meta charset="UTF-8">
+  <title>Prompti za ChatGPT, Claude, Gemini, Copilot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --bg: #050814;
+      --bg-card: #0f172a;
+      --bg-soft: #111827;
+      --accent: #3b82f6;
+      --accent-soft: rgba(59,130,246,0.15);
+      --text: #e5e7eb;
+      --text-soft: #9ca3af;
+      --border: #1f2937;
+      --shadow-soft: 0 18px 45px rgba(15,23,42,0.85);
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #020617 0, #020617 40%, #020617 60%, #020617 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    .header {
+      margin-bottom: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-end;
+    }
+
+    .title-block h1 {
+      margin: 0 0 6px;
+      font-size: 1.9rem;
+      letter-spacing: 0.02em;
+    }
+
+    .title-block p {
+      margin: 0;
+      color: var(--text-soft);
+      font-size: 0.95rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 0.8rem;
+      border: 1px solid rgba(148,163,184,0.5);
+      background: rgba(15,23,42,0.95);
+      color: var(--text-soft);
+    }
+
+    .badge span.icon { font-size: 0.95rem; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    @media (max-width: 880px) {
+      .grid { grid-template-columns: minmax(0, 1fr); }
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, #020617, #020617 40%, #020617 100%);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+      padding: 18px 18px 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0 0, rgba(59,130,246,0.12), transparent 55%),
+        radial-gradient(circle at 100% 0, rgba(56,189,248,0.12), transparent 55%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .card-inner { position: relative; z-index: 1; }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-title span.icon { font-size: 1.1rem; }
+
+    .card-subtitle {
+      margin: 0;
+      color: var(--text-soft);
+      font-size: 0.85rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 0.75rem;
+      border: 1px solid rgba(148,163,184,0.4);
+      color: var(--text-soft);
+      background: rgba(15,23,42,0.9);
+    }
+
+    .pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34,197,94,0.25);
+    }
+
+    .prompt-group {
+      margin-top: 8px;
+      padding-top: 6px;
+      border-top: 1px solid rgba(31,41,55,0.9);
+    }
+
+    .prompt-group h3 {
+      margin: 4px 0 4px;
+      font-size: 0.9rem;
+    }
+
+    .prompt-group small {
+      color: var(--text-soft);
+      font-size: 0.78rem;
+    }
+
+    .prompt-list {
+      margin: 6px 0 0;
+      padding-left: 18px;
+      font-size: 0.85rem;
+      color: var(--text-soft);
+    }
+
+    .prompt-list li + li { margin-top: 4px; }
+
+    .prompt {
+      background: rgba(15,23,42,0.95);
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(31,41,55,0.9);
+      padding: 6px 8px;
+    }
+
+    .prompt code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.8rem;
+      color: #e5e7eb;
+      white-space: pre-wrap;
+    }
+
+    .footer-note {
+      margin-top: 16px;
+      font-size: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .footer-note strong { color: #e5e7eb; }
+  </style>
+</head>
+<body>
+<div class="page">
+  <header class="header">
+    <div class="title-block">
+      <h1>Prompti za ChatGPT, Claude, Gemini, Copilot</h1>
+      <p>Praktični, takoj uporabni primeri za medicino, analizo dokumentov, kreativnost in kodo.</p>
+    </div>
+    <div class="badge">
+      <span class="icon">⚙️</span>
+      <span>Optimizirano za resne, strokovne pogovore</span>
+    </div>
+  </header>
+
+  <main class="grid">
+    <!-- ChatGPT -->
+    <section class="card">
+      <div class="card-inner">
+        <div class="card-header">
+          <div>
+            <div class="card-title">
+              <span class="icon">💬</span>
+              <span>ChatGPT – univerzalni učitelj</span>
+            </div>
+            <p class="card-subtitle">
+              Odličen za razlage, kreativnost in generiranje besedil. Pri medicini vedno preveri z uradnimi viri.
+            </p>
+          </div>
+          <div class="pill">
+            <span class="pill-dot"></span>
+            <span>chat.openai.com</span>
+          </div>
+        </div>
+
+        <div class="prompt-group">
+          <h3>1. Medicina (razlaga diagnoze)</h3>
+          <small>Uporabi skupaj z NHS / Mayo / MedlinePlus.</small>
+          <ul class="prompt-list">
+            <li>
+              <div class="prompt">
+                <code>
+Razloži mi diagnozo &lt;IME DIAGNOZE&gt; na način, kot bi razlagal odraslemu, ki nima medicinske izobrazbe.
+Najprej opiši:
+1) kaj točno pomeni,
+2) tipične simptome,
+3) kako se običajno diagnosticira,
+4) glavne možnosti zdravljenja,
+5) kdaj je nujno obiskati zdravnika.
+Ne dajaj osebnih medicinskih nasvetov, samo splošne informacije.
+                </code>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="prompt-group">
+          <h3>2. Analiza dokumenta</h3>
+          <ul class="prompt-list">
+            <li>
+              <div class="prompt">
+                <code>
+Preberi spodnji dokument (v slovenščini) in naredi:
+1) kratek povzetek v 5 točkah,
+2) izlušči ključne odločitve,
+3) izpiši odprta vprašanja, ki jih je treba še razjasniti.
+
+[prilepi besedilo dokumenta]
+                </code>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="prompt-group">
+          <h3>3. Kreativnost (ideje, scenariji)</h3>
+          <ul class="prompt-list">
+            <li>
+              <div class="prompt">
+                <code>
+Deluješ kot kreativni svetovalec. Potrebujem 10 konkretnih idej za &lt;OPIŠI PROBLEM&gt;.
+Za vsako idejo napiši:
+- kratek opis,
+- zakaj bi lahko delovala,
+- glavno tveganje ali slabost.
+                </code>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Claude -->
+    <section class="card">
+      <div class="card-inner">
+        <div class="card-header">
+          <div>
+            <div class="card-title">
+              <span class="icon">🧠</span>
+              <span>Claude – logika in dolgi dokumenti</span>
+            </div>
+            <p class="card-subtitle">
+              Najbolj naravne razlage, zelo dober pri dolgih besedilih in občutljivih temah.
+            </p>
+          </div>
+          <div class="pill">
+            <span class="pill-dot"></span>
+            <span>claude.ai</span>
+          </div>
+        </div>
+
+        <div class="prompt-group">
+          <h3>1. Strateška analiza</h3>
+          <ul class="prompt-list">
+            <li>
+              <div class="prompt">
+                <code>
+Deluješ kot strateški analitik. Spodaj je opis situacije v organizaciji.
+
+[prilepi opis]
+
+Naredi:
+1) povzetek v 10 stavkih,
+2) SWOT analizo,
+3) 5 konkretnih predlogov ukrepov z obrazložitvijo.
+                </code>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="prompt-group">
+          <h3>2. Kritično branje (varnost, etika)</h3>
+          <ul class="prompt-list">
+            <li>
+              <div class="prompt">
+                <code>
+Preberi spodnje besedilo in oceni:
+1) katere trditve so potencialno sporne ali nepreverjene,
+2) kje bi bilo treba dodati vire ali dokaze,
+3) kakšna so možna etična tveganja.
+
+[prilepi besedilo]
+                </code>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="prompt-group">
+          <h3>3. Dolgi dokumenti</h3>
+          <ul class="prompt-list">
+            <li>
+              <div class="prompt">
+                <code>
+Spodaj je daljši dokument. Naredi tri nivoje povzetka:
+- ultra kratek (3 stavki),
+- srednji (10–15 stavkov),
+- podroben (bullet točke po poglavjih).
+
+[prilepi dokument]
+                </code>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gemini -->
+    <section class="card">
+      <div class="card-inner">
+        <div class="card-header">
+          <div>
+            <div class="card-title">
+              <span class="icon">🌐</span>
+              <span>Gemini – znanost in vizualne ideje</span>
+            </div>
+            <p class="card-subtitle">
+              Močan pri znanstvenih temah in integraciji z Google Search, dober za diagrame in vizualne koncepte.
+            </p>
+          </div>
+          <div class="pill">
+            <span class="pill-dot"></span>
+            <span>gemini.google.com</span>
+          </div>
+        </div>
+
+        <div class="prompt-group">
+          <h3>1. Znanstvena razlaga</h3>
+          <ul class="prompt-list">
+            <li>
+              <div class="prompt">
+                <code>
+Razloži mi znanstveni koncept &lt;IME KONCEPTA&gt; na treh nivojih:
+1) za osnovnošolca,
+2) za srednješolca,
+3) za študenta naravoslovja.
+                </code>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="prompt-group">
+          <h3>2. Diagram / vizualna struktura</h3>
+          <ul class="prompt-list">
+            <li>
+              <div class="prompt">
+                <code>
+Predlagaj mi strukturo diagrama za razlago procesa &lt;OPIŠI PROCES&gt;.
+Opiši:
+- glavne korake,
+- povezave med njimi,
+- kaj bi bilo na osi X in Y, če bi to bil graf.
+                </code>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="prompt-group">
+          <h3>3. Preverjanje trditev</h3>
+          <ul class="prompt-list">
+            <li>
+              <div class="prompt">
+                <code>
+Spodaj je seznam trditev. Za vsako:
+1) oceni, ali je verjetno resnična,
+2) predlagaj, kako bi jo preverili (kateri viri, kakšne študije),
+3) opozori, če je trditev potencialno nevarna ali zavajajoča.
+
+[seznam trditev]
+                </code>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Copilot -->
+    <section class="card">
+      <div class="card-inner">
+        <div class="card-header">
+          <div>
+            <div class="card-title">
+              <span class="icon">🛠️</span>
+              <span>Copilot – delo, brskalnik, koda</span>
+            </div>
+            <p class="card-subtitle">
+              Najmočnejši pri kombinaciji iskanja, dokumentov, kode in povzetkov. Idealen za “workflows”.
+            </p>
+          </div>
+          <div class="pill">
+            <span class="pill-dot"></span>
+            <span>copilot.microsoft.com</span>
+          </div>
+        </div>
+
+        <div class="prompt-group">
+          <h3>1. Povzetek spletne strani / članka</h3>
+          <ul class="prompt-list">
+            <li>
+              <div class="prompt">
+                <code>
+Povzemi vsebino te strani v 10 točkah, nato:
+1) izpiši 5 ključnih “takeaways”,
+2) predlagaj 3 konkretne akcije, ki jih lahko izvedem na podlagi članka.
+                </code>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="prompt-group">
+          <h3>2. Koda / skripte</h3>
+          <ul class="prompt-list">
+            <li>
+              <div class="prompt">
+                <code>
+Napiši mi primer &lt;JEZIK&gt; kode, ki:
+1) prebere CSV datoteko,
+2) izračuna osnovne statistike,
+3) izpiše rezultate v pregledni tabeli.
+Dodaj komentarje v slovenščini.
+                </code>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="prompt-group">
+          <h3>3. Delovni tok (workflow)</h3>
+          <ul class="prompt-list">
+            <li>
+              <div class="prompt">
+                <code>
+Pomagaj mi zasnovati delovni tok za &lt;OPIŠI NALOGO&gt;.
+Naredi:
+1) seznam korakov,
+2) kaj lahko avtomatiziram z AI,
+3) kje moram nujno vključiti človeško presojo.
+                </code>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <p class="footer-note">
+    <strong>Opomba:</strong> pri medicini in občutljivih temah vedno kombiniraj odgovore modelov z uradnimi viri in zdravniško presojo.
+  </p>
+</div>
+</body>
+</html>

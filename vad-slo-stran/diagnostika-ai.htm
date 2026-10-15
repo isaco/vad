@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+  <meta charset="UTF-8">
+  <title>AI orodja za športno diagnostiko</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --bg: #020617;
+      --accent: #3b82f6;
+      --accent-soft: rgba(59,130,246,0.18);
+      --text: #e5e7eb;
+      --text-soft: #9ca3af;
+      --border: #1f2937;
+      --radius-lg: 22px;
+      --radius-md: 14px;
+      --radius-pill: 999px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 32px 16px;
+      background: radial-gradient(circle at top, #0b1120 0, #020617 45%, #000 100%);
+      color: var(--text);
+    }
+    .page { width: 100%; max-width: 1100px; }
+    .header {
+      display: flex; justify-content: space-between; gap: 16px;
+      align-items: flex-end; margin-bottom: 22px; flex-wrap: wrap;
+    }
+    .title-block h1 {
+      margin: 0 0 6px; font-size: 2rem; letter-spacing: 0.03em;
+      text-shadow: 0 0 14px rgba(59,130,246,0.9);
+    }
+    .title-block p { margin: 0; color: var(--text-soft); font-size: 0.95rem; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 12px; border-radius: var(--radius-pill);
+      font-size: 0.8rem; border: 1px solid rgba(148,163,184,0.7);
+      background: rgba(15,23,42,0.96); color: var(--text-soft);
+    }
+    .badge span.icon { font-size: 1rem; }
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.6fr);
+      gap: 18px;
+    }
+    @media (max-width: 900px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+    .card {
+      position: relative; border-radius: var(--radius-lg);
+      padding: 18px 18px 16px;
+      background: radial-gradient(circle at top left, #020617, #020617 40%, #020617 100%);
+      border: 1px solid rgba(15,23,42,0.95);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.95), 0 0 0 1px rgba(15,23,42,0.9);
+      overflow: hidden;
+    }
+    .card::before {
+      content: ""; position: absolute; inset: -40%;
+      background:
+        radial-gradient(circle at 0 0, rgba(59,130,246,0.22), transparent 55%),
+        radial-gradient(circle at 100% 0, rgba(56,189,248,0.18), transparent 55%);
+      opacity: 0.8; pointer-events: none;
+    }
+    .card-inner { position: relative; z-index: 1; }
+    .card-header {
+      display: flex; justify-content: space-between; gap: 10px;
+      align-items: center; margin-bottom: 10px;
+    }
+    .card-title {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 1.05rem; font-weight: 600;
+    }
+    .card-title span.icon { font-size: 1.3rem; }
+    .card-subtitle { margin: 2px 0 0; font-size: 0.85rem; color: var(--text-soft); }
+    .pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 10px; border-radius: var(--radius-pill);
+      font-size: 0.75rem; border: 1px solid rgba(148,163,184,0.6);
+      background: rgba(15,23,42,0.96); color: var(--text-soft);
+    }
+    .pill-dot {
+      width: 6px; height: 6px; border-radius: 999px;
+      background: #22c55e; box-shadow: 0 0 0 4px rgba(34,197,94,0.25);
+    }
+    .section-title { margin: 8px 0 4px; font-size: 0.9rem; font-weight: 600; }
+    .section-note { margin: 0 0 6px; font-size: 0.8rem; color: var(--text-soft); }
+    .tool-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+    .tool-item {
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(31,41,55,0.95);
+      background: rgba(15,23,42,0.96);
+      padding: 8px 10px;
+      font-size: 0.85rem;
+    }
+    .tool-name { font-weight: 600; display: flex; align-items: center; gap: 6px; }
+    .tool-tag {
+      font-size: 0.7rem; padding: 2px 7px; border-radius: var(--radius-pill);
+      border: 1px solid rgba(59,130,246,0.7); color: #bfdbfe;
+      background: rgba(15,23,42,0.96);
+    }
+    .tool-desc { color: var(--text-soft); margin-top: 3px; }
+    .list { margin: 6px 0 0; padding-left: 18px; font-size: 0.85rem; color: var(--text-soft); }
+    .list li + li { margin-top: 3px; }
+    .list strong { color: var(--text); }
+    .footer-bar {
+      margin-top: 18px; display: flex; justify-content: space-between;
+      align-items: center; gap: 10px; flex-wrap: wrap; font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+    .btn-back {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 12px; border-radius: var(--radius-pill);
+      border: 1px solid rgba(59,130,246,0.9);
+      background: linear-gradient(145deg, #1d4ed8, #0b1120);
+      color: #e5e7eb; text-decoration: none; font-size: 0.8rem;
+      box-shadow: 0 9px 0 rgba(10,15,31,1), 0 16px 30px rgba(37,99,235,0.7);
+      transform: translateY(0);
+      transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, filter 0.12s ease-out;
+    }
+    .btn-back span.icon { font-size: 0.95rem; }
+    .btn-back:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 11px 0 rgba(10,15,31,1), 0 22px 40px rgba(37,99,235,0.9);
+      filter: brightness(1.08);
+    }
+    .btn-back:active {
+      transform: translateY(1px);
+      box-shadow: 0 6px 0 rgba(10,15,31,1), 0 10px 20px rgba(15,23,42,0.95);
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  <header class="header">
+    <div class="title-block">
+      <h1>AI orodja za športno diagnostiko</h1>
+      <p>HRV, VO₂max, laktat, biomehanika in wearables – AI kot pomoč pri interpretaciji in trendih.</p>
+    </div>
+    <div class="badge">
+      <span class="icon">❤️‍🔥</span>
+      <span>Fokus: podatki, ne diagnoza – odločitev ostane pri strokovnjaku.</span>
+    </div>
+  </header>
+
+  <main class="grid">
+    <section class="card">
+      <div class="card-inner">
+        <div class="card-header">
+          <div>
+            <div class="card-title">
+              <span class="icon">🧪</span>
+              <span>Fiziološka diagnostika</span>
+            </div>
+            <p class="card-subtitle">
+              VO₂max, laktatni testi, HRV – AI pomaga pri vzorcih, ne postavljanju diagnoz.
+            </p>
+          </div>
+          <div class="pill">
+            <span class="pill-dot"></span>
+            <span>laboratorij + teren</span>
+          </div>
+        </div>
+
+        <h3 class="section-title">1. VO₂max in laktat</h3>
+        <p class="section-note">Cilj: boljša interpretacija testov in trendov, ne “čarobne” številke.</p>
+        <ul class="tool-list">
+          <li class="tool-item">
+            <div class="tool-name">
+              <span>Modeli za krivulje laktata</span>
+              <span class="tool-tag">🧪 laktat</span>
+            </div>
+            <div class="tool-desc">
+              Uporaba regresijskih modelov za prilagajanje laktatnih krivulj, oceno LT1/LT2 in spremljanje sprememb
+              med testiranji. AI pomaga pri prepoznavanju odstopanj in trendov.
+            </div>
+          </li>
+          <li class="tool-item">
+            <div class="tool-name">
+              <span>Napoved VO₂max iz terenskih testov</span>
+              <span class="tool-tag">🏃‍♂️ VO₂max</span>
+            </div>
+            <div class="tool-desc">
+              Modeli, ki iz rezultatov Cooper testa, testov na 5/10 km ali stopničastih testov ocenjujejo VO₂max.
+              Pomembno: vedno jasno označiti, da gre za oceno, ne laboratorijsko meritev.
+            </div>
+          </li>
+        </ul>
+
+        <h3 class="section-title">2. HRV in regeneracija</h3>
+        <p class="section-note">HRV kot signal, ne absolutna resnica.</p>
+        <ul class="tool-list">
+          <li class="tool-item">
+            <div class="tool-name">
+              <span>AI analiza HRV trendov</span>
+              <span class="tool-tag">❤️‍🔥 HRV</span>
+            </div>
+            <div class="tool-desc">
+              Modeli, ki gledajo trende HRV, spanja, obremenitve in subjektivnega počutja ter označijo dneve
+              “povečanega tveganja” za preobremenitev. Uporabno kot opozorilo, ne kot ukaz.
+            </div>
+          </li>
+          <li class="tool-item">
+            <div class="tool-name">
+              <span>Integracija HRV v “traffic light” sistem</span>
+              <span class="tool-tag">🚦 opozorila</span>
+            </div>
+            <div class="tool-desc">
+              Enostavni sistemi, ki HRV, RPE in obremenitev pretvorijo v zeleno/rumeno/rdečo luč. AI lahko pomaga pri
+              nastavitvi pragov in personalizaciji.
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-inner">
+        <div class="card-header">
+          <div>
+            <div class="card-title">
+              <span class="icon">🦾</span>
+              <span>Biomehanika in wearables</span>
+            </div>
+            <p class="card-subtitle">
+              Senzorji gibanja, sile, pospeškov – AI kot povečevalnik oči trenerja in strokovnjaka.
+            </p>
+          </div>
+          <div class="pill">
+            <span class="pill-dot"></span>
+            <span>gibanje · tehnika</span>
+          </div>
+        </div>
+
+        <h3 class="section-title">3. Biomehanika</h3>
+        <p class="section-note">Od 2D videa do 3D senzorjev.</p>
+        <ul class="tool-list">
+          <li class="tool-item">
+            <div class="tool-name">
+              <span>Analiza tehnike z računalniškim vidom</span>
+              <span class="tool-tag">🎥 + 🦾</span>
+            </div>
+            <div class="tool-desc">
+              Orodja, ki iz videa izluščijo kote sklepov, dolžino koraka, simetrijo in druge parametre. AI pomaga pri
+              prepoznavanju odstopanj in sprememb skozi čas.
+            </div>
+          </li>
+          <li class="tool-item">
+            <div class="tool-name">
+              <span>Senzorji sile in pospeška</span>
+              <span class="tool-tag">⌚ wearables</span>
+            </div>
+            <div class="tool-desc">
+              Pametne ure, merilniki moči, inercialni senzorji – AI modeli lahko iz teh podatkov ocenjujejo obremenitve
+              na sklepe, simetrijo in potencialna tveganja.
+            </div>
+          </li>
+        </ul>
+
+        <h3 class="section-title">4. Načela uporabe</h3>
+        <ul class="list">
+          <li><strong>AI ne postavlja diagnoz:</strong> interpretacija vedno ostane pri zdravniku ali strokovnjaku.</li>
+          <li><strong>Trend > enkratna vrednost:</strong> pomembnejši so vzorci skozi čas kot posamezen test.</li>
+          <li><strong>Kontekst:</strong> podatke vedno poveži s počutjem, treningom, spanjem, stresom.</li>
+          <li><strong>Transparentnost:</strong> športniku razloži, kaj AI počne in česa ne počne.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <div class="footer-bar">
+    <span>AI v športni diagnostiki je najmočnejši, ko povežeš podatke, modele in klinično presojo.</span>
+    <a class="btn-back" href="sport-hub.htm">
+      <span class="icon">←</span>
+      <span>Nazaj na AI Sports Hub</span>
+    </a>
+  </div>
+</div>
+</body>
+</html>

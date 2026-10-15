@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VAD Ljubljana – navigacija</title>
+<style>
+:root{color-scheme:dark;--bg:#07142d;--panel:#10264c;--gold:#ffcb65;--text:#eef5ff}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% 0,#1b3b70,#07142d 70%);font:16px system-ui,Segoe UI,Arial;color:var(--text)}header{text-align:center;padding:38px 15px 26px}h1{margin:0;font-size:clamp(30px,5vw,48px);letter-spacing:2px;color:var(--gold);text-shadow:0 3px 12px #000}header p{color:#a9c5e9;margin:8px 0}.nav{max-width:1250px;margin:0 auto;padding:12px;display:flex;flex-wrap:wrap;justify-content:center;gap:12px}.item{position:relative}.top{appearance:none;border:1px solid #507db9;border-bottom:4px solid #061329;border-radius:12px;background:linear-gradient(#28528b,#102b53);color:white;box-shadow:inset 0 1px 1px #a3c4e955,0 7px 16px #0007;min-width:125px;padding:16px 20px;font-weight:700;font-size:16px;cursor:pointer;transition:.15s}.top:hover,.top:focus-visible,.item.open .top{background:linear-gradient(#416eaa,#193c70);color:var(--gold);transform:translateY(-2px)}.top:active{transform:translateY(2px)}.arrow{font-size:12px;margin-left:7px}.submenu{display:none;position:absolute;top:calc(100% + 6px);left:0;min-width:225px;padding:8px;background:#102448;border:1px solid #5276a6;border-radius:12px;box-shadow:0 18px 35px #000a;z-index:10}.item:hover>.submenu,.item:focus-within>.submenu,.item.open>.submenu{display:block}.submenu a,.submenu button{display:block;width:100%;text-align:left;padding:12px 14px;margin:2px 0;border:0;border-radius:7px;background:transparent;color:#e7f0ff;text-decoration:none;font:inherit;cursor:pointer}.submenu a:hover,.submenu button:hover,.submenu a:focus-visible,.submenu button:focus-visible{background:#28518a;color:var(--gold)}.hint{text-align:center;margin:45px 15px;color:#a7bbd8}.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);padding:13px 22px;background:#243d64;border:1px solid var(--gold);border-radius:10px;box-shadow:0 8px 30px #0009;display:none;z-index:20;text-align:center}footer{text-align:center;color:#809abb;padding:50px 15px}@media(max-width:650px){.nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.item,.top{width:100%;min-width:0}.submenu{left:0;right:0;min-width:0}.item:nth-child(even)>.submenu{left:auto;right:0}}@media(max-width:380px){.nav{grid-template-columns:1fr}.submenu{position:static;margin-top:5px}}
+</style>
+</head>
+<body>
+<header><h1>VAD Ljubljana</h1><p>Veteranska atletika · Navigacija</p></header>
+<nav class="nav" id="navigation" aria-label="Glavni meni"></nav>
+<p class="hint">Izberi rubriko ali podmeni. Povezave brez URL-ja lahko naknadno dopolniš v seznamu MENU.</p>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<footer>VAD Ljubljana · Informacijski portal
+&nbsp; <font color='orange'>Made by Iztok Valenčič</font><p><p>
+<img src='ici-avatar.jpg' width=100 height=auto alt='ici'>
+</footer>
+<script>
+/* ==========================================================
+   UREJANJE POVEZAV: zamenjaj prazen url: "" s svojim URL-jem.
+   Podmenije dodaš v polje children.
+   ========================================================== */
+const MENU = [
+ {title:"Home",url:"",children:[
+   {title:"Člani",url:"http://localhost/vad-slo-stran/turso-vju-atleti-f.htm"},
+   {title:"Zgodovina VAD",url:"http://vad.epizy.com/vad/zgod/index.html"},
+   {title:"All time",url:"https://vad.epizy.com/alltime/allt/alltime-filt.htm"},
+   {title:"Kalvet",url:"https://vad.epizy.com/isvad/wma/kalv.htm"},
+   {title:"YT video",url:"https://www.youtube.com/@high-jump-marvel/videos"},
+   {title:"HJ sumulacija",url:"  https://isaco.github.io/vad/hj-monitor/hj-simulator.html"},
+ 
+   {title:"Arhiv skokov",url:" https://vad.epizy.com/isvad/skoki/hj69/hj-69-meni-g.html"}
+   
+  
+   
+ ]},
+ {title:"Prijave",url:"",children:[{title:"Prijave",url:"https://vad.epizy.com/vad-prijava/prijava.php?i=1"},{title:"Prijave – seznam",url:"https://vad.epizy.com/vad-prijava/prijavljeni_count.php"}]},
+ {title:"Mitingi",url:"http://vad.epizy.com/vad/mitingi-2026/sez-mit-2026.htm",children:[]},
+ {title:"Rekordi",url:"https://isaco.github.io/vad/dr25/dr25-a.htm",children:[]},
+ {title:"Medalje",url:"http://localhost/vad-slo-stran/VAD_medalje_dashboard.html",children:[]},
+ {title:"Bilteni",url:"",children:[{title:"Prenos",url:"https://vad.epizy.com/bilteni/bilteni-6-24.html"},{title:"Vpogledi",url:"http://localhost/bilteni-ai/index.html"}]},
+ {title:"Povezave",url:"https://isaco.github.io/vad/atletski-slovar.htm",children:[{title:"VAD-lj",url:"https://www.vad-lj.com"},{title:"Master Rank",url:"https://mastersrankings.com/"},
+ {title:"WMA",url:"https://world-masters-athletics.org/"},
+ {title:"ZAVS",url:"https://zavs.si"},
+ {title:"Timing",url:"https://www.timingljubljana.si/"}]},  
+ {title:"Profili",url:"http://localhost/vad-slo-stran/VAD-profili.html",children:[]},
+ {title:"Športna znanost", url:"",children:[{title:"Slovar izrazov",url:"https://isaco.github.io/vad/atletski-slovar.htm"},
+ {title:"AI",url:"http://vad.epizy.com/ai/ai-li.html?i=1"},
+ {title:"Miselni trening",url:"http://localhost/hj-znanstveni_dashboard_miselni_trening.html#flop"}]}
+   
+   
+];
+const nav=document.getElementById('navigation');
+let toastTimer;
+function notice(title){const t=document.getElementById('toast');t.textContent='»'+title+'« – povezava še ni vnesena.';t.style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.style.display='none',3200)}
+function linkAction(entry){if(entry.url){window.open(entry.url,'_blank','noopener,noreferrer')}else{notice(entry.title)}}
+MENU.forEach((entry,index)=>{
+ const item=document.createElement('div');item.className='item';
+ const top=document.createElement('button');top.className='top';top.type='button';top.textContent=entry.title;
+ const hasChildren=entry.children&&entry.children.length>0;
+ if(hasChildren){
+  top.setAttribute('aria-expanded','false');top.setAttribute('aria-controls','sub-'+index);
+  const arrow=document.createElement('span');arrow.className='arrow';arrow.textContent='▾';top.appendChild(arrow);
+  const sub=document.createElement('div');sub.className='submenu';sub.id='sub-'+index;
+  entry.children.forEach(child=>{const a=document.createElement('button');a.type='button';a.textContent=child.title;a.addEventListener('click',()=>linkAction(child));sub.appendChild(a)});
+  item.append(top,sub);
+  top.addEventListener('click',()=>{const open=!item.classList.contains('open');document.querySelectorAll('.item.open').forEach(el=>{el.classList.remove('open');el.querySelector('.top').setAttribute('aria-expanded','false')});item.classList.toggle('open',open);top.setAttribute('aria-expanded',String(open))});
+ }else{top.addEventListener('click',()=>linkAction(entry));item.appendChild(top)}
+ nav.appendChild(item);
+});
+document.addEventListener('click',e=>{if(!e.target.closest('.item'))document.querySelectorAll('.item.open').forEach(el=>{el.classList.remove('open');el.querySelector('.top').setAttribute('aria-expanded','false')})});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.querySelectorAll('.item.open').forEach(el=>{el.classList.remove('open');el.querySelector('.top').setAttribute('aria-expanded','false')})}});
+</script>
+</body></html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atleti - Turso</title>
+
+<style>
+body{
+    background:#0f172a;
+    color:white;
+    font-family:Segoe UI,sans-serif;
+    margin:0;
+    padding:30px;
+}
+
+h1{
+    color:#60a5fa;
+}
+
+.filters {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 15px;
+}
+
+input {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #334155;
+    background: #1e293b;
+    color: white;
+    font-size: 14px;
+    width: 250px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:#1e293b;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+th{
+    background:#2563eb;
+    padding:12px;
+    text-align:left;
+    cursor: pointer;
+    user-select: none;
+}
+
+th:hover {
+    background: #1d4ed8;
+}
+
+td{
+    padding:10px;
+    border-bottom:1px solid #334155;
+}
+
+tr:hover{
+    background:#334155;
+}
+</style>
+</head>
+<body>
+
+<h1>VAD člani</h1>
+
+<div class="filters">
+    <input type="text" id="searchVeteran" placeholder="Išči po veteranu..." onkeyup="filterData()">
+    <input type="text" id="searchStevilka" placeholder="Išči po številki..." onkeyup="filterData()">
+</div>
+
+<table>
+<thead>
+<tr>
+<th>Zap</th>
+<th>Veteran</th>
+<th onclick="sortData()">ID št. ↕</th>
+<th>Opombe</th>
+</tr>
+</thead>
+
+<tbody id="tbl">
+<tr>
+<td colspan="4">Nalagam podatke ...</td>
+</tr>
+</tbody>
+</table>
+
+<script>
+
+   // Konfiguracija Turso baze
+   
+const DB_URL = "https://vad-idaco.aws-eu-north-1.turso.io";
+const TOKEN= "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJpYXQiOjE3OTE4NzI2ODYsImlkIjoiMDFhMTMzYjUtNDYwMS03ZWYxLTg1NzgtNDhmN2RjODYxNmRlIiwia2lkIjoiSUIwQmZWVlg0bS1MZDN1OFQ3S0JEeHNkMjlBWk1zSmlqakl1Q1RXcnNSUSIsInJpZCI6ImNmZWU3MDhlLThiNmQtNGZlMS1hZDk5LWYxOTNiY2ZiNDAwMCJ9.AX4cg2blwmie2-JDaz-7VTL-b_GfeRYhK9UEG7xydyzJqxrywoAA0YY81xUMwKbkb0oy82-nGoQzwJNqBYjNCA";
+
+
+let allRows = [];
+let sortDirection = 'ASC';
+
+async function loadData() {
+    try {
+        const response = await fetch(
+            DB_URL + "/v2/pipeline",
+            {
+                method: "POST",
+                headers: {
+                    "Authorization": "Bearer " + TOKEN,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    requests: [{
+                        type: "execute",
+                        stmt: {
+                            sql: "SELECT * FROM atleti ORDER BY številka ASC"
+                        }
+                    }]
+                })
+            }
+        );
+
+        const result = await response.json();
+        allRows = result.results?.[0]?.response?.result?.rows || [];
+        renderTable(allRows);
+    } catch (error) {
+        console.error("Napaka pri nalaganju podatkov:", error);
+        document.getElementById("tbl").innerHTML = `<tr><td colspan="4" style="color: #ef4444;">Napaka pri nalaganju podatkov.</td></tr>`;
+    }
+}
+
+function renderTable(rows) {
+    let html = "";
+
+    if (rows.length === 0) {
+        html = `<tr><td colspan="4" style="text-align: center;">Ni najdenih podatkov.</td></tr>`;
+    } else {
+        rows.forEach(r => {
+            let id = r[0]?.value ?? "";
+            let veteran = r[1]?.value ?? "";
+            let rawStevilka = r[2]?.value ?? "";
+            // Formatiranje številke z vodilnimi ničlami (npr. 4 postane 0004)
+            let stevilka = rawStevilka !== "" ? String(rawStevilka).padStart(4, '0') : "";
+            let opombe = r[3]?.value ?? "";
+
+            html += `
+            <tr>
+                <td>${id}</td>
+                <td>${veteran}</td>
+                <td>${stevilka}</td>
+                <td>${opombe}</td>
+            </tr>`;
+        });
+    }
+
+    document.getElementById("tbl").innerHTML = html;
+}
+
+function filterData() {
+    const queryVeteran = document.getElementById("searchVeteran").value.toLowerCase();
+    const queryStevilka = document.getElementById("searchStevilka").value.toLowerCase();
+
+    const filtered = allRows.filter(r => {
+        let veteran = String(r[1]?.value || "").toLowerCase();
+        let stevilka = String(r[2]?.value || "").toLowerCase();
+
+        let matchesVeteran = veteran.includes(queryVeteran);
+        let matchesStevilka = stevilka.includes(queryStevilka);
+
+        return matchesVeteran && matchesStevilka;
+    });
+
+    renderTable(filtered);
+}
+
+function sortData() {
+    sortDirection = sortDirection === 'ASC' ? 'DESC' : 'ASC';
+
+    allRows.sort((a, b) => {
+        let valA = Number(a[2]?.value) || 0;
+        let valB = Number(b[2]?.value) || 0;
+
+        if (sortDirection === 'ASC') {
+            return valA - valB;
+        } else {
+            return valB - valA;
+        }
+    });
+
+    filterData(); // Osveži prikaz ob upoštevanju trenutnih filtrov
+}
+
+loadData();
+
+</script>
+
+</body>
+</html>

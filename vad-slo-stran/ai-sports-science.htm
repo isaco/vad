@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+  <meta charset="UTF-8">
+  <title>AI & Sports Science</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --bg: #050814;
+      --bg-alt: #0b1020;
+      --accent: #2f6bff;
+      --accent-soft: #1b3a80;
+      --text: #e5ecff;
+      --muted: #9aa4c6;
+      --border: #1b2238;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #101633 0, #050814 55%, #02030a 100%);
+      color: var(--text);
+    }
+    .page {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+    @media (max-width: 900px) {
+      .page { grid-template-columns: 1fr; }
+      .sidebar { position: sticky; top: 0; z-index: 20; }
+    }
+    .sidebar {
+      background: linear-gradient(180deg, #050814 0, #050814 40%, #02030a 100%);
+      border-right: 1px solid var(--border);
+      padding: 18px 18px 24px;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 18px;
+    }
+    .logo-icon {
+      width: 32px; height: 32px; border-radius: 12px;
+      background: radial-gradient(circle at 30% 20%, #4f8dff 0, #2f6bff 35%, #0b1020 100%);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 700; font-size: 18px;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 12px 30px rgba(0,0,0,0.7);
+    }
+    .logo-title { font-weight: 600; letter-spacing: 0.03em; font-size: 15px; }
+    .logo-sub { font-size: 11px; color: var(--muted); }
+
+    .toc-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin: 10px 0 6px;
+    }
+    .toc-title {
+      font-size: 13px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--muted);
+    }
+    .toc-btn {
+      font-size: 11px; padding: 4px 8px; border-radius: 999px;
+      border: 1px solid var(--border); background: rgba(15,20,40,0.9);
+      color: var(--muted); cursor: pointer;
+    }
+    .toc-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    .toc-list { list-style: none; margin: 0; padding: 0; font-size: 13px; }
+    .toc-item { margin-bottom: 4px; }
+    .toc-link {
+      display: flex; align-items: center; gap: 6px;
+      padding: 6px 8px; border-radius: 8px;
+      color: var(--muted); text-decoration: none;
+      transition: background 0.15s, color 0.15s;
+    }
+    .toc-link span.idx {
+      font-size: 11px; color: var(--accent);
+      min-width: 18px; text-align: right;
+    }
+    .toc-link:hover { background: rgba(18,26,52,0.9); color: var(--text); }
+    .toc-link.active {
+      background: linear-gradient(90deg, rgba(47,107,255,0.18), rgba(47,107,255,0.02));
+      color: var(--text); border: 1px solid rgba(47,107,255,0.4);
+    }
+
+    .sidebar-footer {
+      margin-top: 18px; padding-top: 12px;
+      border-top: 1px dashed var(--border);
+      font-size: 11px; color: var(--muted);
+    }
+    .sidebar-footer strong { color: var(--accent); }
+
+    .content {
+      padding: 26px 26px 40px;
+      max-width: 1100px; margin: 0 auto;
+    }
+
+    .hero {
+      display: flex; flex-wrap: wrap; justify-content: space-between;
+      gap: 18px; margin-bottom: 24px;
+    }
+    .hero-main { flex: 1 1 260px; }
+    .hero-title {
+      font-size: 26px; letter-spacing: 0.04em;
+      text-transform: uppercase; margin: 0 0 6px;
+    }
+    .hero-sub { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+    .hero-meta {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      font-size: 11px; color: var(--muted);
+    }
+    .hero-pill {
+      padding: 4px 10px; border-radius: 999px;
+      border: 1px solid var(--border); background: rgba(10,14,30,0.9);
+    }
+    .hero-pill strong { color: var(--accent); }
+
+    .hero-aside {
+      flex: 0 0 260px; border-radius: 14px;
+      border: 1px solid var(--border);
+      background: radial-gradient(circle at top, #111a3a 0, #050814 60%);
+      padding: 12px 14px; font-size: 12px; position: relative;
+    }
+    .hero-aside h2 {
+      font-size: 13px; margin: 0 0 6px;
+      text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted);
+    }
+    .hero-aside ul { margin: 6px 0 0; padding-left: 16px; }
+    .hero-aside li { margin-bottom: 4px; }
+
+    section {
+      margin-bottom: 26px; padding: 18px 18px 16px;
+      border-radius: 16px; background: rgba(7,10,22,0.96);
+      border: 1px solid var(--border);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.55);
+    }
+    section h2 {
+      font-size: 18px; margin: 0 0 10px;
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    section h3 { font-size: 15px; margin: 14px 0 6px; }
+    p, ul { font-size: 13px; line-height: 1.6; }
+    ul { margin-left: 18px; }
+
+    .modal-backdrop {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.65);
+      display: none; align-items: center; justify-content: center;
+      z-index: 50;
+    }
+    .modal {
+      width: min(720px, 92vw); max-height: 86vh;
+      background: #050814; border-radius: 18px;
+      border: 1px solid var(--border);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.85);
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    .modal-header {
+      padding: 12px 16px; border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .modal-header h2 {
+      font-size: 15px; margin: 0;
+      letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted);
+    }
+    .modal-close {
+      border: none; background: transparent; color: var(--muted);
+      cursor: pointer; font-size: 18px; padding: 2px 6px;
+    }
+    .modal-body { padding: 12px 16px 14px; overflow-y: auto; font-size: 13px; }
+    .link-inline { color: var(--accent); text-decoration: none; }
+    .link-inline:hover { text-decoration: underline; }
+  </style>
+</head>
+
+<body>
+<div class="page">
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-icon">SS</div>
+      <div>
+        <div class="logo-title">AI & Sports Science</div>
+        <div class="logo-sub">Tematski modul — 2026</div>
+      </div>
+    </div>
+
+    <div class="toc-header">
+      <div class="toc-title">Kazalo</div>
+      <button class="toc-btn" id="openTocModal">Odpri</button>
+    </div>
+
+    <ul class="toc-list" id="tocList">
+      <li class="toc-item"><a href="#s1" class="toc-link"><span class="idx">1</span><span>Uvod</span></a></li>
+      <li class="toc-item"><a href="#s2" class="toc-link"><span class="idx">2</span><span>Podatkovna športna znanost</span></a></li>
+      <li class="toc-item"><a href="#s3" class="toc-link"><span class="idx">3</span><span>AI v treningu in tekmovanju</span></a></li>
+      <li class="toc-item"><a href="#s4" class="toc-link"><span class="idx">4</span><span>Model 4D</span></a></li>
+      <li class="toc-item"><a href="#s5" class="toc-link"><span class="idx">5</span><span>Priporočila za ZAVS</span></a></li>
+      <li class="toc-item"><a href="#s6" class="toc-link"><span class="idx">6</span><span>Slovarček</span></a></li>
+      <li class="toc-item"><a href="#s7" class="toc-link"><span class="idx">7</span><span>Reference</span></a></li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <strong>Fokus:</strong> športna znanost + AI + zdravje<br>
+      <strong>Stanje:</strong> 2026-07-22
+    </div>
+  </aside>
+
+  <main class="content">
+
+    <header class="hero">
+      <div class="hero-main">
+        <h1 class="hero-title">AI & Sports Science</h1>
+        <p class="hero-sub">
+          Kako lahko umetna inteligenca poveže podatke, zdravje, zmogljivost in ekonomiko v športu — od rekreativcev do vrhunskih športnikov.
+        </p>
+        <div class="hero-meta">
+          <div class="hero-pill"><strong>Fokus:</strong> podatki + zdravje + zmogljivost</div>
+          <div class="hero-pill"><strong>Uporaba:</strong> ZAVS, klubi, trenerji, športniki</div>
+        </div>
+      </div>
+
+      <aside class="hero-aside">
+        <h2>Hitri poudarki</h2>
+        <ul>
+          <li>Šport je idealen poligon za AI.</li>
+          <li>Podatki o gibanju, zdravju, zmogljivosti → znanstveni vpogledi.</li>
+          <li>AI pomaga pri preventivi poškodb.</li>
+          <li>Športna znanost je most med zdravjem in ekonomiko.</li>
+        </ul>
+      </aside>
+    </header>
+
+    <section id="s1">
+      <h2>1) Uvod</h2>
+      <p>
+        Športna znanost povezuje fiziologijo, biomehaniko, psihologijo in podatkovno analitiko. Z razvojem AI v zadnjih
+        treh letih (2023–2026) se šport spreminja v podatkovno bogato okolje, kjer lahko vsak korak, srčni utrip, spanje
+        in regeneracija postanejo vir znanstvenih vpogledov.
+      </p>
+      <p>
+        Za organizacije, kot je ZAVS, to pomeni priložnost: zgraditi podatkovno infrastrukturo, ki podpira zdravje,
+        zmogljivost in dolgoročno udeležbo športnikov vseh starosti.
+      </p>
+    </section>
+
+    <section id="s2">
+      <h2>2) Podatkovna športna znanost</h2>
+      <h3>Vrste podatkov</h3>
+      <ul>
+        <li><strong>Fiziološki podatki:</strong> srčni utrip, VO2max, variabilnost srčnega utripa.</li>
+        <li><strong>Biomehanika:</strong> korak, hitrost, pospešek, sile.</li>
+        <li><strong>Trening:</strong> obremenitev, volumen, intenzivnost, periodizacija.</li>
+        <li><strong>Regeneracija:</strong> spanje, počitek, subjektivno počutje.</li>
+        <li><strong>Rezultati:</strong> časi, razdalje, uvrstitve, konsistentnost.</li>
+      </ul>
+
+      <h3>Vloga AI</h3>
+      <ul>
+        <li>Analiza velikih količin podatkov.</li>
+        <li>Prepoznavanje vzorcev tveganja (poškodbe, pretreniranost).</li>
+        <li>Personalizacija treningov glede na odziv posameznika.</li>
+        <li>Napoved rezultatov in zmogljivosti.</li>
+      </ul>
+    </section>
+
+    <section id="s3">
+      <h2>3) AI v treningu in tekmovanju</h2>
+      <h3>Trening</h3>
+      <ul>
+        <li><strong>Planiranje:</strong> AI predlaga strukturo treningov glede na cilje in zgodovino.</li>
+        <li><strong>Monitoring:</strong> sprotno spremljanje obremenitev in regeneracije.</li>
+        <li><strong>Feedback:</strong> povratne informacije o tehniki, taktiki, intenzivnosti.</li>
+      </ul>
+
+      <h3>Tekmovanje</h3>
+      <ul>
+        <li><strong>Taktika:</strong> analiza tekmecev, optimalni tempo, strategija.</li>
+        <li><strong>Simulacije:</strong> scenariji tekmovanj, “kaj če” analize.</li>
+        <li><strong>Po tekmi:</strong> analitika rezultatov, učenje za naslednji nastop.</li>
+      </ul>
+
+      <h3>Preventiva poškodb</h3>
+      <ul>
+        <li>Prepoznavanje zgodnjih znakov preobremenitve.</li>
+        <li>Prilagoditev treninga glede na tveganje.</li>
+        <li>Podpora pri odločanju o počitku ali nastopu.</li>
+      </ul>
+    </section>
+
+    <section id="s4">
+      <h2>4) Model 4D (Data – Diagnosis – Design – Development)</h2>
+      <p>Prilagojen model za športno znanost z AI:</p>
+
+      <ul>
+        <li><strong>Data (podatki):</strong> zbiranje kakovostnih podatkov o športnikih.</li>
+        <li><strong>Diagnosis (diagnoza):</strong> analiza stanja, tveganj, zmogljivosti.</li>
+        <li><strong>Design (načrtovanje):</strong> oblikovanje treningov, programov, intervencij.</li>
+        <li><strong>Development (razvoj):</strong> spremljanje napredka, prilagajanje, dolgoročni razvoj.</li>
+      </ul>
+
+      <p>
+        Model 4D je uporaben za ZAVS kot okvir za športno znanost: od rekreativcev do veteranov in vrhunskih športnikov.
+      </p>
+    </section>
+
+    <section id="s5">
+      <h2>5) Priporočila za ZAVS</h2>
+
+      <h3>Infrastruktura</h3>
+      <ul>
+        <li>Zbiranje osnovnih podatkov (starost, spol, disciplina, zgodovina poškodb).</li>
+        <li>Standardizirani obrazci za trening, tekmovanja, počutje.</li>
+        <li>Enostavna digitalna orodja (mobilne aplikacije, spletni obrazci).</li>
+      </ul>
+
+      <h3>AI raba (visoka raven)</h3>
+      <ul>
+        <li>Analitika obremenitev in poškodb na ravni populacije.</li>
+        <li>Identifikacija vzorcev uspešnih treningov.</li>
+        <li>Podpora trenerjem pri planiranju sezon.</li>
+      </ul>
+
+      <h3>Etika in kultura</h3>
+      <ul>
+        <li>Transparentnost: športniki vedo, kateri podatki se zbirajo in zakaj.</li>
+        <li>Zasebnost: podatki se varujejo, uporabljajo se agregirani vpogledi.</li>
+        <li>Človeški faktor: AI je pomočnik, ne zamenjava trenerja ali zdravnika.</li>
+      </ul>
+    </section>
+
+    <section id="s6">
+      <h2>6) Slovarček</h2>
+      <ul>
+        <li><strong>Sports science:</strong> znanstveni pristop k športu (fiziologija, biomehanika, psihologija, podatki).</li>
+        <li><strong>Load (obremenitev):</strong> količina in intenzivnost treninga.</li>
+        <li><strong>Periodizacija:</strong> načrtovanje treninga v ciklih (mikro, mezo, makro).</li>
+        <li><strong>HRV (variabilnost srčnega utripa):</strong> kazalnik regeneracije in stresa.</li>
+        <li><strong>Performance model:</strong> model, ki povezuje trening, zdravje in rezultate.</li>
+        <li><strong>Injury risk:</strong> verjetnost poškodbe glede na obremenitev in stanje.</li>
+        <li><strong>Data pipeline:</strong> tok podatkov od zbiranja do analize.</li>
+        <li><strong>Dashboard:</strong> vizualni prikaz ključnih kazalnikov.</li>
+      </ul>
+    </section>
+
+    <section id="s7">
+      <h2>7) Reference</h2>
+      <ul>
+        <li><strong>McKinsey Health Institute:</strong> poročila o zdravju, ekonomiji in športu, 2024–2026.</li>
+        <li><strong>Športna znanost:</strong> standardna literatura o treningu, fiziologiji, biomehaniki.</li>
+        <li><strong>webinar:</strong> prezentacija o športni znanosti, 2026.</li>
+      </ul>
+    </section>
+  </main>
+</div>
+
+<div class="modal-backdrop" id="tocModalBackdrop">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Kazalo – AI &amp; Sports Science</h2>
+      <button class="modal-close" id="closeTocModal" aria-label="Zapri kazalo">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p>Hitri skok na ključne dele:</p>
+      <ul>
+        <li><a href="#s1" class="link-inline">1) Uvod</a></li>
+        <li><a href="#s2" class="link-inline">2) Podatkovna športna znanost</a></li>
+        <li><a href="#s3" class="link-inline">3) AI v treningu in tekmovanju</a></li>
+        <li><a href="#s4" class="link-inline">4) Model 4D</a></li>
+        <li><a href="#s5" class="link-inline">5) Priporočila za ZAVS</a></li>
+        <li><a href="#s6" class="link-inline">6) Slovarček</a></li>
+        <li><a href="#s7" class="link-inline">7) Reference</a></li>
+      </ul>
+      <p style="margin-top:8px;font-size:11px;color:#9aa4c6;">
+        Modul je usklajen z “AI trendi”, “AI &amp; Brain Capital”, “AI &amp; Athlete Mindset” in “AI &amp; Health Economics”.
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const tocLinks = Array.from(document.querySelectorAll('.toc-link'));
+    const sections = tocLinks.map(link => document.getElementById(link.getAttribute('href').replace('#', '')));
+
+    function onScroll() {
+      const scrollPos = window.scrollY || window.pageYOffset;
+      let activeIndex = 0;
+      sections.forEach((sec, idx) => {
+        if (!sec) return;
+        const top = sec.offsetTop - 80;
+        if (scrollPos >= top) activeIndex = idx;
+      });
+      tocLinks.forEach((link, idx) => link.classList.toggle('active', idx === activeIndex));
+    }
+
+    window.addEventListener('scroll', onScroll);
+    onScroll();
+
+    tocLinks.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.getElementById(link.getAttribute('href').replace('#', ''));
+        if (target) window.scrollTo({ top: target.offsetTop - 20, behavior: 'smooth' });
+      });
+    });
+
+    const openBtn = document.getElementById('openTocModal');
+    const backdrop = document.getElementById('tocModalBackdrop');
+    const closeBtn = document.getElementById('closeTocModal');
+
+    openBtn.addEventListener('click', () => backdrop.style.display = 'flex');
+    closeBtn.addEventListener('click', () => backdrop.style.display = 'none');
+    backdrop.addEventListener('click', e => { if (e.target === backdrop) backdrop.style.display = 'none'; });
+
+    document.querySelectorAll('.modal-body .link-inline').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.getElementById(link.getAttribute('href').replace('#', ''));
+        if (target) window.scrollTo({ top: target.offsetTop - 20, behavior: 'smooth' });
+        backdrop.style.display = 'none';
+      });
+    });
+  })();
+</script>
+</body>
+</html>
