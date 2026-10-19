@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Državni rekordi – pregled rezultatov</title>
+<style>
+:root{color-scheme:dark;--bg:#061126;--panel:#101f3c;--edge:#29446b;--txt:#eaf2ff;--muted:#a6bad8;--accent:#59c4fa}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#061126,#0b2146);color:var(--txt);font:15px system-ui,Segoe UI,sans-serif}
+main{max-width:1500px;margin:auto;padding:30px 20px}h1{text-align:center;font-size:clamp(25px,3vw,38px);margin:5px 0}header p{text-align:center;color:var(--muted);margin:5px 0 25px}
+.panel{background:var(--panel);border:1px solid var(--edge);border-radius:17px;padding:20px;margin-bottom:20px;box-shadow:0 10px 30px #0003}
+.filters{display:grid;grid-template-columns:repeat(4,minmax(180px,1fr));gap:15px}
+label{display:block;font-weight:600;color:#cde4ff;margin-bottom:6px}
+input,select,button{font:inherit}input,select{width:100%;padding:12px;border-radius:10px;border:1px solid #47678c;background:#07162e;color:white;outline:none}
+input:focus,select:focus{border-color:var(--accent)}.actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:18px}
+button{padding:11px 18px;border:1px solid #4a84c1;border-radius:10px;color:white;background:linear-gradient(#286bb5,#12427c);font-weight:700;cursor:pointer;box-shadow:0 4px 0 #092443}
+button:hover{filter:brightness(1.2)}button:active{transform:translateY(3px);box-shadow:0 1px 0 #092443}
+#count{font-weight:700;color:#85e4bc;margin-left:auto}.muted{color:var(--muted)}
+.tablewrap{overflow:auto;max-height:70vh;border:1px solid var(--edge);border-radius:12px}
+table{border-collapse:collapse;width:100%;white-space:nowrap;font-size:14px}
+th,td{padding:11px 14px;text-align:left;border-bottom:1px solid #253e60}
+th{background:#18375d;position:sticky;top:0;z-index:1;cursor:pointer;color:#d6edff}
+tr:nth-child(even){background:#142846}tr:hover{background:#244469}
+#status{margin-bottom:10px;color:#b8cbe5}.small{font-size:13px}
+@media(max-width:900px){.filters{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:530px){.filters{grid-template-columns:1fr}#count{margin-left:0;width:100%}}
+</style>
+</head>
+<body><main>
+<header><h1>Višina – Bilteni 6-25</h1>
+<p>Dinamični filtri po veteranu, kategoriji, disciplini in klubu
+    <br><font color='orange'>V koloni Opombe so DR</font>
+    <font size=2>(državni rekordi)</font></p>
+</header>
+<section class="panel">
+<div class="filters">
+<div><label for="name">Priimek in ime</label><input id="name" placeholder="Vnesi del imena ..."></div>
+<div><label for="cat">Kategorija / starostna skupina</label><select id="cat"><option value="">Vse kategorije</option></select></div>
+<div><label for="event">Disciplina</label><select id="event"><option value="">Vse discipline</option></select></div>
+<div><label for="club">Klub</label><select id="club"><option value="">Vsi klubi</option></select></div>
+</div>
+<div class="actions">
+<button id="clear">✕ Počisti filtre</button>
+<button id="export">↓ Izvozi filtrirani CSV</button>
+<button id="reload">↻ Osveži podatke</button>
+<span id="count">0 zapisov</span>
+</div>
+</section>
+<section class="panel"><div id="status" role="status">Nalaganje CSV ...</div><div class="tablewrap"><table><thead id="thead"></thead><tbody id="tbody"></tbody></table></div><p class="muted small">Klik na naslov stolpca razvrsti podatke. Izvoz CSV shrani samo trenutno prikazane zapise. Prikazanih je največ 1000 vrstic hkrati, štetje in izvoz pa zajameta vse filtrirane zapise.</p></section>
+</main>
+<script>
+"use strict";
+const CSV_NAME="dr-hj-6-25-filtrirani.csv";
+const $=id=>document.getElementById(id);
+let rows=[],headers=[],filtered=[],sortCol=null,sortAsc=true;
+const ids=["name","cat","event","club"];
+const norm=s=>String(s??"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase("sl").trim();
+function parseCSV(text){
+ text=text.replace(/^\uFEFF/,"");
+ const first=text.split(/\r?\n/,1)[0]||"";
+ const delimiter=[";",",","\t"].sort((a,b)=>countDelim(first,b)-countDelim(first,a))[0];
+ let result=[],row=[],field="",quoted=false;
+ for(let i=0;i<text.length;i++){
+  const c=text[i];
+  if(quoted){if(c==='"'&&text[i+1]==='"'){field+='"';i++}else if(c==='"')quoted=false;else field+=c}
+  else if(c==='"')quoted=true;
+  else if(c===delimiter){row.push(field);field=""}
+  else if(c==='\n'||c==='\r'){if(c==='\r'&&text[i+1]==='\n')i++;row.push(field);if(row.some(v=>v.trim()))result.push(row);row=[];field=""}
+  else field+=c;
+ }
+ row.push(field);if(row.some(v=>v.trim()))result.push(row);
+ return result;
+}
+function countDelim(line,d){let n=0,q=false;for(let i=0;i<line.length;i++){if(line[i]==='"'){if(q&&line[i+1]==='"')i++;else q=!q}else if(!q&&line[i]===d)n++}return n}
+function col(aliases){
+ const keys=headers.map(norm);
+ for(const alias of aliases){let k=keys.indexOf(norm(alias));if(k>=0)return headers[k]}
+ return null;
+}
+let columns={};
+function detect(){
+ columns={
+ name:col(["Priimek in ime","Veteran","Ime in priimek","Atlet","Ime"]),
+ cat:col(["Starostna skupina","Kategorija","Kat.","Kat","Category"]),
+ event:col(["Disciplina","Discipline"]),
+ club:col(["Klub","Club"])
+ };
+ $("status").textContent="Podatki naloženi. "+headers.length+" stolpcev. "+
+ Object.entries(columns).filter(([,v])=>!v).map(([k])=>"Manjka stolpec: "+k).join("; ");
+}
+function selected(){return {name:$("name").value,cat:$("cat").value,event:$("event").value,club:$("club").value}}
+function matches(r,sel,exclude){
+ return ids.every(id=>id===exclude||!sel[id]||
+ (id==="name"?norm(r[columns[id]]).includes(norm(sel[id])):String(r[columns[id]]??"")===sel[id]));
+}
+function updateOptions(){
+ const sel=selected();
+ for(const id of ["cat","event","club"]){
+  const el=$(id),value=el.value,key=columns[id];
+  if(!key)continue;
+  const vals=[...new Set(rows.filter(r=>matches(r,sel,id)).map(r=>String(r[key]??"").trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"sl",{numeric:true}));
+  el.replaceChildren(new Option(id==="cat"?"Vse kategorije":id==="event"?"Vse discipline":"Vsi klubi",""));
+  vals.forEach(v=>el.add(new Option(v,v)));
+  if(vals.includes(value))el.value=value;else el.value="";
+ }
+}
+function refresh(){
+ updateOptions();const sel=selected();
+ filtered=rows.filter(r=>matches(r,sel));
+ if(sortCol)filtered.sort((a,b)=>String(a[sortCol]??"").localeCompare(String(b[sortCol]??""),"sl",{numeric:true})*(sortAsc?1:-1));
+ $("count").textContent=`Najdenih: ${filtered.length.toLocaleString("sl-SI")} / ${rows.length.toLocaleString("sl-SI")}`;
+ const head=$("thead");head.replaceChildren();const tr=document.createElement("tr");
+ headers.forEach(h=>{const th=document.createElement("th");th.textContent=h+(sortCol===h?(sortAsc?" ▲":" ▼"):"");th.onclick=()=>{sortAsc=sortCol===h?!sortAsc:true;sortCol=h;refresh()};tr.append(th)});head.append(tr);
+ const body=$("tbody");body.replaceChildren();const frag=document.createDocumentFragment();
+ filtered.slice(0,1000).forEach(r=>{const tr=document.createElement("tr");headers.forEach(h=>{const td=document.createElement("td");td.textContent=r[h]??"";tr.append(td)});frag.append(tr)});
+ body.append(frag);
+}
+async function load(){
+ $("status").textContent="Nalaganje "+CSV_NAME+" ...";
+ try{
+ const response=await fetch("./"+encodeURIComponent(CSV_NAME)+"?t="+Date.now(),{cache:"no-store"});
+ if(!response.ok)throw new Error("HTTP "+response.status);
+ const matrix=parseCSV(await response.text());
+ if(matrix.length<1)throw new Error("CSV je prazen");
+ headers=matrix[0].map(s=>s.trim());rows=matrix.slice(1).map(arr=>Object.fromEntries(headers.map((h,i)=>[h,arr[i]??""])));
+ detect();ids.forEach(id=>$(id).disabled=!columns[id]);refresh();
+ }catch(e){$("status").textContent="Napaka: "+e.message+". Preveri, ali sta HTML in CSV v isti mapi in ali stran odpiraš prek http://localhost/ ...";}
+}
+ids.forEach(id=>$(id).addEventListener(id==="name"?"input":"change",refresh));
+$("clear").onclick=()=>{ids.forEach(id=>$(id).value="");sortCol=null;refresh()};
+$("reload").onclick=load;
+$("export").onclick=()=>{
+ if(!headers.length)return;
+ const quote=v=>'"'+String(v??"").replace(/"/g,'""')+'"';
+ const lines=[headers.map(quote).join(";"),...filtered.map(r=>headers.map(h=>quote(r[h])).join(";"))];
+ const blob=new Blob(["\uFEFF"+lines.join("\r\n")],{type:"text/csv;charset=utf-8"});
+ const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="dr-hj-filtrirani-izvoz.csv";a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);
+};
+load();
+</script></body></html>
